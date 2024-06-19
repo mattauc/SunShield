@@ -8,17 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		67355B6D2C225E7900136FB7 /* SunShieldApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67355B6C2C225E7900136FB7 /* SunShieldApp.swift */; };
-		67355B6F2C225E7900136FB7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67355B6E2C225E7900136FB7 /* ContentView.swift */; };
+		67355B6F2C225E7900136FB7 /* SunShieldInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67355B6E2C225E7900136FB7 /* SunShieldInterface.swift */; };
 		67355B712C225E7A00136FB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67355B702C225E7A00136FB7 /* Assets.xcassets */; };
 		67355B742C225E7A00136FB7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67355B732C225E7A00136FB7 /* Preview Assets.xcassets */; };
+		67355B812C22613D00136FB7 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67355B802C22613D00136FB7 /* WelcomeView.swift */; };
+		67355B842C2261B500136FB7 /* DeviceLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67355B832C2261B500136FB7 /* DeviceLocationService.swift */; };
+		67355B862C226F1A00136FB7 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67355B852C226F1A00136FB7 /* Weather.swift */; };
+		67355B882C226F2600136FB7 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67355B872C226F2600136FB7 /* UserProfile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		67355B692C225E7900136FB7 /* SunShield.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SunShield.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67355B6C2C225E7900136FB7 /* SunShieldApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunShieldApp.swift; sourceTree = "<group>"; };
-		67355B6E2C225E7900136FB7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		67355B6E2C225E7900136FB7 /* SunShieldInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunShieldInterface.swift; sourceTree = "<group>"; };
 		67355B702C225E7A00136FB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		67355B732C225E7A00136FB7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		67355B802C22613D00136FB7 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		67355B832C2261B500136FB7 /* DeviceLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceLocationService.swift; sourceTree = "<group>"; };
+		67355B852C226F1A00136FB7 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
+		67355B872C226F2600136FB7 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +59,12 @@
 		67355B6B2C225E7900136FB7 /* SunShield */ = {
 			isa = PBXGroup;
 			children = (
+				67355B7F2C225FFD00136FB7 /* Model */,
+				67355B7D2C225FE900136FB7 /* View */,
+				67355B7B2C225FA000136FB7 /* Common */,
+				67355B7A2C225F7E00136FB7 /* NetworkLayer */,
 				67355B6C2C225E7900136FB7 /* SunShieldApp.swift */,
-				67355B6E2C225E7900136FB7 /* ContentView.swift */,
+				67355B7E2C225FF200136FB7 /* ViewModel */,
 				67355B702C225E7A00136FB7 /* Assets.xcassets */,
 				67355B722C225E7A00136FB7 /* Preview Content */,
 			);
@@ -65,6 +77,46 @@
 				67355B732C225E7A00136FB7 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		67355B7A2C225F7E00136FB7 /* NetworkLayer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NetworkLayer;
+			sourceTree = "<group>";
+		};
+		67355B7B2C225FA000136FB7 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		67355B7D2C225FE900136FB7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				67355B6E2C225E7900136FB7 /* SunShieldInterface.swift */,
+				67355B802C22613D00136FB7 /* WelcomeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		67355B7E2C225FF200136FB7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				67355B832C2261B500136FB7 /* DeviceLocationService.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		67355B7F2C225FFD00136FB7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				67355B852C226F1A00136FB7 /* Weather.swift */,
+				67355B872C226F2600136FB7 /* UserProfile.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +189,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67355B6F2C225E7900136FB7 /* ContentView.swift in Sources */,
+				67355B842C2261B500136FB7 /* DeviceLocationService.swift in Sources */,
+				67355B6F2C225E7900136FB7 /* SunShieldInterface.swift in Sources */,
+				67355B882C226F2600136FB7 /* UserProfile.swift in Sources */,
+				67355B812C22613D00136FB7 /* WelcomeView.swift in Sources */,
 				67355B6D2C225E7900136FB7 /* SunShieldApp.swift in Sources */,
+				67355B862C226F1A00136FB7 /* Weather.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +331,8 @@
 				DEVELOPMENT_TEAM = 5223SVKWJP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need to access your location to provide accurate UV index information and timely sunscreen reapplication reminders for your current area.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need to access your location to provide accurate UV index information and timely sunscreen reapplication reminders for your current area.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -304,6 +362,8 @@
 				DEVELOPMENT_TEAM = 5223SVKWJP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need to access your location to provide accurate UV index information and timely sunscreen reapplication reminders for your current area.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need to access your location to provide accurate UV index information and timely sunscreen reapplication reminders for your current area.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

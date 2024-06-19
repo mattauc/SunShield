@@ -11,7 +11,7 @@ import SwiftUI
 struct SunShieldApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SunShieldInterface()
         }
     }
 }
