@@ -9,4 +9,6 @@ import Foundation
 
 struct Weather {
     
+    
+    //func getCurrentWeather
 }

@@ -6,9 +6,9 @@
 //
 
 import SwiftUI
+import CoreLocationUI
 
 struct WelcomeView: View {
-    
     
     
     @AppStorage("isWelcomeScreenOver") var isWelcomeScreenOver = false

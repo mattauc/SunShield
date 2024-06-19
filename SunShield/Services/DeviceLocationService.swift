@@ -12,7 +12,6 @@ import Combine
 class DeviceLocationService: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     var coordinatesPublisher = PassthroughSubject<CLLocationCoordinate2D, Error>()
-    
     var deniedLocationAccessPublisher = PassthroughSubject<Void, Never>()
     
     private override init() {
@@ -43,7 +42,6 @@ class DeviceLocationService: NSObject, ObservableObject, CLLocationManagerDelega
             deniedLocationAccessPublisher.send()
         }
     }
-    
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
