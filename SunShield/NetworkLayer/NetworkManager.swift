@@ -29,43 +29,43 @@ enum APIError: Error {
     case invalidData
 }
 
-enum UserEndpoint: APIEndpoint {
-    
-    
-    case getUsers
-    
-    var baseURL: URL {
-        return URL(string: "https://example.com/api")!
-    }
-    
-    var path: String {
-        switch self {
-        case .getUsers:
-            return "/users"
-        }
-    }
-    
-    var method: HTTPMethod {
-        switch self {
-        case .getUsers:
-            return .get
-        }
-    }
-    
-    var headers: [String: String]? {
-        switch self {
-        case .getUsers:
-            return ["Authorization": "Bearer TOKEN"]
-        }
-    }
-    
-    var parameters: [String: Any]? {
-        switch self {
-        case .getUsers:
-            return ["page": 1, "limit": 10]
-        }
-    }
-}
+//enum WeatherEndpoint: APIEndpoint {
+//    
+//    
+//    case getWeather
+//    
+//    var baseURL: URL {
+//        return URL(string: "https://example.com/api")!
+//    }
+//    
+//    var path: String {
+//        switch self {
+//        case .getWeather:
+//            return "/users"
+//        }
+//    }
+//    
+//    var method: HTTPMethod {
+//        switch self {
+//        case .getWeather:
+//            return .get
+//        }
+//    }
+//    
+//    var headers: [String: String]? {
+//        switch self {
+//        case .getWeather:
+//            return ["Authorization": "Bearer TOKEN"]
+//        }
+//    }
+//    
+//    var parameters: [String: Any]? {
+//        switch self {
+//        case .getWeather:
+//            return ["page": 1, "limit": 10]
+//        }
+//    }
+//}
 
 protocol APIClient {
     associatedtype EndpointType: APIEndpoint
@@ -73,13 +73,14 @@ protocol APIClient {
 }
 
 class URLSessionAPIClient<EndpointType: APIEndpoint>: APIClient {
+    
+    //FIX
     func request<T: Decodable>(_ endpoint: EndpointType) -> AnyPublisher<T, Error> {
         let url = endpoint.baseURL.appendingPathComponent(endpoint.path)
         var request = URLRequest(url: url)
         request.httpMethod = endpoint.method.rawValue
         
         endpoint.headers?.forEach { request.addValue($0.value, forHTTPHeaderField: $0.key) }
-        // set up any other request parameters here
         
         return URLSession.shared.dataTaskPublisher(for: request)
             .subscribe(on: DispatchQueue.global(qos: .background))
