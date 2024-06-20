@@ -7,52 +7,27 @@
 
 import Foundation
 import CoreLocation
+import Combine
 
 class WeatherService {
     
-    enum WeatherEndpoint: APIEndpoint {
-        
-        
-        case getWeather
-        
-        var baseURL: URL {
-            return URL(string: "https://example.com/api")!
-        }
-        
-        var path: String {
-            switch self {
-            case .getWeather:
-                return "/users"
-            }
-        }
-        
-        var method: HTTPMethod {
-            switch self {
-            case .getWeather:
-                return .get
-            }
-        }
-        
-        var headers: [String: String]? {
-            switch self {
-            case .getWeather:
-                return ["Authorization": "Bearer TOKEN"]
-            }
-        }
-        
-        var parameters: [String: Any]? {
-            switch self {
-            case .getWeather:
-                return ["page": 1, "limit": 10]
-            }
-        }
-    }
+    private let apiClient = URLSessionAPIClient<WeatherEndpoint>()
     
-    func getCurrentWeather(lat: CLLocationDegrees, lon: CLLocationDegrees) async throws -> ResponseBody {
-        
+    func getCurrentWeather(lat: CLLocationDegrees, lon: CLLocationDegrees) -> AnyPublisher<Weather, Error> {
+
+        let endpoint = WeatherEndpoint.getWeather(latitude: String(lat), longitude: String(lon), exclude: "hourly,minutely,daily,alerts")
+        do {
+            return try apiClient.request(endpoint)
+                .map { (response: WeatherResponse) in
+                    response.current
+                }
+                .eraseToAnyPublisher()
+        } catch {
+            return Fail(error: error).eraseToAnyPublisher()
+        }
     }
 }
 
-struct ResponseBody: Decodable {
-    
+struct WeatherResponse: Codable {
+    let current: Weather
 }

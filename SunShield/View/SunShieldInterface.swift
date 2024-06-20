@@ -19,6 +19,7 @@ struct SunShieldInterface: View {
         VStack {
             if checkWelcomeScreen {
                 coordinateView
+                
             } else {
                 WelcomeView()
             }
@@ -33,6 +34,13 @@ struct SunShieldInterface: View {
         VStack {
             Text("CONTENT VIEW")
                 .font(.largeTitle)
+            Button("Fetch Weather") {
+                weatherManager.fetchWeather()
+                weatherManager.uvIndex()
+//                Task {
+//                    await
+//                }
+            }
         }
     }
 }

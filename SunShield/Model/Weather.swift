@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct Weather {
+struct Weather: Codable {
     
-    
-    //func getCurrentWeather
+    let temp: Double
+    let uvi: Double
+    let clouds: Int
 }
