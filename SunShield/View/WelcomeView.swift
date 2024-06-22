@@ -13,22 +13,38 @@ struct WelcomeView: View {
     
     @AppStorage("isWelcomeScreenOver") var isWelcomeScreenOver = false
     @State var isPressed: Bool = false
+    @EnvironmentObject var userManager: UserManager
     
     var body: some View {
         NavigationStack {
             VStack {
                 
-                
-                Button("Next") {
-                    isPressed = true
-                    isWelcomeScreenOver = true
-                }
+                nextButton
             }
             .navigationDestination(isPresented: $isPressed) {
                 SunShieldInterface().navigationBarHidden(true)
             }
-            //Have it so on tap of the share location button, user sets their location.
-            //Have a settings button that user needs to input and shift through
+         
+        }
+    }
+    
+    var nextButton: some View {
+        Button(action: {
+            isPressed = true
+            isWelcomeScreenOver = true
+        }) {
+            Image(systemName: "arrow.right")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 30, height: 30)
+                .foregroundColor(.blue)
+        }
+        .buttonStyle(PlainButtonStyle())
+    }
+    
+    var SPFOptions: some View {
+        //SPF 15, 30, 50, 100
+        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
         }
     }
 }

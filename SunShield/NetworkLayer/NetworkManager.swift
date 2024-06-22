@@ -31,7 +31,7 @@ enum APIError: Error {
 }
 
 enum WeatherEndpoint: APIEndpoint {
-    case getWeather(latitude: String, longitude: String, exclude: String)
+    case getWeather(latitude: String, longitude: String, exclude: String, units: String)
     
     var baseURL: URL {
         return URL(string: "http://localhost:8000")!
@@ -60,8 +60,8 @@ enum WeatherEndpoint: APIEndpoint {
     
     var parameters: [String: String] {
         switch self {
-        case .getWeather(let latitude, let longitude, let exclude):
-            return ["lat": latitude, "lon": longitude, "exclude": exclude]
+        case .getWeather(let latitude, let longitude, let exclude, let units):
+            return ["lat": latitude, "lon": longitude, "exclude": exclude, "units": units]
         }
     }
 }

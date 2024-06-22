@@ -19,6 +19,9 @@
 		67355B8E2C2296BB00136FB7 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67355B8D2C2296BB00136FB7 /* WeatherManager.swift */; };
 		67355B902C2296D200136FB7 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67355B8F2C2296D200136FB7 /* WeatherService.swift */; };
 		67355B952C23D32A00136FB7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67355B942C23D32A00136FB7 /* Extensions.swift */; };
+		67355B9C2C250D4B00136FB7 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67355B9B2C250D4B00136FB7 /* UserManager.swift */; };
+		67355BA22C2557E600136FB7 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67355BA12C2557E600136FB7 /* SettingsPage.swift */; };
+		67355BA42C258DFA00136FB7 /* UVIndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67355BA32C258DFA00136FB7 /* UVIndexView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +39,9 @@
 		67355B8F2C2296D200136FB7 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		67355B942C23D32A00136FB7 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		67355B962C23D8BF00136FB7 /* SunShieldDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SunShieldDebug.entitlements; sourceTree = "<group>"; };
+		67355B9B2C250D4B00136FB7 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		67355BA12C2557E600136FB7 /* SettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
+		67355BA32C258DFA00136FB7 /* UVIndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UVIndexView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +116,9 @@
 			isa = PBXGroup;
 			children = (
 				67355B6E2C225E7900136FB7 /* SunShieldInterface.swift */,
+				67355BA12C2557E600136FB7 /* SettingsPage.swift */,
 				67355B802C22613D00136FB7 /* WelcomeView.swift */,
+				67355BA32C258DFA00136FB7 /* UVIndexView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -119,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				67355B8D2C2296BB00136FB7 /* WeatherManager.swift */,
+				67355B9B2C250D4B00136FB7 /* UserManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -211,11 +220,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67355BA22C2557E600136FB7 /* SettingsPage.swift in Sources */,
 				67355B842C2261B500136FB7 /* DeviceLocationService.swift in Sources */,
+				67355BA42C258DFA00136FB7 /* UVIndexView.swift in Sources */,
 				67355B902C2296D200136FB7 /* WeatherService.swift in Sources */,
 				67355B6F2C225E7900136FB7 /* SunShieldInterface.swift in Sources */,
 				67355B8E2C2296BB00136FB7 /* WeatherManager.swift in Sources */,
 				67355B882C226F2600136FB7 /* UserProfile.swift in Sources */,
+				67355B9C2C250D4B00136FB7 /* UserManager.swift in Sources */,
 				67355B952C23D32A00136FB7 /* Extensions.swift in Sources */,
 				67355B8A2C228B5B00136FB7 /* NetworkManager.swift in Sources */,
 				67355B812C22613D00136FB7 /* WelcomeView.swift in Sources */,

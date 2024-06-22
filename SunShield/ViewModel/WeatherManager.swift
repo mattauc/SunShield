@@ -15,27 +15,29 @@ import SwiftUI
 //Then send that data and store it in the weather model
 
 class WeatherManager: ObservableObject {
+    @Published private(set) var weatherData: Weather
+    private let deviceLocationService: DeviceLocationService
+    private var geocoder = CLGeocoder()
+    @Published private var locationName: String = "Loading..."
     
-    @Published private var weatherModel: Weather
-    private let weatherService = WeatherService()
-    
+        
     private var coordinates: (lat: Double, lon: Double) = (0, 0)
     private var cancellables = Set<AnyCancellable>()
     private var tokens: Set<AnyCancellable> = []
     
+    private let weatherDataSubject = PassthroughSubject<Weather, Never>()
+    
     init(deviceLocationService: DeviceLocationService) {
-        self.weatherModel = WeatherManager.createWeather()
+        self.deviceLocationService = deviceLocationService
+        self.weatherData = Weather()
+        
+        deviceLocationService.requestLocationUpdates()
         observeCoordinatesUpdates(from: deviceLocationService)
         observeLocationAccessDenied(from: deviceLocationService)
-        deviceLocationService.requestLocationUpdates()
     }
     
-    private static func createWeather() -> Weather {
-        return Weather(temp: 0.0, uvi: 0.0, clouds: 0)
-    }
-    
-    func fetchWeather() {
-        weatherService.getCurrentWeather(lat: coordinates.lat, lon: coordinates.lon)
+    func fetchWeather() async {
+        WeatherService.shared.getCurrentWeather(lat: coordinates.lat, lon: coordinates.lon)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
                 switch completion {
@@ -45,14 +47,10 @@ class WeatherManager: ObservableObject {
                     print("Error fetching weather data: \(error.localizedDescription)")
                 }
             }, receiveValue: { [weak self] weather in
-                // Update weatherModel with fetched data
-                self?.weatherModel = weather
+                self?.weatherData = weather
+                self?.weatherDataSubject.send(weather)
             })
             .store(in: &cancellables)
-    }
-    
-    func uvIndex() {
-        print("UVI: \(weatherModel.uvi) | Clouds: \(weatherModel.clouds) | Temp: \(weatherModel.temp)")
     }
     
     func observeCoordinatesUpdates(from deviceLocationService: DeviceLocationService) {
@@ -61,11 +59,10 @@ class WeatherManager: ObservableObject {
             .sink { completion in
                 if case .failure(let error) = completion {
                     print(error)
-                    print("HERE 1.0")
                 }
             } receiveValue: { coordinates in
                 self.coordinates = (coordinates.latitude, coordinates.longitude)
-                print(coordinates)
+                self.fetchLocationName()
             }
             .store(in: &tokens)
     }
@@ -77,5 +74,40 @@ class WeatherManager: ObservableObject {
                 print("Show some kind of alert to the user")
             }
             .store(in: &tokens)
+    }
+    
+    private func fetchLocationName() {
+        let location = CLLocation(latitude: coordinates.lat, longitude: coordinates.lon)
+        geocoder.reverseGeocodeLocation(location) { [weak self] placemarks, error in
+            if let error = error {
+                print("Error fetching location name: \(error.localizedDescription)")
+                self?.locationName = "Unknown Location"
+            } else if let placemark = placemarks?.first {
+                self?.locationName = placemark.locality ?? "Unknown Location"
+            }
+        }
+    }
+    
+    func weatherDataPublisher() -> AnyPublisher<Weather, Never> {
+            return weatherDataSubject.eraseToAnyPublisher()
+        }
+    
+    var weather: Weather {
+        return weatherData
+    }
+    
+    var weatherInfo: String {
+        return "UVI: \(weatherData.uvi) | Clouds: \(weatherData.clouds) | Temp: \(weatherData.temp)"
+    }
+    
+    var locationLoaded: Bool {
+        if coordinates.lat == 0.0 && coordinates.lon == 0.0 {
+            return false
+        }
+        return true
+    }
+    
+    var deviceLocation: String {
+        locationName
     }
 }
