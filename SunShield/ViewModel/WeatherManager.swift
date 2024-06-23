@@ -10,10 +10,6 @@ import Combine
 import CoreLocation
 import SwiftUI
 
-//Collected the location from the locationService
-//Send that location data into the weatherAPI service
-//Then send that data and store it in the weather model
-
 class WeatherManager: ObservableObject {
     @Published private(set) var weatherData: Weather
     private let deviceLocationService: DeviceLocationService

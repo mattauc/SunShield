@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SettingsPage: View {
+    var accentColour: Color
+    
     var body: some View {
         NavigationView {
             Form {
@@ -29,10 +31,10 @@ struct SettingsPage: View {
             }
             .navigationTitle("Settings")
         }
-        //.accentColor(.red)
+        .accentColor(self.accentColour)
     }
 }
 
 #Preview {
-    SettingsPage()
+    SettingsPage(accentColour: .blue)
 }

@@ -14,17 +14,3 @@ struct Weather: Codable {
 }
 
 
-//struct SunShield {
-//    private(set) var weatherInfo: Weather
-//    
-//    init(initialWeather: Weather) {
-//        self.weatherInfo = initialWeather
-//    }
-//    
-//    mutating func updateWeatherInfo(weather: Weather) {
-//        print(weather)
-//        self.weatherInfo = weather
-//    }
-//}
-
-

@@ -24,7 +24,7 @@ struct WelcomeView: View {
             .navigationDestination(isPresented: $isPressed) {
                 SunShieldInterface().navigationBarHidden(true)
             }
-         
+        
         }
     }
     
