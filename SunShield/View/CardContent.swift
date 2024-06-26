@@ -8,8 +8,106 @@
 import SwiftUI
 
 struct CardContent: View {
+    
+    @State var SPFSelected: Int = 0
+    @State var UVInformation: Bool = false
+    @State var startTime: Date?
+    var colourScheme: (Int) -> Color
+    var weatherIcon: (String) -> String
+    
+    
+    @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var weatherManager: WeatherManager
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView(showsIndicators: false) {
+            NavigationStack {
+                VStack {
+                    GroupBox {
+                        UVCard
+                    }
+                    .groupBoxStyle(.custom)
+            
+                    HStack{
+                        GroupBox {
+                            spfSelection
+                                .frame(height: 30)
+                        } label: {
+                            Text("\(Image(systemName: "sun.max")) Sunscreen SPF")
+                        }
+                        .groupBoxStyle(.custom)
+                        TimerView(colourScheme: colourScheme(weatherManager.currentUV), startTime: $startTime)
+                    }
+                    TimerButtons(colourScheme: self.colourScheme(weatherManager.currentUV), startTime: $startTime)
+                    DailyUVChart(colourScheme: self.colourScheme, weatherIcon: self.weatherIcon)
+                }
+            }
+        }
+    }
+    
+    var spfSelection: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack {
+                ForEach(Array(userManager.spfTypes.enumerated()), id: \.element.id) { index, type in
+                    Text(type.id)
+                        .font(.largeTitle)
+                        .bold()
+                        .containerRelativeFrame(.horizontal, count: 1, spacing: 1)
+                        .background(SPFSelected == index ? Capsule()
+                            .fill(colourScheme(Int(weatherManager.currentWeather.uvi.rounded())))
+                            .opacity(0.5) : nil)
+                        .onTapGesture {
+                            SPFSelected = index
+                            userManager.updateUserSPF(spf: type)
+                        }
+                }
+            }
+            .scrollTargetLayout()
+        }
+        .scrollTargetBehavior(.viewAligned)
+    }
+    
+    var UVCard: some View {
+        HStack {
+            Button {
+                UVInformation = true
+            } label: {
+                Image(systemName: "info.circle")
+            }
+            .font(.title2)
+            .navigationDestination(isPresented: $UVInformation) {
+                
+            }
+            Text(UVDescription + " Index")
+                .font(.title2)
+                .bold()
+            Spacer()
+            Text(String(Int(weatherManager.currentWeather.uvi.rounded())))
+                .font(.title)
+                .frame(width: 65, height: 50)
+                .background(Capsule()
+                    .fill(colourScheme(weatherManager.currentUV))
+                    .opacity(0.5))
+                    
+        }
+        .frame(height: 30)
+    }
+    
+    private var UVDescription: String {
+        switch weatherManager.currentWeather.uvi {
+        case 0..<3:
+            return "VERY LOW"
+        case 3..<5:
+            return "LOW"
+        case 5..<7:
+            return "AVERAGE"
+        case 7..<10:
+            return "HIGH"
+        case 10...12:
+            return "VERY HIGH"
+        default:
+            return "ABANDON ALL HOPE"
+        }
     }
 }
 
@@ -31,6 +129,3 @@ extension GroupBoxStyle where Self == CustomGroupBox {
     static var custom: CustomGroupBox { .init() }
 }
 
-#Preview {
-    CardContent()
-}

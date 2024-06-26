@@ -33,6 +33,8 @@ struct DailyUVChart: View {
                 Text("\(Image(systemName: "calendar")) Hourly UV forecast")
                 Divider()
             }
+            .groupBoxStyle(.custom)
+            
             
         }
     }
@@ -86,8 +88,3 @@ extension View {
         self.modifier(UVForecast(UVOffset: UVOffset, time: time, colour: colour, weatherIcon: weatherIcon, temp: temp))
     }
 }
-//
-//#Preview {
-//    DailyUVChart(colour: .blue)
-//        .environmentObject(WeatherManager(deviceLocationService: DeviceLocationService.shared))
-//}

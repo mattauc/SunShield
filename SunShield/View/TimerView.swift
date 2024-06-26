@@ -48,7 +48,3 @@ struct TimerView: View {
         return String(format: "%02d:%02d:%02d", hh, mm, ss)
     }
 }
-
-//#Preview {
-//    TimerView()
-//}

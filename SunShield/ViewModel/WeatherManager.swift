@@ -92,6 +92,10 @@ class WeatherManager: ObservableObject {
         return weatherData.current
     }
     
+    var currentUV: Int {
+        return Int(weatherData.current.uvi.rounded())
+    }
+    
     var hourlyWeather: [HourlyWeather] {
         return weatherData.hourly
     }

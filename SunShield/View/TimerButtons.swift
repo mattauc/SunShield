@@ -14,7 +14,7 @@ struct TimerButtons: View {
     @State var start: Bool = false
     
     var body: some View {
-        HStack {
+        HStack(spacing: 20) {
             restartButton
             startButton
                 .onChange(of: self.startTime) {

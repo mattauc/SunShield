@@ -15,6 +15,7 @@ struct SunShieldInterface: View {
     @State var checkWelcomeScreen: Bool = false
     @State var showSettings: Bool = false
     @State var startTime: Date?
+    @State var scrollOffset = 0.0
     
     @EnvironmentObject var weatherManager: WeatherManager
     @EnvironmentObject var userManager: UserManager
@@ -60,8 +61,7 @@ struct SunShieldInterface: View {
         }
         .accentColor(colourScheme)
     }
-    
-    @State var scrollOffset = 0.0
+
     var homeView: some View {
         ZStack {
             ScrollView(.vertical, showsIndicators: false) {
@@ -74,7 +74,7 @@ struct SunShieldInterface: View {
                     .offset(y: scrollOffset > 0 ? (scrollOffset / UIScreen.main.bounds.width) * 100 : 0)
                     .offset(y: getTitleOffset()+20)
                     VStack(spacing: 8) {
-                        content
+                        CardContent(colourScheme: getColourScheme, weatherIcon: getWeatherCondition)
                     }
                 }
                 .padding(.top, 25)
@@ -86,7 +86,6 @@ struct SunShieldInterface: View {
                             self.scrollOffset = minY
                         }
                         return Color.clear
-                        
                     })
             }
         }
@@ -120,7 +119,7 @@ struct SunShieldInterface: View {
             
             Text(String(Int(weatherManager.currentWeather.uvi.rounded())))
                 .font(.system(size: 100))
-                .uvIndexMod(UVIndex: Int(weatherManager.currentWeather.uvi.rounded()), colourScheme: colourScheme)
+                .uvIndexMod(UVIndex: weatherManager.currentUV, colourScheme: colourScheme)
                 .padding(.horizontal, 100)
                 .padding(.bottom, 10)
             Text("UV")
@@ -134,83 +133,6 @@ struct SunShieldInterface: View {
         .padding([.top, .horizontal])
     }
     
-    var content: some View {
-        ScrollView(showsIndicators: false) {
-            NavigationStack {
-                VStack {
-                    GroupBox {
-                        UVCard
-                    }
-                    .groupBoxStyle(.custom)
-            
-                    HStack{
-                        GroupBox {
-                            spfSelection
-                                .frame(height: 30)
-                        } label: {
-                            Text("\(Image(systemName: "sun.max")) Sunscreen SPF")
-                            
-                        }
-                        .groupBoxStyle(.custom)
-                        TimerView(colourScheme: colourScheme, startTime: $startTime)
-                    }
-                    TimerButtons(colourScheme: colourScheme, startTime: $startTime)
-                    DailyUVChart(colourScheme: getColourScheme, weatherIcon: getWeatherCondition)
-                }
-            }
-        }
-    }
-    
-    @State var SPFSelected: Int = 0
-    
-    var spfSelection: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-                ForEach(Array(userManager.spfTypes.enumerated()), id: \.element.id) { index, type in
-                    Text(type.id)
-                        .font(.largeTitle)
-                        .bold()
-                        .containerRelativeFrame(.horizontal, count: 1, spacing: 1)
-                        .background(SPFSelected == index ? Capsule().fill(colourScheme).opacity(0.5) : nil)
-                        .onTapGesture {
-                            SPFSelected = index
-                            userManager.updateUserSPF(spf: type)
-                        }
-                }
-            }
-            .scrollTargetLayout()
-        }
-        .scrollTargetBehavior(.viewAligned)
-    }
-    
-    @State var UVInformation: Bool = false
-    
-    var UVCard: some View {
-        HStack {
-            Button {
-                UVInformation = true
-            } label: {
-                Image(systemName: "info.circle")
-            }
-            .font(.title2)
-            .navigationDestination(isPresented: $UVInformation) {
-                
-            }
-            Text(UVDescription + " Index")
-                .font(.title2)
-                .bold()
-            Spacer()
-            Text(String(Int(weatherManager.currentWeather.uvi.rounded())))
-                .font(.title)
-                .frame(width: 65, height: 50)
-                .background(Capsule()
-                    .fill(colourScheme)
-                    .opacity(0.5))
-                    
-        }
-        .frame(height: 30)
-    }
-    
     private var weatherCondition: String {
         if let condition = weatherManager.currentWeather.main {
             return getWeatherCondition(weather: condition)
@@ -219,24 +141,7 @@ struct SunShieldInterface: View {
     }
     
     private var colourScheme: Color {
-        return getColourScheme(UV: Int(weatherManager.currentWeather.uvi.rounded()))
-    }
-    
-    private var UVDescription: String {
-        switch weatherManager.currentWeather.uvi {
-        case 0..<3:
-            return "VERY LOW"
-        case 3..<5:
-            return "LOW"
-        case 5..<7:
-            return "AVERAGE"
-        case 7..<10:
-            return "HIGH"
-        case 10...12:
-            return "VERY HIGH"
-        default:
-            return "ABANDON ALL HOPE"
-        }
+        return getColourScheme(UV: weatherManager.currentUV)
     }
     
     func getColourScheme(UV: Int) -> Color {
