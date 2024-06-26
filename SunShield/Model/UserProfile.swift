@@ -41,21 +41,23 @@ struct UserProfile {
     
     private(set) var SPF = SPFType.thirty
     private(set) var skin = SkinType.type3
-    private(set) var weatherInfo: Weather?
+    private(set) var weatherInfo: WeatherResponse?
     private(set) var timerCount: Int = 0
+    private(set) var timeUntilReapply = 0
   
     mutating func updateSPF(SPF: SPFType) {
         print(SPF.id)
         self.SPF = SPF
     }
 
-    mutating func updateWeatherInfo(weather: Weather) {
+    mutating func updateWeatherInfo(weather: WeatherResponse) {
         self.weatherInfo = weather
     }
     
     mutating func timeToReapply() {
-        let timeToReapply = 5400
+        let timeToReapply = 600
         timerCount = timeToReapply
+        timeUntilReapply = timeToReapply
     }
     
     mutating func updateTimerCount(newCount: Int) {

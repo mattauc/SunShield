@@ -14,13 +14,13 @@ class WeatherService {
     private let apiClient = URLSessionAPIClient<WeatherEndpoint>()
     static let shared = WeatherService()
     
-    func getCurrentWeather(lat: CLLocationDegrees, lon: CLLocationDegrees) -> AnyPublisher<Weather, Error> {
+    func getCurrentWeather(lat: CLLocationDegrees, lon: CLLocationDegrees) -> AnyPublisher<WeatherResponse, Error> {
 
-        let endpoint = WeatherEndpoint.getWeather(latitude: String(lat), longitude: String(lon), exclude: "hourly,minutely,daily,alerts", units: "metric")
+        let endpoint = WeatherEndpoint.getWeather(latitude: String(lat), longitude: String(lon), exclude: "minutely,daily,alerts", units: "metric")
         do {
             return try apiClient.request(endpoint)
                 .map { (response: WeatherResponse) in
-                    response.current
+                    response
                 }
                 .eraseToAnyPublisher()
         } catch {
@@ -29,6 +29,6 @@ class WeatherService {
     }
 }
 
-struct WeatherResponse: Codable {
-    let current: Weather
-}
+//struct WeatherResponse: Codable {
+//    let current: Weather
+//}

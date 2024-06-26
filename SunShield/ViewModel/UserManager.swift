@@ -11,7 +11,6 @@ import Combine
 class UserManager: ObservableObject {
     @Published private(set) var userProfile: UserProfile
     private var timer: Timer?
-    private var timerPaused = false
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -27,23 +26,17 @@ class UserManager: ObservableObject {
         userProfile.timerCount
     }
     
-    var formattedTime: String {
-        let hours = timerCount / 3600
-        let minutes = (timerCount % 3600) / 60
-        let seconds = timerCount % 60
-        
-        return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+    var timeToReapply: Int {
+        userProfile.timeUntilReapply
     }
     
-    func pauseSunscreenTimer() {
-        timerPaused = true
+    func stopSunscreenTimer() {
         timer?.invalidate()
+        timer = nil
     }
     
     func restartTimer() {
-        if timerPaused {
-            timerPaused = false
-        }
+        timer?.invalidate()
         startSunscreenTimer()
     }
     
@@ -53,15 +46,11 @@ class UserManager: ObservableObject {
         } else {
             timer?.invalidate()
             timer = nil
-            //Timer finished logic
         }
     }
     
     func startSunscreenTimer() {
-        if !timerPaused {
-            userProfile.timeToReapply()
-        }
-        timerPaused = false
+        userProfile.timeToReapply()
         timer?.invalidate()
         
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
@@ -69,7 +58,7 @@ class UserManager: ObservableObject {
         }
     }
     
-    func updateWeather(weather: Weather) {
+    func updateWeather(weather: WeatherResponse) {
         userProfile.updateWeatherInfo(weather: weather)
     }
     

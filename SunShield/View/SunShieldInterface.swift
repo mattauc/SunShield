@@ -14,6 +14,7 @@ struct SunShieldInterface: View {
     @AppStorage("isWelcomeScreenOver") var isWelcomeScreenOver = false
     @State var checkWelcomeScreen: Bool = false
     @State var showSettings: Bool = false
+    @State var startTime: Date?
     
     @EnvironmentObject var weatherManager: WeatherManager
     @EnvironmentObject var userManager: UserManager
@@ -71,13 +72,13 @@ struct SunShieldInterface: View {
                     }
                     .offset(y: -scrollOffset)
                     .offset(y: scrollOffset > 0 ? (scrollOffset / UIScreen.main.bounds.width) * 100 : 0)
-                    .offset(y: getTitleOffset())
+                    .offset(y: getTitleOffset()+20)
                     VStack(spacing: 8) {
                         content
                     }
                 }
-                .padding(.top, 50)
-                .padding([.horizontal, .bottom])
+                .padding(.top, 25)
+                .padding([.horizontal])
                 .overlay(
                     GeometryReader { proxy -> Color in
                         let minY = proxy.frame(in: .global).minY
@@ -116,9 +117,10 @@ struct SunShieldInterface: View {
             Text(weatherManager.deviceLocation)
                 .font(.title)
                 .bold()
-            Text(String(Int(weatherManager.weather.uvi.rounded())))
+            
+            Text(String(Int(weatherManager.currentWeather.uvi.rounded())))
                 .font(.system(size: 100))
-                .uvIndexMod(UVIndex: Int(weatherManager.weather.uvi.rounded()), colourScheme: colourScheme)
+                .uvIndexMod(UVIndex: Int(weatherManager.currentWeather.uvi.rounded()), colourScheme: colourScheme)
                 .padding(.horizontal, 100)
                 .padding(.bottom, 10)
             Text("UV")
@@ -126,7 +128,7 @@ struct SunShieldInterface: View {
                 .bold()
                 .padding(.bottom, 2)
         
-            Text("🌧️ / " + String(Int(weatherManager.weather.temp.rounded())) + "°C")
+            Text("\(weatherCondition) / " + String(Int(weatherManager.currentWeather.temp.rounded())) + "°C")
             
         }
         .padding([.top, .horizontal])
@@ -139,34 +141,21 @@ struct SunShieldInterface: View {
                     GroupBox {
                         UVCard
                     }
+                    .groupBoxStyle(.custom)
+            
                     HStack{
                         GroupBox {
                             spfSelection
                                 .frame(height: 30)
                         } label: {
-                            Text("Sunscreen SPF")
-                        }
-                        GroupBox {
+                            Text("\(Image(systemName: "sun.max")) Sunscreen SPF")
                             
-                            Text("\(userManager.formattedTime)")
-                                .bold()
-                                .font(.custom("DIGITALDREAM", size: 22))
-                                .padding(.top, 1)
-                                .foregroundColor(colourScheme)
-                                .shadow(color: colourScheme, radius:2)
-                                .background(RoundedRectangle(cornerRadius: 10)
-                                    .fill(colourScheme)
-                                    .opacity(0.1)
-                                    .frame(width:150,height: 35))
-                                .frame(height: 30)
-                        } label: {
-                            Text("Time to reapply")
                         }
+                        .groupBoxStyle(.custom)
+                        TimerView(colourScheme: colourScheme, startTime: $startTime)
                     }
-                    TimerView(colourScheme: colourScheme)
-                    GroupBox {
-                        
-                    }
+                    TimerButtons(colourScheme: colourScheme, startTime: $startTime)
+                    DailyUVChart(colourScheme: getColourScheme, weatherIcon: getWeatherCondition)
                 }
             }
         }
@@ -211,7 +200,7 @@ struct SunShieldInterface: View {
                 .font(.title2)
                 .bold()
             Spacer()
-            Text(String(Int(weatherManager.weather.uvi.rounded())))
+            Text(String(Int(weatherManager.currentWeather.uvi.rounded())))
                 .font(.title)
                 .frame(width: 65, height: 50)
                 .background(Capsule()
@@ -219,11 +208,23 @@ struct SunShieldInterface: View {
                     .opacity(0.5))
                     
         }
+        .frame(height: 30)
+    }
+    
+    private var weatherCondition: String {
+        if let condition = weatherManager.currentWeather.main {
+            return getWeatherCondition(weather: condition)
+        }
+        return "💨"
+    }
+    
+    private var colourScheme: Color {
+        return getColourScheme(UV: Int(weatherManager.currentWeather.uvi.rounded()))
     }
     
     private var UVDescription: String {
-        switch weatherManager.weather.uvi {
-        case 0..<2:
+        switch weatherManager.currentWeather.uvi {
+        case 0..<3:
             return "VERY LOW"
         case 3..<5:
             return "LOW"
@@ -238,20 +239,41 @@ struct SunShieldInterface: View {
         }
     }
     
-    private var colourScheme: Color {
-        switch weatherManager.weather.uvi {
-        case 0..<2:
+    func getColourScheme(UV: Int) -> Color {
+        switch UV {
+        case 0..<1:
             return .blue
-        case 3..<5:
+        case 1..<3:
             return .green
-        case 5..<7:
+        case 3..<5:
             return .yellow
-        case 7..<10:
+        case 5..<7:
             return .red
+        case 7..<10:
+            return .indigo
         case 10...12:
             return .purple
         default:
             return .gray
+        }
+    }
+    
+    func getWeatherCondition(weather: String) -> String {
+        switch weather {
+        case "Clear":
+            return "☀️"
+        case "Clouds":
+            return "☁️"
+        case "Snow":
+            return "❄️"
+        case "Rain":
+            return "🌧️"
+        case "Drizzle":
+            return "🌦️"
+        case "Thunderstorm":
+            return "⛈️"
+        default:
+            return "💨"
         }
     }
 }

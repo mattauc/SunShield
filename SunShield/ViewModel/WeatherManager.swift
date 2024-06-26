@@ -11,7 +11,7 @@ import CoreLocation
 import SwiftUI
 
 class WeatherManager: ObservableObject {
-    @Published private(set) var weatherData: Weather
+    @Published private(set) var weatherData: WeatherResponse
     private let deviceLocationService: DeviceLocationService
     private var geocoder = CLGeocoder()
     @Published private var locationName: String = "Loading..."
@@ -21,11 +21,11 @@ class WeatherManager: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private var tokens: Set<AnyCancellable> = []
     
-    private let weatherDataSubject = PassthroughSubject<Weather, Never>()
+    private let weatherDataSubject = PassthroughSubject<WeatherResponse, Never>()
     
     init(deviceLocationService: DeviceLocationService) {
         self.deviceLocationService = deviceLocationService
-        self.weatherData = Weather()
+        self.weatherData = WeatherResponse()
         
         deviceLocationService.requestLocationUpdates()
         observeCoordinatesUpdates(from: deviceLocationService)
@@ -84,16 +84,16 @@ class WeatherManager: ObservableObject {
         }
     }
     
-    func weatherDataPublisher() -> AnyPublisher<Weather, Never> {
+    func weatherDataPublisher() -> AnyPublisher<WeatherResponse, Never> {
             return weatherDataSubject.eraseToAnyPublisher()
         }
     
-    var weather: Weather {
-        return weatherData
+    var currentWeather: CurrentWeather {
+        return weatherData.current
     }
     
-    var weatherInfo: String {
-        return "UVI: \(weatherData.uvi) | Clouds: \(weatherData.clouds) | Temp: \(weatherData.temp)"
+    var hourlyWeather: [HourlyWeather] {
+        return weatherData.hourly
     }
     
     var locationLoaded: Bool {

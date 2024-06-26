@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  TimerView.swift
 //  SunShield
 //
 //  Created by Matthew Auciello on 23/6/2024.
@@ -8,80 +8,44 @@
 import SwiftUI
 
 struct TimerView: View {
+    
     var colourScheme: Color
     @EnvironmentObject var userManager: UserManager
-    @State var start: Bool = false
+    @Binding var startTime: Date?
     
     var body: some View {
-        HStack {
-            restartButton
-            startButton
-                .onChange(of: userManager.timerCount) {
-                    if userManager.timerCount == 0 {
-                        self.Notification()
-                        self.start.toggle()
-                    }
-                }
-        }
-    }
-    
-    var restartButton: some View {
-        Button(action:  {
-            userManager.restartTimer()
-            if !self.start {
-                self.start.toggle()
-            }
-        }) {
-            HStack(spacing: 15) {
-                Image(systemName: "arrow.clockwise")
-                    .foregroundColor(.white)
-                Text("Restart")
-                    .foregroundColor(.white)
-            }
-            .padding(.vertical)
-            .frame(width: (UIScreen.main.bounds.width / 2) - 55)
-            .background(Capsule().stroke(Color(colourScheme), lineWidth: 2))
-            .shadow(color: colourScheme, radius: 5)
-        }
-        .padding([.top, .bottom], 10)
-    }
-    
-    var startButton: some View {
-        Button(action:  {
-            
-            if self.start {
-                userManager.pauseSunscreenTimer()
+        GroupBox {
+            Text("\(formattedTime)")
+                .bold()
+                .font(.custom("DIGITALDREAM", size: 22))
+                .padding(.top, 1)
+                .foregroundColor(colourScheme)
+                .shadow(color: colourScheme, radius:2)
+                .background(RoundedRectangle(cornerRadius: 10)
+                    .fill(colourScheme)
+                    .opacity(0.1)
+                    .frame(width:150,height: 35))
+                .frame(height: 30)
                 
-            } else {
-                userManager.startSunscreenTimer()
-            }
-            self.start.toggle()
-        }) {
-            HStack(spacing: 15) {
-                Image(systemName: self.start ? "pause.fill" : "play.fill")
-                    .foregroundColor(.white)
-                Text(self.start ? "Pause" : "Start")
-                    .foregroundColor(.white)
-            }
-            .padding(.vertical)
-            .frame(width: (UIScreen.main.bounds.width / 2) - 55)
-            .background(colourScheme)
-            .clipShape(Capsule())
-            .shadow(color: colourScheme, radius: 5)
+            
+        } label: {
+            Text("\(Image(systemName: "clock")) Reapplication")
         }
-        .padding([.top, .bottom], 10)
+        .groupBoxStyle(.custom)
     }
     
-    func Notification() {
-        let content = UNMutableNotificationContent()
-        content.title = "Reapply sunscreen"
-        content.body = "Time to reapply sunscreen and stay protected under the sun."
-        content.sound = UNNotificationSound.default
-        
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-        let req = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-        
-        UNUserNotificationCenter.current().add(req, withCompletionHandler: nil)
+    var formattedTime: String {
+        guard let startTime = startTime else { return "00:00:00" }
+        let elapsed = Int(Date().timeIntervalSince(startTime))
+        var seconds = (userManager.timeToReapply) - elapsed
+        if seconds <= 0 {
+            self.startTime = nil
+            seconds = 0
+        }
+        let hh = seconds / 3600
+        let mm = (seconds % 3600) / 60
+        let ss = (seconds % 3600) % 60
+        return String(format: "%02d:%02d:%02d", hh, mm, ss)
     }
 }
 

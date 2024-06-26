@@ -13,6 +13,24 @@ struct CardContent: View {
     }
 }
 
+struct CustomGroupBox: GroupBoxStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        VStack(alignment: .leading) {
+            configuration.label
+                .bold()
+                .font(.callout)
+            configuration.content
+            
+        }
+        .padding()
+        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 15))
+    }
+}
+
+extension GroupBoxStyle where Self == CustomGroupBox {
+    static var custom: CustomGroupBox { .init() }
+}
+
 #Preview {
     CardContent()
 }
