@@ -89,10 +89,11 @@ struct SunShieldInterface: View {
                     })
             }
         }
-        .refreshable {
-            await weatherManager.fetchWeather()
-            userManager.subscribeToWeatherUpdates(from: weatherManager)
-        }
+        //NEED RATE LIMITING - ONE CALL PER HOUR
+//        .refreshable {
+//            await weatherManager.fetchWeather()
+//            userManager.subscribeToWeatherUpdates(from: weatherManager)
+//        }
     }
     
     func getTitleOpacity() -> CGFloat {

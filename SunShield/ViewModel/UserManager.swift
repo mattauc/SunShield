@@ -66,6 +66,10 @@ class UserManager: ObservableObject {
         userProfile.updateSPF(SPF: spf)
     }
     
+    func updateUserSkinType(skin: SkinType) {
+        userProfile.updateSkin(type: skin)
+    }
+    
     func subscribeToWeatherUpdates(from weatherManager: WeatherManager) {
         
         cancellables.forEach { $0.cancel() }

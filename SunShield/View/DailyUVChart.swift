@@ -60,11 +60,11 @@ struct UVForecast: ViewModifier {
                     content
                 }
                 .font(.title3)
-                Text("\(temp)°C")
-                    .font(.caption2)
                     
             }
             .offset(y: UVOffset*(-2))
+            Text("\(temp)°C")
+                .font(.caption2)
             Text(convertUnixTimestamp(unixTimestamp: time))
                 .font(.caption)
                 .foregroundColor(.white)

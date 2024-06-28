@@ -17,10 +17,13 @@ struct TimerButtons: View {
         HStack(spacing: 20) {
             restartButton
             startButton
-                .onChange(of: self.startTime) {
-                    if self.startTime == nil {
-                        userManager.stopSunscreenTimer()
-                        self.start.toggle()
+                .onChange(of: userManager.timerCount) {newValue, oldValue in
+                    if let startTime = startTime {
+                        if newValue - Int(Date().timeIntervalSince(startTime)) < 0 {
+                            userManager.stopSunscreenTimer()
+                            self.startTime = nil
+                            self.start.toggle()
+                        }
                     }
                 }
         }
@@ -36,8 +39,8 @@ struct TimerButtons: View {
                 userManager.startSunscreenTimer()
                 self.startTime = Date()
                 self.sendNotification(time: userManager.timerCount)
-                self.start.toggle()
             }
+            self.start.toggle()
         }) {
             HStack(spacing: 15) {
                 Image(systemName: self.start ? "stop.fill" : "play.fill")
@@ -49,7 +52,7 @@ struct TimerButtons: View {
             .frame(width: (UIScreen.main.bounds.width / 2) - 55)
             .background(colourScheme)
             .clipShape(Capsule())
-            .shadow(color: colourScheme, radius: 5)
+            .shadow(color: colourScheme, radius: 2)
         }
         .padding([.top, .bottom], 10)
     }
@@ -73,7 +76,7 @@ struct TimerButtons: View {
             .padding(.vertical)
             .frame(width: (UIScreen.main.bounds.width / 2) - 55)
             .background(Capsule().stroke(Color(colourScheme), lineWidth: 2))
-            .shadow(color: colourScheme, radius: 5)
+            .shadow(color: colourScheme, radius: 2)
         }
         .padding([.top, .bottom], 10)
     }

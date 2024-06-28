@@ -35,6 +35,23 @@ enum SkinType {
     case type4
     case type5
     case type6
+    
+    var stringValue: String {
+        switch self {
+        case .type1:
+            return "I"
+        case .type2:
+            return "II"
+        case .type3:
+            return "III"
+        case .type4:
+            return "IV"
+        case .type5:
+            return "V"
+        case .type6:
+            return "VI"
+        }
+    }
 }
 
 struct UserProfile {
@@ -46,8 +63,11 @@ struct UserProfile {
     private(set) var timeUntilReapply = 0
   
     mutating func updateSPF(SPF: SPFType) {
-        print(SPF.id)
         self.SPF = SPF
+    }
+    
+    mutating func updateSkin(type: SkinType) {
+        self.skin = type
     }
 
     mutating func updateWeatherInfo(weather: WeatherResponse) {

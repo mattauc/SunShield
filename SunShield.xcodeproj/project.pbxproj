@@ -12,6 +12,7 @@
 		672468D72C27C9CC003F4849 /* TimerButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672468D62C27C9CC003F4849 /* TimerButtons.swift */; };
 		672468DB2C27EA69003F4849 /* DailyUVChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672468DA2C27EA69003F4849 /* DailyUVChart.swift */; };
 		672468DD2C2803EF003F4849 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672468DC2C2803EF003F4849 /* TimerView.swift */; };
+		672468DF2C2E5A21003F4849 /* ToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672468DE2C2E5A21003F4849 /* ToggleButton.swift */; };
 		67355B6D2C225E7900136FB7 /* SunShieldApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67355B6C2C225E7900136FB7 /* SunShieldApp.swift */; };
 		67355B6F2C225E7900136FB7 /* SunShieldInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67355B6E2C225E7900136FB7 /* SunShieldInterface.swift */; };
 		67355B712C225E7A00136FB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67355B702C225E7A00136FB7 /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 		672468D62C27C9CC003F4849 /* TimerButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerButtons.swift; sourceTree = "<group>"; };
 		672468DA2C27EA69003F4849 /* DailyUVChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyUVChart.swift; sourceTree = "<group>"; };
 		672468DC2C2803EF003F4849 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
+		672468DE2C2E5A21003F4849 /* ToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleButton.swift; sourceTree = "<group>"; };
 		67355B692C225E7900136FB7 /* SunShield.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SunShield.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67355B6C2C225E7900136FB7 /* SunShieldApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunShieldApp.swift; sourceTree = "<group>"; };
 		67355B6E2C225E7900136FB7 /* SunShieldInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunShieldInterface.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				672468D42C26E9C2003F4849 /* CardContent.swift */,
 				67355BA12C2557E600136FB7 /* SettingsPage.swift */,
 				67355B802C22613D00136FB7 /* WelcomeView.swift */,
+				672468DE2C2E5A21003F4849 /* ToggleButton.swift */,
 				67355BA32C258DFA00136FB7 /* UVIndexModifier.swift */,
 				672468D62C27C9CC003F4849 /* TimerButtons.swift */,
 				672468DA2C27EA69003F4849 /* DailyUVChart.swift */,
@@ -251,6 +254,7 @@
 				67355B952C23D32A00136FB7 /* Extensions.swift in Sources */,
 				67355B8A2C228B5B00136FB7 /* NetworkManager.swift in Sources */,
 				67355B812C22613D00136FB7 /* WelcomeView.swift in Sources */,
+				672468DF2C2E5A21003F4849 /* ToggleButton.swift in Sources */,
 				67355B6D2C225E7900136FB7 /* SunShieldApp.swift in Sources */,
 				672468DB2C27EA69003F4849 /* DailyUVChart.swift in Sources */,
 				67355B862C226F1A00136FB7 /* Weather.swift in Sources */,

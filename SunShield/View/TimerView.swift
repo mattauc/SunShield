@@ -37,10 +37,9 @@ struct TimerView: View {
     var formattedTime: String {
         guard let startTime = startTime else { return "00:00:00" }
         let elapsed = Int(Date().timeIntervalSince(startTime))
-        var seconds = (userManager.timeToReapply) - elapsed
+        let seconds = (userManager.timeToReapply) - elapsed
         if seconds <= 0 {
-            self.startTime = nil
-            seconds = 0
+            return "00:00:00"
         }
         let hh = seconds / 3600
         let mm = (seconds % 3600) / 60
