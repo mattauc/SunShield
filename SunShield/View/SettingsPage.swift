@@ -9,27 +9,53 @@ import SwiftUI
 
 struct SettingsPage: View {
     var accentColour: Color
+    @State private var selectedSkin = 0
+    
+    @EnvironmentObject var userManager: UserManager
     
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("Sunscreen & Skin Profile")) {
-                    HStack {
-                        
+                    Text("Select Skin Type")
+                        .bold()
+                    Picker("Options", selection: $selectedSkin) {
+                        ForEach(0..<6) { index in
+                            Text(userManager.skinTypes[index].rawValue).tag(index)
+                        }
                     }
+                    .onChange(of: selectedSkin) {
+                        userManager.updateUserSkinType(skin: userManager.skinTypes[selectedSkin])
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    
+                    Text("You selected: Type \(userManager.skinTypes[selectedSkin].rawValue)")
                 }
+
                 Section(header:Text("Personalization")) {
-                    Text("🎨 Theme")
+                    Text("🎨 Theme - Coming soon")
                 }
                 
                 Section() {
-                    Text("📘 Skin Types")
-                    Text("☀️ UV Index")
+                    
+                    NavigationLink(destination: SkinTypeInfo()) {
+                        Text("📘 Skin Types")
+                    }
+                
+                    NavigationLink(destination: UVIndexInfo()) {
+                        Text("☀️ UV Index")
+                    }
+                    
                     Link("Terms of Service", destination: URL(string: "https://www.ashwingur.com/")!)
                         .foregroundColor(.red)
                 }
             }
             .navigationTitle("Settings")
+        }
+        .onAppear {
+            if let index = userManager.skinTypes.firstIndex(where: { $0 == userManager.userSkin }) {
+                self.selectedSkin = index
+            }
         }
         .accentColor(self.accentColour)
     }
@@ -37,4 +63,5 @@ struct SettingsPage: View {
 
 #Preview {
     SettingsPage(accentColour: .blue)
+        .environmentObject(UserManager())
 }

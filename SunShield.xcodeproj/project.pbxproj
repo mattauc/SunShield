@@ -13,6 +13,8 @@
 		672468DB2C27EA69003F4849 /* DailyUVChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672468DA2C27EA69003F4849 /* DailyUVChart.swift */; };
 		672468DD2C2803EF003F4849 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672468DC2C2803EF003F4849 /* TimerView.swift */; };
 		672468DF2C2E5A21003F4849 /* ToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672468DE2C2E5A21003F4849 /* ToggleButton.swift */; };
+		672468E12C2F9509003F4849 /* UVIndexInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672468E02C2F9509003F4849 /* UVIndexInfo.swift */; };
+		672468E32C2FA092003F4849 /* SkinTypeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672468E22C2FA092003F4849 /* SkinTypeInfo.swift */; };
 		67355B6D2C225E7900136FB7 /* SunShieldApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67355B6C2C225E7900136FB7 /* SunShieldApp.swift */; };
 		67355B6F2C225E7900136FB7 /* SunShieldInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67355B6E2C225E7900136FB7 /* SunShieldInterface.swift */; };
 		67355B712C225E7A00136FB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67355B702C225E7A00136FB7 /* Assets.xcassets */; };
@@ -38,6 +40,8 @@
 		672468DA2C27EA69003F4849 /* DailyUVChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyUVChart.swift; sourceTree = "<group>"; };
 		672468DC2C2803EF003F4849 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		672468DE2C2E5A21003F4849 /* ToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleButton.swift; sourceTree = "<group>"; };
+		672468E02C2F9509003F4849 /* UVIndexInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UVIndexInfo.swift; sourceTree = "<group>"; };
+		672468E22C2FA092003F4849 /* SkinTypeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinTypeInfo.swift; sourceTree = "<group>"; };
 		67355B692C225E7900136FB7 /* SunShield.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SunShield.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67355B6C2C225E7900136FB7 /* SunShieldApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunShieldApp.swift; sourceTree = "<group>"; };
 		67355B6E2C225E7900136FB7 /* SunShieldInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunShieldInterface.swift; sourceTree = "<group>"; };
@@ -139,6 +143,8 @@
 				672468D62C27C9CC003F4849 /* TimerButtons.swift */,
 				672468DA2C27EA69003F4849 /* DailyUVChart.swift */,
 				672468DC2C2803EF003F4849 /* TimerView.swift */,
+				672468E02C2F9509003F4849 /* UVIndexInfo.swift */,
+				672468E22C2FA092003F4849 /* SkinTypeInfo.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -249,6 +255,8 @@
 				67355B6F2C225E7900136FB7 /* SunShieldInterface.swift in Sources */,
 				67355B8E2C2296BB00136FB7 /* WeatherManager.swift in Sources */,
 				672468DD2C2803EF003F4849 /* TimerView.swift in Sources */,
+				672468E32C2FA092003F4849 /* SkinTypeInfo.swift in Sources */,
+				672468E12C2F9509003F4849 /* UVIndexInfo.swift in Sources */,
 				67355B882C226F2600136FB7 /* UserProfile.swift in Sources */,
 				67355B9C2C250D4B00136FB7 /* UserManager.swift in Sources */,
 				67355B952C23D32A00136FB7 /* Extensions.swift in Sources */,

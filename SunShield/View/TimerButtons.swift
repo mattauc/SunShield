@@ -37,6 +37,9 @@ struct TimerButtons: View {
                 UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
             } else {
                 userManager.startSunscreenTimer()
+                if userManager.timeToReapply == 0 {
+                    return
+                }
                 self.startTime = Date()
                 self.sendNotification(time: userManager.timerCount)
             }
@@ -44,9 +47,9 @@ struct TimerButtons: View {
         }) {
             HStack(spacing: 15) {
                 Image(systemName: self.start ? "stop.fill" : "play.fill")
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                 Text(self.start ? "Stop" : "Start")
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
             }
             .padding(.vertical)
             .frame(width: (UIScreen.main.bounds.width / 2) - 55)
@@ -60,6 +63,9 @@ struct TimerButtons: View {
     var restartButton: some View {
         Button(action:  {
             userManager.restartTimer()
+            if userManager.timeToReapply == 0 {
+                return
+            }
             self.startTime = Date()
             if !self.start {
                 self.start.toggle()
@@ -69,9 +75,9 @@ struct TimerButtons: View {
         }) {
             HStack(spacing: 15) {
                 Image(systemName: "arrow.clockwise")
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                 Text("Restart")
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
             }
             .padding(.vertical)
             .frame(width: (UIScreen.main.bounds.width / 2) - 55)

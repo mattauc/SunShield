@@ -34,7 +34,7 @@ enum WeatherEndpoint: APIEndpoint {
     case getWeather(latitude: String, longitude: String, exclude: String, units: String)
     
     var baseURL: URL {
-        return URL(string: "http://localhost:8000")!
+        return URL(string: "https://sunshield.mattauc.com")!
     }
     
     var path: String {

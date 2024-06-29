@@ -147,17 +147,15 @@ struct SunShieldInterface: View {
     
     func getColourScheme(UV: Int) -> Color {
         switch UV {
-        case 0..<1:
+        case 0..<3:
             return .blue
-        case 1..<3:
-            return .green
-        case 3..<5:
+        case 3..<6:
             return .yellow
-        case 5..<7:
+        case 6..<8:
+            return .orange
+        case 8..<11:
             return .red
-        case 7..<10:
-            return .indigo
-        case 10...12:
+        case 11..<15:
             return .purple
         default:
             return .gray

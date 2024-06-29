@@ -21,7 +21,9 @@ struct WelcomeView: View {
     
     
     var body: some View {
-        NavigationStack {
+        if isPressed {
+            SunShieldInterface()
+        } else {
             ZStack {
                 sunWallpaper
                 VStack {
@@ -43,10 +45,6 @@ struct WelcomeView: View {
                 }
                 .offset(y: 130)
             }
-            .navigationDestination(isPresented: $isPressed) {
-                SunShieldInterface().navigationBarHidden(true)
-            }
-            
         }
     }
     
@@ -137,7 +135,6 @@ struct WelcomeView: View {
             }
             .cornerRadius(10)
             .shadow(radius: 10)
-            .padding()
         }
         .groupBoxStyle(.custom)
     }

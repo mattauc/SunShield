@@ -54,7 +54,7 @@ struct CardContent: View {
                         .bold()
                         .containerRelativeFrame(.horizontal, count: 1, spacing: 1)
                         .background(SPFSelected == index ? Capsule()
-                            .fill(colourScheme(Int(weatherManager.currentWeather.uvi.rounded())))
+                            .fill(colourScheme(weatherManager.currentUV))
                             .opacity(0.5) : nil)
                         .onTapGesture {
                             SPFSelected = index
@@ -76,7 +76,7 @@ struct CardContent: View {
             }
             .font(.title2)
             .navigationDestination(isPresented: $UVInformation) {
-                
+                UVIndexInfo()
             }
             Text(UVDescription + " Index")
                 .font(.title2)
@@ -94,17 +94,17 @@ struct CardContent: View {
     }
     
     private var UVDescription: String {
-        switch weatherManager.currentWeather.uvi {
+        switch weatherManager.currentUV {
         case 0..<3:
-            return "VERY LOW"
-        case 3..<5:
             return "LOW"
-        case 5..<7:
-            return "AVERAGE"
-        case 7..<10:
+        case 3..<6:
+            return "MODERATE"
+        case 6..<8:
             return "HIGH"
-        case 10...12:
+        case 8..<11:
             return "VERY HIGH"
+        case 11...15:
+            return "EXTREME"
         default:
             return "ABANDON ALL HOPE"
         }

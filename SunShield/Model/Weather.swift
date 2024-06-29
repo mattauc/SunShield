@@ -7,12 +7,6 @@
 
 import Foundation
 
-//struct Weather: Codable {
-//    var temp = 0.0
-//    var uvi = 0.0
-//    var clouds = 0
-//}
-
 struct Weather: Codable {
     var main: String = "Clear"
 }
@@ -37,8 +31,6 @@ struct HourlyWeather: Codable {
     var main: String? {
         return weather.first?.main
     }
-    
-    //var id = UUID()
 }
 
 
