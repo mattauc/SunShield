@@ -28,7 +28,3 @@ class WeatherService {
         }
     }
 }
-
-//struct WeatherResponse: Codable {
-//    let current: Weather
-//}

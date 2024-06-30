@@ -21,76 +21,78 @@ struct CardContent: View {
     
     var body: some View {
         ScrollView(showsIndicators: false) {
-            NavigationStack {
-                VStack {
-                    GroupBox {
-                        UVCard
-                    }
-                    .groupBoxStyle(.custom)
-            
-                    HStack{
-                        GroupBox {
-                            spfSelection
-                                .frame(height: 30)
-                        } label: {
-                            Text("\(Image(systemName: "sun.max")) Sunscreen SPF")
-                        }
-                        .groupBoxStyle(.custom)
-                        TimerView(colourScheme: colourScheme(weatherManager.currentUV), startTime: $startTime)
-                    }
-                    TimerButtons(colourScheme: self.colourScheme(weatherManager.currentUV), startTime: $startTime)
-                    DailyUVChart(colourScheme: self.colourScheme, weatherIcon: self.weatherIcon)
+            VStack {
+                UVCard
+                HStack{
+                    spfSelection
+
+                    TimerView(colourScheme: colourScheme(weatherManager.currentUV), startTime: $startTime)
                 }
+                TimerButtons(colourScheme: self.colourScheme(weatherManager.currentUV), startTime: $startTime)
+                DailyUVChart(colourScheme: self.colourScheme, weatherIcon: self.weatherIcon)
             }
+            .animation(.easeInOut, value: weatherManager.currentWeather.dt)
         }
     }
     
     var spfSelection: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-                ForEach(Array(userManager.spfTypes.enumerated()), id: \.element.id) { index, type in
-                    Text(type.id)
-                        .font(.largeTitle)
-                        .bold()
-                        .containerRelativeFrame(.horizontal, count: 1, spacing: 1)
-                        .background(SPFSelected == index ? Capsule()
-                            .fill(colourScheme(weatherManager.currentUV))
-                            .opacity(0.5) : nil)
-                        .onTapGesture {
-                            SPFSelected = index
-                            userManager.updateUserSPF(spf: type)
-                        }
+        GroupBox {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    ForEach(Array(userManager.spfTypes.enumerated()), id: \.element.id) { index, type in
+                        Text(type.id)
+                            .font(.largeTitle)
+                            .bold()
+                            .padding()
+                            .containerRelativeFrame(.horizontal, count: 1, spacing: 1)
+                            .background(SPFSelected == index ? Capsule()
+                                
+                                .fill(colourScheme(weatherManager.currentUV))
+                                .padding()
+                                .opacity(0.5) : nil)
+                            
+                            .onTapGesture {
+                                SPFSelected = index
+                                userManager.updateUserSPF(spf: type)
+                            }
+                    }
                 }
+                .scrollTargetLayout()
             }
-            .scrollTargetLayout()
+            .frame(height: 30)
+            .scrollTargetBehavior(.viewAligned)
+        } label: {
+            Text("\(Image(systemName: "sun.max")) Sunscreen SPF")
         }
-        .scrollTargetBehavior(.viewAligned)
+        .groupBoxStyle(.custom)
     }
     
     var UVCard: some View {
-        HStack {
-            Button {
-                UVInformation = true
-            } label: {
-                Image(systemName: "info.circle")
-            }
-            .font(.title2)
-            .navigationDestination(isPresented: $UVInformation) {
-                UVIndexInfo()
-            }
-            Text(UVDescription + " Index")
+        GroupBox {
+            HStack {
+                Button {
+                    UVInformation = true
+                } label: {
+                    Image(systemName: "info.circle")
+                }
                 .font(.title2)
-                .bold()
-            Spacer()
-            Text(String(Int(weatherManager.currentWeather.uvi.rounded())))
-                .font(.title)
-                .frame(width: 65, height: 50)
-                .background(Capsule()
-                    .fill(colourScheme(weatherManager.currentUV))
-                    .opacity(0.5))
-                    
+                .navigationDestination(isPresented: $UVInformation) {
+                    UVIndexInfo()
+                }
+                Text(UVDescription + " Index")
+                    .font(.title2)
+                    .bold()
+                Spacer()
+                Text(String(Int(weatherManager.currentWeather.uvi.rounded())))
+                    .font(.title)
+                    .frame(width: 65, height: 50)
+                    .background(Capsule()
+                        .fill(colourScheme(weatherManager.currentUV))
+                        .opacity(0.5))
+            }
+            .frame(height: 30)
         }
-        .frame(height: 30)
+        .groupBoxStyle(.custom)
     }
     
     private var UVDescription: String {

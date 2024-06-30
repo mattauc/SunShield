@@ -15,10 +15,13 @@ struct SunShieldInterface: View {
     @State var checkWelcomeScreen: Bool = false
     @State var showSettings: Bool = false
     @State var startTime: Date?
+    @State var weatherTime: Date?
     @State var scrollOffset = 0.0
     
     @EnvironmentObject var weatherManager: WeatherManager
     @EnvironmentObject var userManager: UserManager
+    @Environment(\.scenePhase) var scenePhase
+
     
     var body: some View {
         ZStack {
@@ -34,9 +37,18 @@ struct SunShieldInterface: View {
         }
         .onAppear {
             checkWelcomeScreen = isWelcomeScreenOver
-            Task {
-                await weatherManager.fetchWeather()
-                userManager.subscribeToWeatherUpdates(from: weatherManager)
+            userManager.subscribeToWeatherUpdates(from: weatherManager)
+        }
+        .onChange(of: scenePhase) { oldPhase, newPhase in
+            if oldPhase == .background {
+                if let weatherTime = weatherTime {
+                    let elapsed = Int(Date().timeIntervalSince(weatherTime))
+                    if elapsed >= 3600 {
+                        weatherManager.resetWeatherFetch()
+                    }
+                }
+            } else if newPhase == .background {
+                weatherTime = Date()
             }
         }
     }
@@ -89,11 +101,6 @@ struct SunShieldInterface: View {
                     })
             }
         }
-        //NEED RATE LIMITING - ONE CALL PER HOUR
-//        .refreshable {
-//            await weatherManager.fetchWeather()
-//            userManager.subscribeToWeatherUpdates(from: weatherManager)
-//        }
     }
     
     func getTitleOpacity() -> CGFloat {

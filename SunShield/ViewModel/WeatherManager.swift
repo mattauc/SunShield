@@ -15,11 +15,14 @@ class WeatherManager: ObservableObject {
     private let deviceLocationService: DeviceLocationService
     private var geocoder = CLGeocoder()
     @Published private var locationName: String = "Loading..."
+    private var isFirstFetch: Bool = true
     
         
     private var coordinates: (lat: Double, lon: Double) = (0, 0)
     private var cancellables = Set<AnyCancellable>()
     private var tokens: Set<AnyCancellable> = []
+    private var cancellableTimer: AnyCancellable?
+    private var lastKnownLocation: CLLocation?
     
     private let weatherDataSubject = PassthroughSubject<WeatherResponse, Never>()
     
@@ -32,7 +35,21 @@ class WeatherManager: ObservableObject {
         observeLocationAccessDenied(from: deviceLocationService)
     }
     
-    func fetchWeather() async {
+    func setupHourlyWeatherFetch() {
+        
+        cancellableTimer?.cancel()
+        
+        cancellableTimer = Timer.publish(every: 3600, tolerance: 10, on: .main, in: .default)
+            .autoconnect()
+            .sink { [weak self] _ in
+                self?.fetchWeather()
+            }
+        if let cancellableTimer = cancellableTimer {
+            cancellableTimer.store(in: &cancellables)
+        }
+    }
+    
+    func fetchWeather() {
         WeatherService.shared.getCurrentWeather(lat: coordinates.lat, lon: coordinates.lon)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
@@ -57,10 +74,25 @@ class WeatherManager: ObservableObject {
                     print(error)
                 }
             } receiveValue: { coordinates in
+                
                 self.coordinates = (coordinates.latitude, coordinates.longitude)
-                self.fetchLocationName()
+                if self.isFirstFetch {
+                    self.fetchWeather()
+                    self.isFirstFetch = false
+                    self.setupHourlyWeatherFetch()
+                }
+                self.fetchLocationNameThrottle()
             }
             .store(in: &tokens)
+    }
+    
+    func fetchLocationNameThrottle() {
+        let newLocation = CLLocation(latitude: coordinates.lat, longitude: coordinates.lon)
+        if let lastLocation = self.lastKnownLocation, newLocation.distance(from: lastLocation) < 100 {
+            return
+        }
+        self.lastKnownLocation = newLocation
+        self.fetchLocationName()
     }
 
     func observeLocationAccessDenied(from deviceLocationService: DeviceLocationService) {
@@ -88,6 +120,10 @@ class WeatherManager: ObservableObject {
             return weatherDataSubject.eraseToAnyPublisher()
         }
     
+    func resetWeatherFetch() {
+        self.isFirstFetch = true
+    }
+
     var currentWeather: CurrentWeather {
         return weatherData.current
     }

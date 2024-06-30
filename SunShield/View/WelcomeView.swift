@@ -40,7 +40,8 @@ struct WelcomeView: View {
                     skinTypeSelection
                         
                     nextButton
-                        .offset(y: 50)
+                        //.offset(y: 50)
+                        .padding()
                     
                 }
                 .offset(y: 130)

@@ -106,7 +106,7 @@ struct UserProfile: Codable {
         let timeToSkinBurn = skin.timeToSkinBurn
         let sunProtectionFactorWeight = SPF.sunProtectionFactorWeight
         
-        if uvIndex == 0 {
+        if uvIndex < 1 {
             timerCount = 0
             timeUntilReapply = 0
             return

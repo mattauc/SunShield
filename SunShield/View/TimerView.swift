@@ -26,8 +26,6 @@ struct TimerView: View {
                     .opacity(0.1)
                     .frame(width:150,height: 35))
                 .frame(height: 30)
-                
-            
         } label: {
             Text("\(Image(systemName: "clock")) Reapplication")
         }

@@ -80,6 +80,7 @@ class UserManager: ObservableObject {
         if userProfile.timeUntilReapply == 0 {
             return
         }
+        timer?.invalidate()
         
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             self?.updateTimer()
@@ -100,7 +101,7 @@ class UserManager: ObservableObject {
     }
     
     func subscribeToWeatherUpdates(from weatherManager: WeatherManager) {
-        
+    
         cancellables.forEach { $0.cancel() }
         cancellables.removeAll()
         

@@ -34,8 +34,6 @@ struct DailyUVChart: View {
                 Divider()
             }
             .groupBoxStyle(.custom)
-            
-            
         }
     }
 }
@@ -53,14 +51,12 @@ struct UVForecast: ViewModifier {
             Group {
                 Text("\(weatherIcon)")
                     .font(.caption)
-                
                 ZStack {
                     Circle()
                         .stroke(colour.opacity(1), lineWidth: lineWidth)
                     content
                 }
                 .font(.title3)
-                    
             }
             .offset(y: UVOffset*(-2))
             Text("\(temp)°C")
