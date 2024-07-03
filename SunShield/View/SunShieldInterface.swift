@@ -56,6 +56,7 @@ struct SunShieldInterface: View {
         }
     }
     
+    // Homepage content 
     var homeContentTabView: some View {
         NavigationStack {
             homeView
