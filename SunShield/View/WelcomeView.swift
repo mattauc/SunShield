@@ -19,6 +19,11 @@ struct WelcomeView: View {
     @State private var selectedType: String?
     @State var skinInfo: Bool = false
     
+    private let welcomeFontSize: CGFloat = 32
+    private let skinInfoHorizontalPadding: CGFloat = 150
+    private let infoIconOffset: CGFloat = -55
+    private let infoIconOffsetY: CGFloat = 13
+    private let skinButtonPadding: CGFloat = 20
     
     var body: some View {
         if isPressed {
@@ -28,7 +33,7 @@ struct WelcomeView: View {
                 sunWallpaper
                 VStack {
                     Text("Welcome!")
-                        .font(.system(size: 32, weight: .bold, design: .default))
+                        .font(.system(size: welcomeFontSize, weight: .bold, design: .default))
                         .padding([.bottom, .top], 8)
                         .foregroundColor(Color.primary)
                     
@@ -38,11 +43,8 @@ struct WelcomeView: View {
                         .foregroundColor(Color.primary)
                         .padding(.bottom, 40)
                     skinTypeSelection
-                        
                     nextButton
-                        //.offset(y: 50)
                         .padding()
-                    
                 }
                 .offset(y: 130)
             }
@@ -75,11 +77,10 @@ struct WelcomeView: View {
     }
     
     var skinTypeSelection: some View {
-        
         VStack {
             if skinInfo {
                 skinInfoOverlay
-                    .padding(.horizontal, 150)
+                    .padding(.horizontal, skinInfoHorizontalPadding)
             }
             HStack {
                 Group {
@@ -99,7 +100,7 @@ struct WelcomeView: View {
                     
                     .font(.title2)
                 }
-                .offset(x: -55,  y: 13)
+                .offset(x: infoIconOffset,  y: infoIconOffsetY)
             }
             .padding(.bottom)
             skinButtons
@@ -150,7 +151,6 @@ struct WelcomeView: View {
                     Text("Always burns")
                         .font(.subheadline)
                 }
-                
                 HStack {
                     Text("Type II:")
                         .font(.headline)
@@ -158,7 +158,6 @@ struct WelcomeView: View {
                     Text("Burns easily")
                         .font(.subheadline)
                 }
-                
                 HStack {
                     Text("Type III:")
                         .font(.headline)
@@ -166,7 +165,6 @@ struct WelcomeView: View {
                     Text("Burns moderately")
                         .font(.subheadline)
                 }
-                
                 HStack {
                     Text("Type IV:")
                         .font(.headline)
@@ -174,7 +172,6 @@ struct WelcomeView: View {
                     Text("Burns minimally")
                         .font(.subheadline)
                 }
-                
                 HStack {
                     Text("Type V:")
                         .font(.headline)
@@ -182,7 +179,6 @@ struct WelcomeView: View {
                     Text("Rarely burns")
                         .font(.subheadline)
                 }
-                
                 HStack {
                     Text("Type VI:")
                         .font(.headline)
@@ -196,17 +192,16 @@ struct WelcomeView: View {
 
     var skinButtons: some View {
         VStack {
-            HStack(spacing: 20) {
-                skinButton(type: SkinType.type1, buttonColour: Color(red: 255/255, green: 206/255, blue: 180/255)) // Pale White
-                skinButton(type: SkinType.type2, buttonColour: Color(red: 240/255, green: 184/255, blue: 160/255)) // White to Light Beige
-                skinButton(type: SkinType.type3, buttonColour: Color(red: 195/255, green: 149/255, blue: 130/255)) // Beige
+            HStack(spacing: skinButtonPadding) {
+                skinButton(type: SkinType.type1, buttonColour: Color(rgba: SkinType.type1.Colour))
+                skinButton(type: SkinType.type2, buttonColour: Color(rgba: SkinType.type2.Colour))
+                skinButton(type: SkinType.type3, buttonColour: Color(rgba: SkinType.type3.Colour))
             }
             .padding()
-
-            HStack(spacing: 20) {
-                skinButton(type: SkinType.type4, buttonColour: Color(red: 165/255, green: 126/255, blue: 110/255)) // Light Brown
-                skinButton(type: SkinType.type5, buttonColour: Color(red: 120/255, green: 92/255, blue: 80/255)) // Moderate Brown
-                skinButton(type: SkinType.type6, buttonColour: Color(red: 75/255, green: 57/255, blue: 50/255)) // Dark Brown or Black
+            HStack(spacing: skinButtonPadding) {
+                skinButton(type: SkinType.type4, buttonColour: Color(rgba: SkinType.type4.Colour))
+                skinButton(type: SkinType.type5, buttonColour: Color(rgba: SkinType.type5.Colour))
+                skinButton(type: SkinType.type6, buttonColour: Color(rgba: SkinType.type6.Colour))
             }
         }
     }

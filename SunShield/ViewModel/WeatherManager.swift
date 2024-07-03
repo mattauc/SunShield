@@ -35,6 +35,7 @@ class WeatherManager: ObservableObject {
         observeLocationAccessDenied(from: deviceLocationService)
     }
     
+    //
     func setupHourlyWeatherFetch() {
         
         cancellableTimer?.cancel()

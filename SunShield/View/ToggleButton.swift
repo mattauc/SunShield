@@ -12,16 +12,24 @@ struct ToggleButton: View {
     var skinType: String
     var active = false
     
+    private let cornerRadius: CGFloat = 5
+    private let frameWidth: CGFloat = 100
+    private let inactiveFrameWidth: CGFloat = 10
+    private let frameHeight: CGFloat = 40
+    private let inactiveOpacity: CGFloat = 0.1
+    private let textOpacity: CGFloat = 0.2
+
+    
     var body: some View {
         ZStack(alignment: .leading) {
-            RoundedRectangle(cornerRadius: 5)
-                .frame(width: 100, height: 40)
-                .foregroundColor(Color.white.opacity(0.1))
+            RoundedRectangle(cornerRadius: cornerRadius)
+                .frame(width: frameWidth, height: frameHeight)
+                .foregroundColor(Color.white.opacity(inactiveOpacity))
                 .overlay(Text(skinType)
-                    .opacity(0.2))
+                    .opacity(textOpacity))
             
-            RoundedRectangle(cornerRadius: 5)
-                .frame(width: active ? 100 : 10, height: 40)
+            RoundedRectangle(cornerRadius: cornerRadius)
+                .frame(width: active ? frameWidth : inactiveFrameWidth, height: frameHeight)
                 .foregroundColor(colour)
                 .alignmentGuide(.leading) { d in
                     d[.leading]

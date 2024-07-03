@@ -19,6 +19,10 @@ struct CardContent: View {
     @EnvironmentObject var userManager: UserManager
     @EnvironmentObject var weatherManager: WeatherManager
     
+    private let cardHeight: CGFloat = 30
+    private let uvIndexFrameWidth: CGFloat = 65
+    private let uvIndexFrameHeight: CGFloat = 50
+    
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack {
@@ -31,7 +35,6 @@ struct CardContent: View {
                 TimerButtons(colourScheme: self.colourScheme(weatherManager.currentUV), startTime: $startTime)
                 DailyUVChart(colourScheme: self.colourScheme, weatherIcon: self.weatherIcon)
             }
-            .animation(.easeInOut, value: weatherManager.currentWeather.dt)
         }
     }
     
@@ -59,7 +62,7 @@ struct CardContent: View {
                 }
                 .scrollTargetLayout()
             }
-            .frame(height: 30)
+            .frame(height: cardHeight)
             .scrollTargetBehavior(.viewAligned)
         } label: {
             Text("\(Image(systemName: "sun.max")) Sunscreen SPF")
@@ -85,12 +88,12 @@ struct CardContent: View {
                 Spacer()
                 Text(String(Int(weatherManager.currentWeather.uvi.rounded())))
                     .font(.title)
-                    .frame(width: 65, height: 50)
+                    .frame(width: uvIndexFrameWidth, height: uvIndexFrameHeight)
                     .background(Capsule()
                         .fill(colourScheme(weatherManager.currentUV))
                         .opacity(0.5))
             }
-            .frame(height: 30)
+            .frame(height: cardHeight)
         }
         .groupBoxStyle(.custom)
     }

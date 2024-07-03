@@ -10,13 +10,16 @@ import SwiftUI
 struct UVIndexModifier: ViewModifier {
     
     var UVIndex: Int
-    var lineWidth: CGFloat = 15
     var colour: Color
+    
+    private let lineWidth: CGFloat = 15
+    private let backgroundOpacity: CGFloat = 0.3
+    private let rotationDegrees: Double = -90
     
     func body(content: Content) -> some View {
         ZStack {
             Circle()
-                .stroke(colour.opacity(0.3), lineWidth: lineWidth)
+                .stroke(colour.opacity(backgroundOpacity), lineWidth: lineWidth)
             
             Circle()
                 .trim(from: 0, to: CGFloat(UVIndex) / 12)
@@ -24,7 +27,7 @@ struct UVIndexModifier: ViewModifier {
                     AngularGradient(gradient: Gradient(colors: [colour, colour.opacity(1)]), center: .center),
                     style: StrokeStyle(lineWidth: lineWidth, lineCap: .round)
                 )
-                .rotationEffect(Angle(degrees: -90))
+                .rotationEffect(Angle(degrees: rotationDegrees))
             content
         }
     }

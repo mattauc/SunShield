@@ -13,8 +13,13 @@ struct TimerButtons: View {
     @Binding var startTime: Date?
     @State var start: Bool = false
     
+    private let buttonSpacing: CGFloat = 20
+    private let hStackPadding: CGFloat = 10
+    private let buttonVerticalPadding: CGFloat = 15
+    private let buttonHorizontalPadding: CGFloat = 55
+    
     var body: some View {
-        HStack(spacing: 20) {
+        HStack(spacing: buttonSpacing) {
             restartButton
             startButton
                 .onChange(of: userManager.timerCount) {newValue, oldValue in
@@ -45,19 +50,19 @@ struct TimerButtons: View {
             }
             self.start.toggle()
         }) {
-            HStack(spacing: 15) {
+            HStack(spacing: buttonVerticalPadding) {
                 Image(systemName: self.start ? "stop.fill" : "play.fill")
                     .foregroundColor(.primary)
                 Text(self.start ? "Stop" : "Start")
                     .foregroundColor(.primary)
             }
             .padding(.vertical)
-            .frame(width: (UIScreen.main.bounds.width / 2) - 55)
+            .frame(width: (UIScreen.main.bounds.width / 2) - buttonHorizontalPadding)
             .background(colourScheme)
             .clipShape(Capsule())
             .shadow(color: colourScheme, radius: 2)
         }
-        .padding([.top, .bottom], 10)
+        .padding([.top, .bottom], hStackPadding)
     }
     
     var restartButton: some View {
@@ -73,18 +78,18 @@ struct TimerButtons: View {
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
             self.sendNotification(time: userManager.timerCount)
         }) {
-            HStack(spacing: 15) {
+            HStack(spacing: buttonVerticalPadding) {
                 Image(systemName: "arrow.clockwise")
                     .foregroundColor(.primary)
                 Text("Restart")
                     .foregroundColor(.primary)
             }
             .padding(.vertical)
-            .frame(width: (UIScreen.main.bounds.width / 2) - 55)
+            .frame(width: (UIScreen.main.bounds.width / 2) - buttonHorizontalPadding)
             .background(Capsule().stroke(Color(colourScheme), lineWidth: 2))
             .shadow(color: colourScheme, radius: 2)
         }
-        .padding([.top, .bottom], 10)
+        .padding([.top, .bottom], hStackPadding)
     }
     
     

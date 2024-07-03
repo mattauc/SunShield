@@ -35,14 +35,12 @@ struct UVIndexInfo: View {
             .groupBoxStyle(.custom)
             .ignoresSafeArea()
             .padding(.top)
-
         }
     }
     
     func buildUVTab(colour: Color, range: String, content: String, title: String) -> some View {
         HStack {
             ZStack {
-                
                 RoundedRectangle(cornerRadius: 15)
                     .fill(colour)
                     .frame(width:100, height: 100)

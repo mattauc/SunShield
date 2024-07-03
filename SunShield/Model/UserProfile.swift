@@ -71,6 +71,23 @@ enum SkinType: String, Codable {
             return 500.0
         }
     }
+    
+    var Colour: RGBA {
+        switch self {
+        case .type1:
+            return RGBA(red: 255/255, green: 206/255, blue: 180/255, alpha: 1.0) // Pale white skin
+        case .type2:
+            return RGBA(red: 240/255, green: 184/255, blue: 160/255, alpha: 1.0) // Fair skin
+        case .type3:
+            return RGBA(red: 195/255, green: 149/255, blue: 130/255, alpha: 1.0) // Darker white skin
+        case .type4:
+            return RGBA(red: 165/255, green: 126/255, blue: 110/255, alpha: 1.0) // Light brown skin
+        case .type5:
+            return RGBA(red: 120/255, green: 92/255, blue: 80/255, alpha: 1.0) // Brown skin
+        case .type6:
+            return RGBA(red: 75/255, green: 57/255, blue: 50/255, alpha: 1.0) // Dark brown or black skin
+        }
+    }
 }
 
 struct UserProfile: Codable {
@@ -86,7 +103,6 @@ struct UserProfile: Codable {
     }
     
     mutating func updateSkin(type: SkinType) {
-        print(type.rawValue)
         self.skin = type
     }
     

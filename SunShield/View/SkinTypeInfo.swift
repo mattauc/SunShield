@@ -12,17 +12,17 @@ struct SkinTypeInfo: View {
         GroupBox {
             ScrollView {
                 VStack {
-                    buildSkinType(colour: Color(red: 255/255, green: 206/255, blue: 180/255), type: SkinType.type1, features: "Pale white skin, blue/green eyes, blond/red hair.", tanning: "Always burns, does not tan.")
+                    buildSkinType(colour: Color(rgba: SkinType.type1.Colour), type: SkinType.type1, features: "Pale white skin, blue/green eyes, blond/red hair.", tanning: "Always burns, does not tan.")
                     Divider()
-                    buildSkinType(colour: Color(red: 240/255, green: 184/255, blue: 160/255), type: SkinType.type2, features: "Fair Skin, blue eyes.", tanning: "Burns easily, tans poorly.")
+                    buildSkinType(colour: Color(rgba: SkinType.type2.Colour), type: SkinType.type2, features: "Fair Skin, blue eyes.", tanning: "Burns easily, tans poorly.")
                     Divider()
-                    buildSkinType(colour: Color(red: 195/255, green: 149/255, blue: 130/255), type: SkinType.type3, features: "Darker white skin.", tanning: "Tans after initial burn.")
+                    buildSkinType(colour: Color(rgba: SkinType.type3.Colour), type: SkinType.type3, features: "Darker white skin.", tanning: "Tans after initial burn.")
                     Divider()
-                    buildSkinType(colour: Color(red: 165/255, green: 126/255, blue: 110/255), type: SkinType.type4, features: "Light brown skin.", tanning: "Burns minimally, tans easily.")
+                    buildSkinType(colour: Color(rgba: SkinType.type4.Colour), type: SkinType.type4, features: "Light brown skin.", tanning: "Burns minimally, tans easily.")
                     Divider()
-                    buildSkinType(colour: Color(red: 120/255, green: 92/255, blue: 80/255), type: SkinType.type5, features: "Brown skin.", tanning: "Rarely burns, tans darkly easily.")
+                    buildSkinType(colour: Color(rgba: SkinType.type5.Colour), type: SkinType.type5, features: "Brown skin.", tanning: "Rarely burns, tans darkly easily.")
                     Divider()
-                    buildSkinType(colour: Color(red: 75/255, green: 57/255, blue: 50/255), type: SkinType.type6, features: "Dark brown or black skin.", tanning: "Never burns, always tans darkly.")
+                    buildSkinType(colour: Color(rgba: SkinType.type6.Colour), type: SkinType.type6, features: "Dark brown or black skin.", tanning: "Never burns, always tans darkly.")
                 }
             }
         } label: {
@@ -58,7 +58,6 @@ struct SkinTypeInfo: View {
                     .bold()
                 Text(tanning)
             }
-            //.padding(.vertical)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }

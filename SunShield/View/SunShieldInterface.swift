@@ -22,6 +22,10 @@ struct SunShieldInterface: View {
     @EnvironmentObject var userManager: UserManager
     @Environment(\.scenePhase) var scenePhase
 
+    private let titleOffsetProgress: CGFloat = 120
+    private let titleOffsetMax: CGFloat = 20
+    private let titleOpacityProgress: CGFloat = 20
+    private let uvIndexFontSize: CGFloat = 100
     
     var body: some View {
         ZStack {
@@ -41,14 +45,7 @@ struct SunShieldInterface: View {
         }
         .onChange(of: scenePhase) { oldPhase, newPhase in
             if oldPhase == .background {
-                if let weatherTime = weatherTime {
-                    let elapsed = Int(Date().timeIntervalSince(weatherTime))
-                    if elapsed >= 3600 {
-                        weatherManager.resetWeatherFetch()
-                    }
-                }
-            } else if newPhase == .background {
-                weatherTime = Date()
+                weatherManager.resetWeatherFetch()
             }
         }
     }
@@ -84,7 +81,7 @@ struct SunShieldInterface: View {
                     }
                     .offset(y: -scrollOffset)
                     .offset(y: scrollOffset > 0 ? (scrollOffset / UIScreen.main.bounds.width) * 100 : 0)
-                    .offset(y: getTitleOffset()+20)
+                    .offset(y: getTitleOffset()+titleOffsetMax)
                     VStack(spacing: 8) {
                         CardContent(colourScheme: getColourScheme, weatherIcon: getWeatherCondition)
                     }
@@ -105,15 +102,15 @@ struct SunShieldInterface: View {
     
     func getTitleOpacity() -> CGFloat {
         let titleOffset = -getTitleOffset()
-        let progress = titleOffset / 20
+        let progress = titleOffset / titleOpacityProgress
         let opacity = 1 - progress
         return opacity
     }
     
     func getTitleOffset() -> CGFloat {
         if scrollOffset < 0 {
-            let progress = -scrollOffset / 120
-            let newOffset = (progress <= 1.0 ? progress : 1) * 20
+            let progress = -scrollOffset / titleOffsetProgress
+            let newOffset = (progress <= 1.0 ? progress : 1) * titleOffsetMax
             return -newOffset
         }
         return 0.0
@@ -126,7 +123,7 @@ struct SunShieldInterface: View {
                 .bold()
             
             Text(String(Int(weatherManager.currentWeather.uvi.rounded())))
-                .font(.system(size: 100))
+                .font(.system(size: uvIndexFontSize))
                 .uvIndexMod(UVIndex: weatherManager.currentUV, colourScheme: colourScheme)
                 .padding(.horizontal, 100)
                 .padding(.bottom, 10)
