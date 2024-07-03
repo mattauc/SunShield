@@ -16,10 +16,6 @@ final class SunShieldTests: XCTestCase {
         weatherProfile = WeatherResponse()
         userProfile = UserProfile()
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
     
     func testUpdateSpfType() throws {
         userProfile.updateSPF(SPF: SPFType.hundred)
@@ -60,14 +56,4 @@ final class SunShieldTests: XCTestCase {
         userProfile.timeToReapply()
         XCTAssertTrue(userProfile.timeUntilReapply == 180000)
     }
-    
-    
-
-//    func testPerformanceExample() throws {
-//        // This is an example of a performance test case.
-//        measure {
-//            // Put the code you want to measure the time of here.
-//        }
-//    }
-
 }

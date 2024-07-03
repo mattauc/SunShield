@@ -31,10 +31,19 @@
 		67355BA22C2557E600136FB7 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67355BA12C2557E600136FB7 /* SettingsPage.swift */; };
 		67355BA42C258DFA00136FB7 /* UVIndexModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67355BA32C258DFA00136FB7 /* UVIndexModifier.swift */; };
 		67D829382C34E4160064F6C0 /* SunShieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D829372C34E4160064F6C0 /* SunShieldTests.swift */; };
+		67D829542C3502570064F6C0 /* SunShieldUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D829532C3502570064F6C0 /* SunShieldUITests.swift */; };
+		67D829562C3502570064F6C0 /* SunShieldUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D829552C3502570064F6C0 /* SunShieldUITestsLaunchTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		67D829392C34E4160064F6C0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67355B612C225E7900136FB7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 67355B682C225E7900136FB7;
+			remoteInfo = SunShield;
+		};
+		67D829572C3502570064F6C0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 67355B612C225E7900136FB7 /* Project object */;
 			proxyType = 1;
@@ -72,6 +81,9 @@
 		67355BA32C258DFA00136FB7 /* UVIndexModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UVIndexModifier.swift; sourceTree = "<group>"; };
 		67D829352C34E4160064F6C0 /* SunShieldTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SunShieldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		67D829372C34E4160064F6C0 /* SunShieldTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunShieldTests.swift; sourceTree = "<group>"; };
+		67D829512C3502570064F6C0 /* SunShieldUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SunShieldUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		67D829532C3502570064F6C0 /* SunShieldUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunShieldUITests.swift; sourceTree = "<group>"; };
+		67D829552C3502570064F6C0 /* SunShieldUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunShieldUITestsLaunchTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +101,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		67D8294E2C3502570064F6C0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -97,6 +116,7 @@
 			children = (
 				67355B6B2C225E7900136FB7 /* SunShield */,
 				67D829362C34E4160064F6C0 /* SunShieldTests */,
+				67D829522C3502570064F6C0 /* SunShieldUITests */,
 				67355B6A2C225E7900136FB7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -106,6 +126,7 @@
 			children = (
 				67355B692C225E7900136FB7 /* SunShield.app */,
 				67D829352C34E4160064F6C0 /* SunShieldTests.xctest */,
+				67D829512C3502570064F6C0 /* SunShieldUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -206,6 +227,15 @@
 			path = SunShieldTests;
 			sourceTree = "<group>";
 		};
+		67D829522C3502570064F6C0 /* SunShieldUITests */ = {
+			isa = PBXGroup;
+			children = (
+				67D829532C3502570064F6C0 /* SunShieldUITests.swift */,
+				67D829552C3502570064F6C0 /* SunShieldUITestsLaunchTests.swift */,
+			);
+			path = SunShieldUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -244,6 +274,24 @@
 			productReference = 67D829352C34E4160064F6C0 /* SunShieldTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		67D829502C3502570064F6C0 /* SunShieldUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 67D829592C3502570064F6C0 /* Build configuration list for PBXNativeTarget "SunShieldUITests" */;
+			buildPhases = (
+				67D8294D2C3502570064F6C0 /* Sources */,
+				67D8294E2C3502570064F6C0 /* Frameworks */,
+				67D8294F2C3502570064F6C0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				67D829582C3502570064F6C0 /* PBXTargetDependency */,
+			);
+			name = SunShieldUITests;
+			productName = SunShieldUITests;
+			productReference = 67D829512C3502570064F6C0 /* SunShieldUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -258,6 +306,10 @@
 						CreatedOnToolsVersion = 15.4;
 					};
 					67D829342C34E4160064F6C0 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 67355B682C225E7900136FB7;
+					};
+					67D829502C3502570064F6C0 = {
 						CreatedOnToolsVersion = 15.4;
 						TestTargetID = 67355B682C225E7900136FB7;
 					};
@@ -278,6 +330,7 @@
 			targets = (
 				67355B682C225E7900136FB7 /* SunShield */,
 				67D829342C34E4160064F6C0 /* SunShieldTests */,
+				67D829502C3502570064F6C0 /* SunShieldUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -294,6 +347,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		67D829332C34E4160064F6C0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67D8294F2C3502570064F6C0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -338,6 +398,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		67D8294D2C3502570064F6C0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67D829562C3502570064F6C0 /* SunShieldUITestsLaunchTests.swift in Sources */,
+				67D829542C3502570064F6C0 /* SunShieldUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -345,6 +414,11 @@
 			isa = PBXTargetDependency;
 			target = 67355B682C225E7900136FB7 /* SunShield */;
 			targetProxy = 67D829392C34E4160064F6C0 /* PBXContainerItemProxy */;
+		};
+		67D829582C3502570064F6C0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 67355B682C225E7900136FB7 /* SunShield */;
+			targetProxy = 67D829572C3502570064F6C0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -572,6 +646,40 @@
 			};
 			name = Release;
 		};
+		67D8295A2C3502570064F6C0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5223SVKWJP;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.mauc.SunShieldUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SunShield;
+			};
+			name = Debug;
+		};
+		67D8295B2C3502570064F6C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5223SVKWJP;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.mauc.SunShieldUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SunShield;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -598,6 +706,15 @@
 			buildConfigurations = (
 				67D8293B2C34E4160064F6C0 /* Debug */,
 				67D8293C2C34E4160064F6C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		67D829592C3502570064F6C0 /* Build configuration list for PBXNativeTarget "SunShieldUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67D8295A2C3502570064F6C0 /* Debug */,
+				67D8295B2C3502570064F6C0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

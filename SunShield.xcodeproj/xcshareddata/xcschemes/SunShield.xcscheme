@@ -41,6 +41,17 @@
                ReferencedContainer = "container:SunShield.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "67D829502C3502570064F6C0"
+               BuildableName = "SunShieldUITests.xctest"
+               BlueprintName = "SunShieldUITests"
+               ReferencedContainer = "container:SunShield.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
