@@ -56,6 +56,16 @@ class WeatherManager: ObservableObject {
         locationName
     }
     
+    // Returns the current sunrise
+    var sunrise: Int {
+        weatherData.current.sunrise
+    }
+    
+    // Returns the current sunset
+    var sunset: Int {
+        weatherData.current.sunset
+    }
+    
     // Creates a timer that toggles every hour. Fetches weather
     private func setupHourlyWeatherFetch() {
         

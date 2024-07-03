@@ -20,7 +20,7 @@ struct DailyUVChart: View {
             GroupBox {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 16) {
-                        ForEach(weatherManager.hourlyWeather, id: \.dt) { UVIndex in
+                        ForEach(weatherManager.hourlyWeather.prefix(24), id: \.dt) { UVIndex in
                             let uvIndex = Int(UVIndex.uvi.rounded())
                             let uvTemp = Int(UVIndex.temp.rounded())
                             if let status = UVIndex.main {
@@ -49,23 +49,36 @@ struct UVForecast: ViewModifier {
     var weatherIcon: String
     var temp: Int
     
+    @EnvironmentObject var weatherManager: WeatherManager
+    
     // Creates the weather information per hour
     func body(content: Content) -> some View {
         VStack {
+            let sunrise = convertUnixTimestamp(weatherManager.sunrise)
+            let sunset = convertUnixTimestamp(weatherManager.sunset)
+            let currentTime = convertUnixTimestamp(time)
             Group {
                 Text("\(weatherIcon)")
                     .font(.caption)
-                ZStack {
-                    Circle()
-                        .stroke(colour.opacity(1), lineWidth: lineWidth)
-                    content
+                if sunrise == currentTime || sunset == currentTime {
+                    ZStack {
+                        Circle()
+                            .stroke(colour.opacity(0), lineWidth: lineWidth)
+                        Image(systemName: sunrise == currentTime ? "sunrise.fill" : "sunset.fill")
+                    }
+                } else {
+                    ZStack {
+                        Circle()
+                            .stroke(colour.opacity(1), lineWidth: lineWidth)
+                        content
+                    }
                 }
-                .font(.title3)
             }
+            .font(.title3)
             .offset(y: UVOffset*(-2))
             Text("\(temp)°C")
                 .font(.caption2)
-            Text(convertUnixTimestamp(unixTimestamp: time))
+            Text(currentTime)
                 .font(.caption)
                 .foregroundColor(.white)
                 .opacity(0.5)
@@ -74,7 +87,7 @@ struct UVForecast: ViewModifier {
     }
     
     // Converts unix time to 24 hour time
-    func convertUnixTimestamp(unixTimestamp: Int) -> String {
+    func convertUnixTimestamp(_ unixTimestamp: Int) -> String {
         let date = Date(timeIntervalSince1970: TimeInterval(unixTimestamp))
         let dateFormatter = DateFormatter()
         
