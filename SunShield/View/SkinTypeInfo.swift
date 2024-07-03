@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SkinTypeInfo: View {
+    
+    // Displays the skin type information page
     var body: some View {
         GroupBox {
             ScrollView {
@@ -37,6 +39,7 @@ struct SkinTypeInfo: View {
         
     }
     
+    // Builds each skin type tab
     func buildSkinType(colour: Color, type: SkinType, features: String, tanning: String) -> some View {
         HStack(alignment: .top) {
             ZStack {
@@ -47,8 +50,6 @@ struct SkinTypeInfo: View {
                     .bold()
                     .font(.title)
             }
-
-            
             VStack(alignment: .leading) {
                 Text("Features")
                     .bold()

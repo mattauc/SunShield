@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// Handles the timer logic and notifications
 struct TimerButtons: View {
     var colourScheme: Color
     @EnvironmentObject var userManager: UserManager
@@ -18,6 +19,7 @@ struct TimerButtons: View {
     private let buttonVerticalPadding: CGFloat = 15
     private let buttonHorizontalPadding: CGFloat = 55
     
+    // Timer button view
     var body: some View {
         HStack(spacing: buttonSpacing) {
             restartButton
@@ -34,7 +36,10 @@ struct TimerButtons: View {
         }
     }
     
+    // Start button
     var startButton: some View {
+        
+        // Button stops and starts the timer
         Button(action:  {
             if self.start {
                 userManager.stopSunscreenTimer()
@@ -65,7 +70,10 @@ struct TimerButtons: View {
         .padding([.top, .bottom], hStackPadding)
     }
     
+    // Restart button
     var restartButton: some View {
+        
+        // Button restarts the timer when pressed
         Button(action:  {
             userManager.restartTimer()
             if userManager.timeToReapply == 0 {
@@ -92,7 +100,7 @@ struct TimerButtons: View {
         .padding([.top, .bottom], hStackPadding)
     }
     
-    
+    // Timer notification logic - sends device notification upon completion
     func sendNotification(time: Int) {
         let content = UNMutableNotificationContent()
         content.title = "Reapply sunscreen"

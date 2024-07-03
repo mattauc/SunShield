@@ -7,12 +7,14 @@
 
 import SwiftUI
 
+// Displays the Hourly/Daily weather information
 struct DailyUVChart: View {
     
     @EnvironmentObject var weatherManager: WeatherManager
     var colourScheme: (Int) -> Color
     var weatherIcon: (String) -> String
     
+    // Creates the hourly weather card
     var body: some View {
         ZStack {
             GroupBox {
@@ -38,6 +40,7 @@ struct DailyUVChart: View {
     }
 }
 
+// View modifier for the hourly forecast information
 struct UVForecast: ViewModifier {
     var UVOffset: CGFloat
     var time: Int
@@ -46,6 +49,7 @@ struct UVForecast: ViewModifier {
     var weatherIcon: String
     var temp: Int
     
+    // Creates the weather information per hour
     func body(content: Content) -> some View {
         VStack {
             Group {
@@ -69,6 +73,7 @@ struct UVForecast: ViewModifier {
         .padding(.top)
     }
     
+    // Converts unix time to 24 hour time
     func convertUnixTimestamp(unixTimestamp: Int) -> String {
         let date = Date(timeIntervalSince1970: TimeInterval(unixTimestamp))
         let dateFormatter = DateFormatter()

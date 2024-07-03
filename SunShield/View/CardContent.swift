@@ -25,6 +25,8 @@ struct CardContent: View {
     
     var body: some View {
         ScrollView(showsIndicators: false) {
+            
+            // VStack that encompasses all the content below the primary display
             VStack {
                 UVCard
                 HStack{
@@ -38,6 +40,7 @@ struct CardContent: View {
         }
     }
     
+    // SPF Selection card
     var spfSelection: some View {
         GroupBox {
             ScrollView(.horizontal, showsIndicators: false) {
@@ -70,6 +73,7 @@ struct CardContent: View {
         .groupBoxStyle(.custom)
     }
     
+    // UV information card
     var UVCard: some View {
         GroupBox {
             HStack {
@@ -98,6 +102,7 @@ struct CardContent: View {
         .groupBoxStyle(.custom)
     }
     
+    // Returns the UV Description based off the current UV
     private var UVDescription: String {
         switch weatherManager.currentUV {
         case 0..<3:
@@ -116,6 +121,7 @@ struct CardContent: View {
     }
 }
 
+// Custom groupBox style
 struct CustomGroupBox: GroupBoxStyle {
     func makeBody(configuration: Configuration) -> some View {
         VStack(alignment: .leading) {

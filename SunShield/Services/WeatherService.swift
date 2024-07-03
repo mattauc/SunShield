@@ -14,6 +14,7 @@ class WeatherService {
     private let apiClient = URLSessionAPIClient<WeatherEndpoint>()
     static let shared = WeatherService()
     
+    // Calls the proxy server gathers the weather informatin
     func getCurrentWeather(lat: CLLocationDegrees, lon: CLLocationDegrees) -> AnyPublisher<WeatherResponse, Error> {
 
         let endpoint = WeatherEndpoint.getWeather(latitude: String(lat), longitude: String(lon), exclude: "minutely,daily,alerts", units: "metric")

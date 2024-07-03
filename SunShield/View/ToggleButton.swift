@@ -19,7 +19,7 @@ struct ToggleButton: View {
     private let inactiveOpacity: CGFloat = 0.1
     private let textOpacity: CGFloat = 0.2
 
-    
+    // Skin button toggle logic
     var body: some View {
         ZStack(alignment: .leading) {
             RoundedRectangle(cornerRadius: cornerRadius)
@@ -28,6 +28,7 @@ struct ToggleButton: View {
                 .overlay(Text(skinType)
                     .opacity(textOpacity))
             
+            // Completion bar
             RoundedRectangle(cornerRadius: cornerRadius)
                 .frame(width: active ? frameWidth : inactiveFrameWidth, height: frameHeight)
                 .foregroundColor(colour)

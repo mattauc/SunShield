@@ -30,16 +30,38 @@ class WeatherManager: ObservableObject {
         self.deviceLocationService = deviceLocationService
         self.weatherData = WeatherResponse()
         
+        // Initializes the device location updates
         deviceLocationService.requestLocationUpdates()
         observeCoordinatesUpdates(from: deviceLocationService)
         observeLocationAccessDenied(from: deviceLocationService)
     }
     
-    //
-    func setupHourlyWeatherFetch() {
+    // Returns the current weather data
+    var currentWeather: CurrentWeather {
+        return weatherData.current
+    }
+    
+    // Returns the current UV
+    var currentUV: Int {
+        return Int(weatherData.current.uvi.rounded())
+    }
+    
+    // Returns the hourly weather
+    var hourlyWeather: [HourlyWeather] {
+        return weatherData.hourly
+    }
+    
+    // Returns the device location
+    var deviceLocation: String {
+        locationName
+    }
+    
+    // Creates a timer that toggles every hour. Fetches weather
+    private func setupHourlyWeatherFetch() {
         
         cancellableTimer?.cancel()
         
+        // One hour timer creation
         cancellableTimer = Timer.publish(every: 3600, tolerance: 10, on: .main, in: .default)
             .autoconnect()
             .sink { [weak self] _ in
@@ -50,7 +72,8 @@ class WeatherManager: ObservableObject {
         }
     }
     
-    func fetchWeather() {
+    // Function that calls the proxy and returns weather
+    private func fetchWeather() {
         WeatherService.shared.getCurrentWeather(lat: coordinates.lat, lon: coordinates.lon)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
@@ -61,13 +84,16 @@ class WeatherManager: ObservableObject {
                     print("Error fetching weather data: \(error.localizedDescription)")
                 }
             }, receiveValue: { [weak self] weather in
+                
+                // Sets the weatherData values and sends information to UserManager
                 self?.weatherData = weather
                 self?.weatherDataSubject.send(weather)
             })
             .store(in: &cancellables)
     }
     
-    func observeCoordinatesUpdates(from deviceLocationService: DeviceLocationService) {
+    // Function that updates the device coordinates
+    private func observeCoordinatesUpdates(from deviceLocationService: DeviceLocationService) {
         deviceLocationService.coordinatesPublisher
             .receive(on: DispatchQueue.main)
             .sink { completion in
@@ -75,19 +101,24 @@ class WeatherManager: ObservableObject {
                     print(error)
                 }
             } receiveValue: { coordinates in
-                
+                // Sets the current device coordinates.
                 self.coordinates = (coordinates.latitude, coordinates.longitude)
+                
+                // If it's the first fetch, then it'll call for a weather update and create a timer.
                 if self.isFirstFetch {
                     self.fetchWeather()
                     self.isFirstFetch = false
                     self.setupHourlyWeatherFetch()
                 }
+                
+                // Function to throttle and control the location name updates
                 self.fetchLocationNameThrottle()
             }
             .store(in: &tokens)
     }
     
-    func fetchLocationNameThrottle() {
+    // Calls for a location name update if device has moved.
+    private func fetchLocationNameThrottle() {
         let newLocation = CLLocation(latitude: coordinates.lat, longitude: coordinates.lon)
         if let lastLocation = self.lastKnownLocation, newLocation.distance(from: lastLocation) < 100 {
             return
@@ -95,8 +126,9 @@ class WeatherManager: ObservableObject {
         self.lastKnownLocation = newLocation
         self.fetchLocationName()
     }
-
-    func observeLocationAccessDenied(from deviceLocationService: DeviceLocationService) {
+    
+    // Sends an error if the device no longer has access to the device location.
+    private func observeLocationAccessDenied(from deviceLocationService: DeviceLocationService) {
         deviceLocationService.deniedLocationAccessPublisher
             .receive(on: DispatchQueue.main)
             .sink {
@@ -105,6 +137,7 @@ class WeatherManager: ObservableObject {
             .store(in: &tokens)
     }
     
+    // Retrieves the location name based on the device coordinates
     private func fetchLocationName() {
         let location = CLLocation(latitude: coordinates.lat, longitude: coordinates.lon)
         geocoder.reverseGeocodeLocation(location) { [weak self] placemarks, error in
@@ -117,34 +150,13 @@ class WeatherManager: ObservableObject {
         }
     }
     
+    // Function that sends weather data to UserManager
     func weatherDataPublisher() -> AnyPublisher<WeatherResponse, Never> {
             return weatherDataSubject.eraseToAnyPublisher()
         }
     
+    // Function that resets the weather timer.
     func resetWeatherFetch() {
         self.isFirstFetch = true
-    }
-
-    var currentWeather: CurrentWeather {
-        return weatherData.current
-    }
-    
-    var currentUV: Int {
-        return Int(weatherData.current.uvi.rounded())
-    }
-    
-    var hourlyWeather: [HourlyWeather] {
-        return weatherData.hourly
-    }
-    
-    var locationLoaded: Bool {
-        if coordinates.lat == 0.0 && coordinates.lon == 0.0 {
-            return false
-        }
-        return true
-    }
-    
-    var deviceLocation: String {
-        locationName
     }
 }

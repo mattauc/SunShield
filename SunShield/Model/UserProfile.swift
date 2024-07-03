@@ -7,6 +7,7 @@
 
 import Foundation
 
+// SPF Type information
 enum SPFType: Identifiable, Codable {
   
     case fifteen
@@ -14,6 +15,7 @@ enum SPFType: Identifiable, Codable {
     case fifty
     case hundred
     
+    // String values
     var id: String {
         switch self {
         case .fifteen:
@@ -27,7 +29,7 @@ enum SPFType: Identifiable, Codable {
         }
     }
     
-    //SPFW for various (SPF) levels
+    // SPFW for various (SPF) levels
     var sunProtectionFactorWeight: Double {
         switch self {
         case .fifteen:
@@ -42,6 +44,7 @@ enum SPFType: Identifiable, Codable {
     }
 }
 
+// Skin type information
 enum SkinType: String, Codable {
     case type1 = "I"
     case type2 = "II"
@@ -54,7 +57,7 @@ enum SkinType: String, Codable {
         return self.rawValue
     }
     
-    //Time to skin Burn at UV Index = 1 (minutes)
+    // Time to skin Burn at UV Index = 1 (minutes)
     var timeToSkinBurn: Double {
         switch self {
         case .type1:
@@ -72,6 +75,7 @@ enum SkinType: String, Codable {
         }
     }
     
+    // Relative colour information
     var Colour: RGBA {
         switch self {
         case .type1:
@@ -90,6 +94,7 @@ enum SkinType: String, Codable {
     }
 }
 
+// User model
 struct UserProfile: Codable {
     
     private(set) var SPF = SPFType.fifteen
@@ -98,19 +103,22 @@ struct UserProfile: Codable {
     private(set) var timerCount: Int = 0
     private(set) var timeUntilReapply = 0
     
+    // Updates the user SPF type
     mutating func updateSPF(SPF: SPFType) {
         self.SPF = SPF
     }
     
+    // Updates the user skin type
     mutating func updateSkin(type: SkinType) {
         self.skin = type
     }
     
+    // Updates the weather info to reflect current weather
     mutating func updateWeatherInfo(weather: WeatherResponse) {
         self.weatherInfo = weather
     }
     
-    //Reference study
+    // Calculations applied to return the time until reapplication
     mutating func timeToReapply() {
         guard let weatherInfo = weatherInfo else {
             timerCount = 0
@@ -134,6 +142,7 @@ struct UserProfile: Codable {
         self.timeUntilReapply = Int(timeToReapply)
     }
     
+    // Updates the timer count
     mutating func updateTimerCount(newCount: Int) {
         self.timerCount = newCount
     }

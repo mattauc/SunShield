@@ -13,6 +13,7 @@ struct SettingsPage: View {
     
     @EnvironmentObject var userManager: UserManager
     
+    // Settings view
     var body: some View {
         NavigationView {
             Form {

@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+// Defining the API Endpoint protocol
 protocol APIEndpoint {
     var baseURL: URL { get } 
     var path: String { get }
@@ -16,6 +17,7 @@ protocol APIEndpoint {
     var parameters: [String: String] { get }
 }
 
+// Enum of HTTP Methods
 enum HTTPMethod: String {
     case get = "GET"
     case post = "POST"
@@ -24,12 +26,14 @@ enum HTTPMethod: String {
     case delete = "DELETE"
 }
 
+// Enum of API Errors
 enum APIError: Error {
     case invalidResponse
     case invalidData
     case invalidURL
 }
 
+// Enum used to create the weather endpoint
 enum WeatherEndpoint: APIEndpoint {
     case getWeather(latitude: String, longitude: String, exclude: String, units: String)
     
@@ -58,6 +62,7 @@ enum WeatherEndpoint: APIEndpoint {
         }
     }
     
+    // Paramaters used in the endpoint
     var parameters: [String: String] {
         switch self {
         case .getWeather(let latitude, let longitude, let exclude, let units):
@@ -73,6 +78,7 @@ protocol APIClient {
 
 class URLSessionAPIClient<EndpointType: APIEndpoint>: APIClient {
     
+    // Function to make a post request towards my proxy server - Returns weather data
     func request<T: Decodable>(_ endpoint: EndpointType) throws -> AnyPublisher<T, Error> {
         
         //Creates endpoint baseURL + path

@@ -9,8 +9,8 @@ import SwiftUI
 
 struct UVIndexInfo: View {
     
+    // Displays the UV index information page
     var body: some View {
-        
         NavigationView {
             GroupBox {
                 ScrollView() {
@@ -38,6 +38,7 @@ struct UVIndexInfo: View {
         }
     }
     
+    // Builds each individual UV tab
     func buildUVTab(colour: Color, range: String, content: String, title: String) -> some View {
         HStack {
             ZStack {

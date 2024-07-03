@@ -18,8 +18,8 @@ class DeviceLocationService: NSObject, ObservableObject, CLLocationManagerDelega
         super.init()
     }
     
+    // Initializes instance of device location rendering
     static let shared = DeviceLocationService()
-    
     
     private lazy var locationManager: CLLocationManager = {
         let manager = CLLocationManager()
@@ -28,6 +28,7 @@ class DeviceLocationService: NSObject, ObservableObject, CLLocationManagerDelega
         return manager
     }()
     
+    // Requests location updates
     func requestLocationUpdates() {
         switch locationManager.authorizationStatus {
             
@@ -43,6 +44,7 @@ class DeviceLocationService: NSObject, ObservableObject, CLLocationManagerDelega
         }
     }
     
+    // Manages device location authorization
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
             

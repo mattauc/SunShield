@@ -29,6 +29,8 @@ struct SunShieldInterface: View {
     
     var body: some View {
         ZStack {
+            
+            // Logic to dispaly the welcome screen
             if checkWelcomeScreen {
                 homeContentTabView
             } else {
@@ -39,10 +41,14 @@ struct SunShieldInterface: View {
                     }
             }
         }
+        
+        // Subscribes to weather updates
         .onAppear {
             checkWelcomeScreen = isWelcomeScreenOver
             userManager.subscribeToWeatherUpdates(from: weatherManager)
         }
+        
+        // Resets the weather timer when user returns from the background
         .onChange(of: scenePhase) { oldPhase, newPhase in
             if oldPhase == .background {
                 weatherManager.resetWeatherFetch()
@@ -70,7 +76,8 @@ struct SunShieldInterface: View {
         }
         .accentColor(colourScheme)
     }
-
+    
+    // Returns the primary home view with UV information
     var homeView: some View {
         ZStack {
             ScrollView(.vertical, showsIndicators: false) {
@@ -82,6 +89,8 @@ struct SunShieldInterface: View {
                     .offset(y: -scrollOffset)
                     .offset(y: scrollOffset > 0 ? (scrollOffset / UIScreen.main.bounds.width) * 100 : 0)
                     .offset(y: getTitleOffset()+titleOffsetMax)
+                    
+                    // Card content is dispalyed below the primary view
                     VStack(spacing: 8) {
                         CardContent(colourScheme: getColourScheme, weatherIcon: getWeatherCondition)
                     }
@@ -100,6 +109,7 @@ struct SunShieldInterface: View {
         }
     }
     
+    // Tool used for scrolling effect
     func getTitleOpacity() -> CGFloat {
         let titleOffset = -getTitleOffset()
         let progress = titleOffset / titleOpacityProgress
@@ -107,6 +117,7 @@ struct SunShieldInterface: View {
         return opacity
     }
     
+    // Tool used for scrolling effect
     func getTitleOffset() -> CGFloat {
         if scrollOffset < 0 {
             let progress = -scrollOffset / titleOffsetProgress
@@ -116,6 +127,7 @@ struct SunShieldInterface: View {
         return 0.0
     }
     
+    // View that builds the current weather primary view
     var currentWeather: some View {
         VStack {
             Text(weatherManager.deviceLocation)
@@ -138,6 +150,7 @@ struct SunShieldInterface: View {
         .padding([.top, .horizontal])
     }
     
+    // Returns the current weather condition
     private var weatherCondition: String {
         if let condition = weatherManager.currentWeather.main {
             return getWeatherCondition(weather: condition)
@@ -145,6 +158,7 @@ struct SunShieldInterface: View {
         return "💨"
     }
     
+    // Returns the corresponding colour scheme
     private var colourScheme: Color {
         return getColourScheme(UV: weatherManager.currentUV)
     }

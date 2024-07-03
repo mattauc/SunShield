@@ -20,7 +20,7 @@ struct TimerView: View {
     private let frameWidth: CGFloat = 150
     private let frameHeight: CGFloat = 35
 
-    
+    // Displays the primary timer
     var body: some View {
         GroupBox {
             Text("\(formattedTime)")
@@ -40,6 +40,7 @@ struct TimerView: View {
         .groupBoxStyle(.custom)
     }
     
+    // Formats the timer time
     var formattedTime: String {
         guard let startTime = startTime else { return defaultTime }
         let elapsed = Int(Date().timeIntervalSince(startTime))

@@ -7,8 +7,8 @@
 
 import SwiftUI
 
+// View modifier for the primary UV Index information
 struct UVIndexModifier: ViewModifier {
-    
     var UVIndex: Int
     var colour: Color
     
@@ -16,6 +16,7 @@ struct UVIndexModifier: ViewModifier {
     private let backgroundOpacity: CGFloat = 0.3
     private let rotationDegrees: Double = -90
     
+    // Circle progress bar logic
     func body(content: Content) -> some View {
         ZStack {
             Circle()

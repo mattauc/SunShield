@@ -25,7 +25,10 @@ struct WelcomeView: View {
     private let infoIconOffsetY: CGFloat = 13
     private let skinButtonPadding: CGFloat = 20
     
+    // Welcome window
     var body: some View {
+        
+        // Sends to the homescreen when button pressed
         if isPressed {
             SunShieldInterface()
         } else {
@@ -51,6 +54,7 @@ struct WelcomeView: View {
         }
     }
     
+    // The welcome view wallpaper
     var sunWallpaper: some View {
         ZStack {
             Color.clear.edgesIgnoringSafeArea(.all)
@@ -76,6 +80,7 @@ struct WelcomeView: View {
         }
     }
     
+    // Skin Type selection buttons displayed beneath the welcome text
     var skinTypeSelection: some View {
         VStack {
             if skinInfo {
@@ -87,7 +92,6 @@ struct WelcomeView: View {
                     Text("Select Your Skin Type")
                         .font(.title3)
                         .bold()
-                    
                     Button {
                         withAnimation {
                             skinInfo.toggle()
@@ -96,19 +100,16 @@ struct WelcomeView: View {
                         Image(systemName: "info.circle")
                             .foregroundColor(buttonColour)
                     }
-                    
-                    
                     .font(.title2)
                 }
                 .offset(x: infoIconOffset,  y: infoIconOffsetY)
             }
             .padding(.bottom)
             skinButtons
-            
         }
-
     }
     
+    // Skin information overlay - when information icon pressed
     var skinInfoOverlay: some View {
         GroupBox {
             VStack(alignment: .leading, spacing: 16) {
@@ -141,6 +142,7 @@ struct WelcomeView: View {
         .groupBoxStyle(.custom)
     }
     
+    // Skin information text
     var infoTextValues: some View {
         VStack(alignment: .leading, spacing: 12) {
             Group {
@@ -190,6 +192,7 @@ struct WelcomeView: View {
         }
     }
 
+    // Displays all the skin buttons and sets their type/colour
     var skinButtons: some View {
         VStack {
             HStack(spacing: skinButtonPadding) {
@@ -206,6 +209,7 @@ struct WelcomeView: View {
         }
     }
     
+    // Individual skin button logic
     func skinButton(type: SkinType, buttonColour: Color) -> some View {
             ToggleButton(
                 colour: buttonColour,
@@ -229,6 +233,7 @@ struct WelcomeView: View {
             }
         }
     
+    // Next button - sends user to the homescreen
     var nextButton: some View {
         Button(action: {
             isPressed = true
@@ -243,6 +248,8 @@ struct WelcomeView: View {
             .clipShape(Capsule())
             .shadow(color: canPress ? Color(red: 1.0, green: 0.4, blue: 0.2) : Color.clear, radius: canPress ? 2 : 0)
         }
+        
+        // User is unable to press it until they've selected a skin type
         .disabled(!canPress)
     }
 }

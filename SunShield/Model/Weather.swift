@@ -7,10 +7,12 @@
 
 import Foundation
 
+// Weather type
 struct Weather: Codable {
     var main: String = "Clear"
 }
 
+// Current weather model
 struct CurrentWeather: Codable {
     var dt: Int = 0
     var uvi: Double = 0.0
@@ -22,6 +24,7 @@ struct CurrentWeather: Codable {
     }
 }
 
+// Hourly weather model
 struct HourlyWeather: Codable {
     var dt: Int = 0
     var uvi: Double = 0.0
@@ -33,7 +36,7 @@ struct HourlyWeather: Codable {
     }
 }
 
-
+// Weather response model
 struct WeatherResponse: Codable {
     var current: CurrentWeather = CurrentWeather()
     var hourly: [HourlyWeather] = [HourlyWeather()]
