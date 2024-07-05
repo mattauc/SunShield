@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6715CD962C3785BF009BE1C3 /* TermsAndConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6715CD952C3785BF009BE1C3 /* TermsAndConditions.swift */; };
+		6715CD982C3794DB009BE1C3 /* PrivacyPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6715CD972C3794DB009BE1C3 /* PrivacyPolicy.swift */; };
 		672468D22C26E618003F4849 /* DIGITALDREAM.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 672468D12C26E618003F4849 /* DIGITALDREAM.ttf */; };
 		672468D52C26E9C2003F4849 /* CardContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672468D42C26E9C2003F4849 /* CardContent.swift */; };
 		672468D72C27C9CC003F4849 /* TimerButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672468D62C27C9CC003F4849 /* TimerButtons.swift */; };
@@ -53,6 +55,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6715CD952C3785BF009BE1C3 /* TermsAndConditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditions.swift; sourceTree = "<group>"; };
+		6715CD972C3794DB009BE1C3 /* PrivacyPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicy.swift; sourceTree = "<group>"; };
 		672468D12C26E618003F4849 /* DIGITALDREAM.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DIGITALDREAM.ttf; sourceTree = "<group>"; };
 		672468D32C26E67C003F4849 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		672468D42C26E9C2003F4849 /* CardContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardContent.swift; sourceTree = "<group>"; };
@@ -188,6 +192,8 @@
 				672468DC2C2803EF003F4849 /* TimerView.swift */,
 				672468E02C2F9509003F4849 /* UVIndexInfo.swift */,
 				672468E22C2FA092003F4849 /* SkinTypeInfo.swift */,
+				6715CD952C3785BF009BE1C3 /* TermsAndConditions.swift */,
+				6715CD972C3794DB009BE1C3 /* PrivacyPolicy.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -370,12 +376,14 @@
 				67355BA22C2557E600136FB7 /* SettingsPage.swift in Sources */,
 				672468D52C26E9C2003F4849 /* CardContent.swift in Sources */,
 				67355B842C2261B500136FB7 /* DeviceLocationService.swift in Sources */,
+				6715CD962C3785BF009BE1C3 /* TermsAndConditions.swift in Sources */,
 				67355BA42C258DFA00136FB7 /* UVIndexModifier.swift in Sources */,
 				67355B902C2296D200136FB7 /* WeatherService.swift in Sources */,
 				67355B6F2C225E7900136FB7 /* SunShieldInterface.swift in Sources */,
 				67355B8E2C2296BB00136FB7 /* WeatherManager.swift in Sources */,
 				672468DD2C2803EF003F4849 /* TimerView.swift in Sources */,
 				672468E32C2FA092003F4849 /* SkinTypeInfo.swift in Sources */,
+				6715CD982C3794DB009BE1C3 /* PrivacyPolicy.swift in Sources */,
 				672468E12C2F9509003F4849 /* UVIndexInfo.swift in Sources */,
 				67355B882C226F2600136FB7 /* UserProfile.swift in Sources */,
 				67355B9C2C250D4B00136FB7 /* UserManager.swift in Sources */,

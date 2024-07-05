@@ -28,10 +28,14 @@ struct SkinTypeInfo: View {
                 }
             }
         } label: {
-            Text("Skin Type Information")
-                .font(.largeTitle)
-                .bold()
-            Divider()
+            NavigationLink(destination: Text("")) {
+                VStack {
+                    Link("Skin Type Information", destination: URL(string: "https://dermnetnz.org/topics/skin-phototype")!)
+                        .font(.largeTitle)
+                        .bold()
+                    Divider()
+                }
+            }
         }
         .groupBoxStyle(.custom)
         .ignoresSafeArea()
