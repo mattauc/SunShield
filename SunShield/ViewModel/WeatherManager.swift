@@ -13,6 +13,7 @@ import SwiftUI
 class WeatherManager: ObservableObject {
     @Published private(set) var weatherData: WeatherResponse
     private let deviceLocationService: DeviceLocationService
+    private let weatherService: WeatherService
     private var geocoder = CLGeocoder()
     @Published private var locationName: String = "Loading..."
     private var isFirstFetch: Bool = true
@@ -26,8 +27,9 @@ class WeatherManager: ObservableObject {
     
     private let weatherDataSubject = PassthroughSubject<WeatherResponse, Never>()
     
-    init(deviceLocationService: DeviceLocationService) {
+    init(deviceLocationService: DeviceLocationService, weatherService: WeatherService) {
         self.deviceLocationService = deviceLocationService
+        self.weatherService = weatherService
         self.weatherData = WeatherResponse()
         
         // Initializes the device location updates
@@ -84,7 +86,7 @@ class WeatherManager: ObservableObject {
     
     // Function that calls the proxy and returns weather
     private func fetchWeather() {
-        WeatherService.shared.getCurrentWeather(lat: coordinates.lat, lon: coordinates.lon)
+        weatherService.getCurrentWeather(lat: coordinates.lat, lon: coordinates.lon)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
                 switch completion {

@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct SunShieldApp: App {
     @StateObject var userManager = UserManager()
-    @StateObject var weatherManager = WeatherManager(deviceLocationService: DeviceLocationService.shared)
+    @StateObject var weatherManager = WeatherManager(deviceLocationService: DeviceLocationService.shared, weatherService: WeatherService.shared)
     
     var body: some Scene {
         WindowGroup {

@@ -11,10 +11,12 @@ import XCTest
 final class SunShieldTests: XCTestCase {
     var userProfile: UserProfile!
     var weatherProfile: WeatherResponse!
+    var weatherManager: WeatherManager!
     
     override func setUpWithError() throws {
         weatherProfile = WeatherResponse()
         userProfile = UserProfile()
+        weatherManager = WeatherManager(deviceLocationService: DeviceLocationService.shared, weatherService: WeatherService.shared)
     }
     
     func testUpdateSpfType() throws {
@@ -55,5 +57,9 @@ final class SunShieldTests: XCTestCase {
         
         userProfile.timeToReapply()
         XCTAssertTrue(userProfile.timeUntilReapply == 180000)
+    }
+    
+    func testWeatherRequest() throws {
+        weatherManager.resetWeatherFetch()
     }
 }

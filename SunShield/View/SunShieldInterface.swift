@@ -204,5 +204,5 @@ struct SunShieldInterface: View {
 #Preview {
     SunShieldInterface()
         .environmentObject(UserManager())
-        .environmentObject(WeatherManager(deviceLocationService: DeviceLocationService.shared))
+        .environmentObject(WeatherManager(deviceLocationService: DeviceLocationService.shared, weatherService: WeatherService.shared))
 }
