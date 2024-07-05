@@ -59,13 +59,37 @@ class WeatherManager: ObservableObject {
     }
     
     // Returns the current sunrise
-    var sunrise: Int {
-        weatherData.current.sunrise
+    var sunrise: String {
+        getTime(weatherData.current.sunrise)
     }
     
     // Returns the current sunset
-    var sunset: Int {
-        weatherData.current.sunset
+    var sunset: String {
+        getTime(weatherData.current.sunset)
+    }
+    
+    // Returns the current cloud percentage
+    var clouds: Int {
+        return weatherData.current.clouds
+    }
+    
+    // Function to get the maximum UV index in the next 12 hours
+    func getMaxUVIndexInNext24Hours() -> Double {
+        let currentTime = weatherData.current.dt
+        let hoursLater = currentTime + (24 * 60 * 60)
+        
+        let next24Hours = weatherData.hourly.filter { $0.dt >= currentTime && $0.dt <= hoursLater }
+        return next24Hours.map { $0.uvi }.max() ?? 0.0
+    }
+    
+    // Converts unix time to 24 hour time
+    func getTime(_ unixTimestamp: Int) -> String {
+        let date = Date(timeIntervalSince1970: TimeInterval(unixTimestamp))
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "ha"
+        let formattedDate = dateFormatter.string(from: date)
+        return formattedDate
     }
     
     // Creates a timer that toggles every hour. Fetches weather

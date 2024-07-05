@@ -86,6 +86,8 @@ struct SunShieldInterface: View {
                     VStack(alignment: .center, spacing: 5) {
                         currentWeather
                             .opacity(getTitleOpacity())
+                        subWeatherInfo
+                            .opacity(getTitleOpacity())
                     }
                     .offset(y: -scrollOffset)
                     .offset(y: scrollOffset > 0 ? (scrollOffset / UIScreen.main.bounds.width) * 100 : 0)
@@ -94,6 +96,7 @@ struct SunShieldInterface: View {
                     // Card content is dispalyed below the primary view
                     VStack(spacing: 8) {
                         CardContent(colourScheme: getColourScheme, weatherIcon: getWeatherCondition)
+                            .padding(.horizontal)
                     }
                 }
                 .padding(.top, 25)
@@ -140,15 +143,82 @@ struct SunShieldInterface: View {
                 .uvIndexMod(UVIndex: weatherManager.currentUV, colourScheme: colourScheme)
                 .padding(.horizontal, 100)
                 .padding(.bottom, 10)
-            Text("UV")
-                .font(.title2)
-                .bold()
-                .padding(.bottom, 2)
-        
-            Text("\(weatherCondition) / " + String(Int(weatherManager.currentWeather.temp.rounded())) + "°C")
-            
         }
         .padding([.top, .horizontal])
+    }
+    
+    // View that builds the sub information grid
+    var subWeatherInfo: some View {
+        VStack(spacing: 0) {
+            HStack {
+                Text("\(weatherCondition) / \(Int(weatherManager.currentWeather.temp.rounded()))°C")
+                    .font(.system(size: 40))
+                Spacer()
+            }
+            .padding(.horizontal)
+            Group {
+                topGridInfo
+                Rectangle()
+                    .fill(Color.gray)
+                    .frame(height: 1)
+                    .padding(.horizontal, 10)
+                bottomGridInfo
+            }
+            .opacity(0.7)
+        }
+        .padding([.top, .horizontal])
+    }
+    
+    // Top sub weather information
+    var topGridInfo: some View {
+        HStack {
+            HStack {
+                Text("Peak UV")
+                Spacer()
+                Text("\(Int(weatherManager.getMaxUVIndexInNext24Hours().rounded()))")
+                    .bold()
+            }
+            .font(.title3)
+            .padding()
+            Rectangle()
+                .fill(Color.gray)
+                .frame(width: 1)
+                .padding(.top)
+            HStack {
+                Text("Clouds")
+                Spacer()
+                Text("\(weatherManager.clouds)%")
+                    .bold()
+            }
+            .font(.title3)
+            .padding()
+        }
+    }
+    
+    // Bottom sub weather information
+    var bottomGridInfo: some View {
+        HStack {
+            HStack {
+                Text("Sunrise")
+                Spacer()
+                Text(weatherManager.sunrise)
+                    .bold()
+            }
+            .font(.title3)
+            .padding()
+            Rectangle()
+                .fill(Color.gray)
+                .frame(width: 1)
+                .padding(.bottom)
+            HStack {
+                Text("Sunset")
+                Spacer()
+                Text(weatherManager.sunset)
+                    .bold()
+            }
+            .font(.title3)
+            .padding()
+        }
     }
     
     // Returns the current weather condition
@@ -200,6 +270,7 @@ struct SunShieldInterface: View {
         }
     }
 }
+
 
 #Preview {
     SunShieldInterface()

@@ -35,8 +35,8 @@ struct CardContent: View {
                     TimerView(colourScheme: colourScheme(weatherManager.currentUV), startTime: $startTime)
                 }
                 TimerButtons(colourScheme: self.colourScheme(weatherManager.currentUV), startTime: $startTime)
-                DailyUVChart(colourScheme: self.colourScheme, weatherIcon: self.weatherIcon)
             }
+            DailyUVChart(colourScheme: self.colourScheme, weatherIcon: self.weatherIcon)
         }
     }
     

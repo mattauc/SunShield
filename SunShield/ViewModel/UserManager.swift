@@ -129,7 +129,6 @@ class UserManager: ObservableObject {
         weatherManager.weatherDataPublisher()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] weather in
-                print(weather)
                 self?.updateWeather(weather: weather)
             }
             .store(in: &cancellables)

@@ -96,7 +96,6 @@ class URLSessionAPIClient<EndpointType: APIEndpoint>: APIClient {
         var request = URLRequest(url: finalURL)
         request.httpMethod = endpoint.method.rawValue
         
-        print(finalURL)
         return URLSession.shared.dataTaskPublisher(for: request)
             .subscribe(on: DispatchQueue.global(qos: .background))
             .tryMap { data, response -> Data in

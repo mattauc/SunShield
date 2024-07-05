@@ -54,9 +54,9 @@ struct UVForecast: ViewModifier {
     // Creates the weather information per hour
     func body(content: Content) -> some View {
         VStack {
-            let sunrise = convertUnixTimestamp(weatherManager.sunrise)
-            let sunset = convertUnixTimestamp(weatherManager.sunset)
-            let currentTime = convertUnixTimestamp(time)
+            let sunrise = weatherManager.sunrise
+            let sunset = weatherManager.sunset
+            let currentTime = weatherManager.getTime(time)
             Group {
                 Text("\(weatherIcon)")
                     .font(.caption)
@@ -84,16 +84,6 @@ struct UVForecast: ViewModifier {
                 .opacity(0.5)
         }
         .padding(.top)
-    }
-    
-    // Converts unix time to 24 hour time
-    func convertUnixTimestamp(_ unixTimestamp: Int) -> String {
-        let date = Date(timeIntervalSince1970: TimeInterval(unixTimestamp))
-        let dateFormatter = DateFormatter()
-        
-        dateFormatter.dateFormat = "ha"
-        let formattedDate = dateFormatter.string(from: date)
-        return formattedDate
     }
 }
 

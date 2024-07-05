@@ -20,6 +20,7 @@ struct CurrentWeather: Codable {
     var temp: Double = 0.0
     var sunrise: Int = 0
     var sunset: Int = 0
+    var clouds: Int = 0
     
     var main: String? {
         return weather.first?.main

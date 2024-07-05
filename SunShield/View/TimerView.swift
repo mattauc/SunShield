@@ -15,7 +15,7 @@ struct TimerView: View {
     
     private let defaultTime: String = "00:00:00"
     private let timeFormat: String = "%02d:%02d:%02d"
-    private let fontSize: CGFloat = 22
+    private let fontSize: CGFloat = 20
     private let textFrameHeight: CGFloat = 30
     private let frameWidth: CGFloat = 150
     private let frameHeight: CGFloat = 35
