@@ -35,7 +35,7 @@ struct TimerView: View {
                     .frame(width: frameWidth, height: frameHeight))
                 .frame(height: textFrameHeight)
         } label: {
-            Text("\(Image(systemName: "clock")) Reapplication")
+            Text("\(Image(systemName: "hourglass.bottomhalf.fill")) Reapplication")
         }
         .groupBoxStyle(.custom)
     }

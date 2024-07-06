@@ -13,6 +13,8 @@ struct DailyUVChart: View {
     @EnvironmentObject var weatherManager: WeatherManager
     var colourScheme: (Int) -> Color
     var weatherIcon: (String) -> String
+    @State var dayView: Bool = true
+    var dayHours: Int = 82800
     
     // Creates the hourly weather card
     var body: some View {
@@ -21,21 +23,36 @@ struct DailyUVChart: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 16) {
                         ForEach(weatherManager.hourlyWeather.prefix(24), id: \.dt) { UVIndex in
-                            let uvIndex = Int(UVIndex.uvi.rounded())
-                            let uvTemp = Int(UVIndex.temp.rounded())
-                            if let status = UVIndex.main {
-                                Text(String(uvIndex))
-                                    .UVForecastMod(time: UVIndex.dt, colour: self.colourScheme(uvIndex), UVOffset: CGFloat(uvIndex), weatherIcon: self.weatherIcon(status), temp: uvTemp)
+                            
+                            // Logic to hide night time values
+                            if UVIndex.dt >= weatherManager.sunrisedt && UVIndex.dt <= weatherManager.sunsetdt {
+                                weatherCell(UVIndex: UVIndex)
+                            } else if UVIndex.dt >= (weatherManager.sunrisedt + dayHours) {
+                                weatherCell(UVIndex: UVIndex)
                             }
                         }
                     }
                     .padding(.top)
                 }
             } label: {
-                Text("\(Image(systemName: "calendar")) Hourly UV forecast")
+                Text("\(Image(systemName: "clock")) Hourly UV forecast")
                 Divider()
             }
             .groupBoxStyle(.custom)
+        }
+    }
+    
+    // View for each weather cell
+    @ViewBuilder
+    func weatherCell(UVIndex: HourlyWeather) -> some View {
+        let uvIndex = Int(UVIndex.uvi.rounded())
+        let uvTemp = Int(UVIndex.temp.rounded())
+        
+        if let status = UVIndex.main {
+            Text(String(uvIndex))
+                .UVForecastMod(time: UVIndex.dt, colour: self.colourScheme(uvIndex), UVOffset: CGFloat(uvIndex), weatherIcon: self.weatherIcon(status), temp: uvTemp)
+        } else {
+            EmptyView()
         }
     }
 }
@@ -50,6 +67,7 @@ struct UVForecast: ViewModifier {
     var temp: Int
     
     @EnvironmentObject var weatherManager: WeatherManager
+    @State var dayView: Bool = true
     
     // Creates the weather information per hour
     func body(content: Content) -> some View {
@@ -57,6 +75,7 @@ struct UVForecast: ViewModifier {
             let sunrise = weatherManager.sunrise
             let sunset = weatherManager.sunset
             let currentTime = weatherManager.getTime(time)
+            
             Group {
                 Text("\(weatherIcon)")
                     .font(.caption)

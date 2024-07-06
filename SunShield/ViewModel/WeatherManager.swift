@@ -53,6 +53,10 @@ class WeatherManager: ObservableObject {
         return weatherData.hourly
     }
     
+    var dailyWeather: [DailyWeather] {
+        return weatherData.daily
+    }
+    
     // Returns the device location
     var deviceLocation: String {
         locationName
@@ -63,9 +67,17 @@ class WeatherManager: ObservableObject {
         getTime(weatherData.current.sunrise)
     }
     
+    var sunrisedt: Int {
+        weatherData.current.sunrise
+    }
+    
     // Returns the current sunset
     var sunset: String {
         getTime(weatherData.current.sunset)
+    }
+    
+    var sunsetdt: Int {
+        weatherData.current.sunset
     }
     
     // Returns the current cloud percentage
@@ -140,6 +152,7 @@ class WeatherManager: ObservableObject {
                 // Sets the current device coordinates.
                 self.coordinates = (coordinates.latitude, coordinates.longitude)
                 
+                print(coordinates)
                 // If it's the first fetch, then it'll call for a weather update and create a timer.
                 if self.isFirstFetch {
                     self.fetchWeather()

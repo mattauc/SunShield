@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6715CD962C3785BF009BE1C3 /* TermsAndConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6715CD952C3785BF009BE1C3 /* TermsAndConditions.swift */; };
 		6715CD982C3794DB009BE1C3 /* PrivacyPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6715CD972C3794DB009BE1C3 /* PrivacyPolicy.swift */; };
+		6715CD9A2C38C013009BE1C3 /* WeekUVChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6715CD992C38C013009BE1C3 /* WeekUVChart.swift */; };
 		672468D22C26E618003F4849 /* DIGITALDREAM.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 672468D12C26E618003F4849 /* DIGITALDREAM.ttf */; };
 		672468D52C26E9C2003F4849 /* CardContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672468D42C26E9C2003F4849 /* CardContent.swift */; };
 		672468D72C27C9CC003F4849 /* TimerButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 672468D62C27C9CC003F4849 /* TimerButtons.swift */; };
@@ -57,6 +58,7 @@
 /* Begin PBXFileReference section */
 		6715CD952C3785BF009BE1C3 /* TermsAndConditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditions.swift; sourceTree = "<group>"; };
 		6715CD972C3794DB009BE1C3 /* PrivacyPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicy.swift; sourceTree = "<group>"; };
+		6715CD992C38C013009BE1C3 /* WeekUVChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekUVChart.swift; sourceTree = "<group>"; };
 		672468D12C26E618003F4849 /* DIGITALDREAM.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DIGITALDREAM.ttf; sourceTree = "<group>"; };
 		672468D32C26E67C003F4849 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		672468D42C26E9C2003F4849 /* CardContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardContent.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				672468E22C2FA092003F4849 /* SkinTypeInfo.swift */,
 				6715CD952C3785BF009BE1C3 /* TermsAndConditions.swift */,
 				6715CD972C3794DB009BE1C3 /* PrivacyPolicy.swift */,
+				6715CD992C38C013009BE1C3 /* WeekUVChart.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -387,6 +390,7 @@
 				67355B9C2C250D4B00136FB7 /* UserManager.swift in Sources */,
 				67355B952C23D32A00136FB7 /* Extensions.swift in Sources */,
 				67355B8A2C228B5B00136FB7 /* NetworkManager.swift in Sources */,
+				6715CD9A2C38C013009BE1C3 /* WeekUVChart.swift in Sources */,
 				67355B812C22613D00136FB7 /* WelcomeView.swift in Sources */,
 				672468DF2C2E5A21003F4849 /* ToggleButton.swift in Sources */,
 				67355B6D2C225E7900136FB7 /* SunShieldApp.swift in Sources */,
@@ -577,7 +581,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.mauc.SunShield;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mattauc.SunShield;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -618,7 +622,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.mauc.SunShield;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mattauc.SunShield;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

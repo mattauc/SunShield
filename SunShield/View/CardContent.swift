@@ -34,9 +34,13 @@ struct CardContent: View {
 
                     TimerView(colourScheme: colourScheme(weatherManager.currentUV), startTime: $startTime)
                 }
+                Divider()
                 TimerButtons(colourScheme: self.colourScheme(weatherManager.currentUV), startTime: $startTime)
+                Divider()
             }
+            
             DailyUVChart(colourScheme: self.colourScheme, weatherIcon: self.weatherIcon)
+            WeekUVChart(colourScheme: self.colourScheme, weatherIcon: self.weatherIcon)
         }
     }
     
@@ -129,10 +133,11 @@ struct CustomGroupBox: GroupBoxStyle {
                 .bold()
                 .font(.callout)
             configuration.content
-            
         }
         .padding()
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 15))
+        .background(RoundedRectangle(cornerRadius: 15)
+            .fill(.gray)
+            .opacity(0.2))
     }
 }
 

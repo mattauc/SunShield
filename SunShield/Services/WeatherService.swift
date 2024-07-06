@@ -17,7 +17,7 @@ class WeatherService {
     // Calls the proxy server gathers the weather informatin
     func getCurrentWeather(lat: CLLocationDegrees, lon: CLLocationDegrees) -> AnyPublisher<WeatherResponse, Error> {
 
-        let endpoint = WeatherEndpoint.getWeather(latitude: String(lat), longitude: String(lon), exclude: "minutely,alerts,daily", units: "metric")
+        let endpoint = WeatherEndpoint.getWeather(latitude: String(lat), longitude: String(lon), exclude: "minutely,alerts", units: "metric")
         do {
             return try apiClient.request(endpoint)
                 .map { (response: WeatherResponse) in

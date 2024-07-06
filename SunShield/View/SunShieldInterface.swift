@@ -82,7 +82,7 @@ struct SunShieldInterface: View {
     var homeView: some View {
         ZStack {
             ScrollView(.vertical, showsIndicators: false) {
-                VStack {
+                VStack(spacing: 0) {
                     VStack(alignment: .center, spacing: 5) {
                         currentWeather
                             .opacity(getTitleOpacity())
@@ -94,9 +94,10 @@ struct SunShieldInterface: View {
                     .offset(y: getTitleOffset()+titleOffsetMax)
                     
                     // Card content is dispalyed below the primary view
-                    VStack(spacing: 8) {
+                    VStack(spacing: 0) {
                         CardContent(colourScheme: getColourScheme, weatherIcon: getWeatherCondition)
                             .padding(.horizontal)
+                            .offset(y: -titleOffsetMax)
                     }
                 }
                 .padding(.top, 25)
