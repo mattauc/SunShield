@@ -14,30 +14,22 @@ struct TimerView: View {
     @Binding var startTime: Date?
     
     private let defaultTime: String = "00:00:00"
-    private let timeFormat: String = "%02d:%02d:%02d"
-    private let fontSize: CGFloat = 20
-    private let textFrameHeight: CGFloat = 30
-    private let frameWidth: CGFloat = 150
-    private let frameHeight: CGFloat = 35
+    private let timeFormat = "%02d:%02d:%02d"
+    private let fontSize: CGFloat = 50
+    private let textFrameHeight: CGFloat = 40
 
     // Displays the primary timer
     var body: some View {
-        GroupBox {
+        ZStack {
             Text("\(formattedTime)")
                 .bold()
                 .font(.custom("DIGITALDREAM", size: fontSize))
                 .padding(.top, 1)
                 .foregroundColor(colourScheme)
                 .shadow(color: colourScheme, radius:2)
-                .background(RoundedRectangle(cornerRadius: 10)
-                    .fill(colourScheme)
-                    .opacity(0.1)
-                    .frame(width: frameWidth, height: frameHeight))
                 .frame(height: textFrameHeight)
-        } label: {
-            Text("\(Image(systemName: "hourglass.bottomhalf.fill")) Reapplication")
         }
-        .groupBoxStyle(.custom)
+        .padding()
     }
     
     // Formats the timer time

@@ -17,7 +17,6 @@ struct WelcomeView: View {
     @EnvironmentObject var userManager: UserManager
     var buttonColour = Color(red: 1.0, green: 0.4, blue: 0.2)
     @State private var selectedType: String?
-    @State var skinInfo: Bool = false
     
     private let welcomeFontSize: CGFloat = 32
     private let skinInfoHorizontalPadding: CGFloat = 150
@@ -27,29 +26,30 @@ struct WelcomeView: View {
     
     // Welcome window
     var body: some View {
-        
-        // Sends to the homescreen when button pressed
-        if isPressed {
-            SunShieldInterface()
-        } else {
-            ZStack {
-                sunWallpaper
-                VStack {
-                    Text("Welcome!")
-                        .font(.system(size: welcomeFontSize, weight: .bold, design: .default))
-                        .padding([.bottom, .top], 8)
-                        .foregroundColor(Color.primary)
-                    
-                    Text("Never forget your sun protection again with SunShield, your personalized sunscreen reminder.")
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 130)
-                        .foregroundColor(Color.primary)
-                        .padding(.bottom, 40)
-                    skinTypeSelection
-                    nextButton
-                        .padding()
+        NavigationView {
+            // Sends to the homescreen when button pressed
+            if isPressed {
+                SunShieldInterface()
+            } else {
+                ZStack {
+                    sunWallpaper
+                    VStack {
+                        Text("Welcome!")
+                            .font(.system(size: welcomeFontSize, weight: .bold, design: .default))
+                            .padding([.bottom, .top], 8)
+                            .foregroundColor(Color.primary)
+                        
+                        Text("Never forget your sun protection again with SunShield, your personalized sunscreen reminder.")
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 130)
+                            .foregroundColor(Color.primary)
+                            .padding(.bottom, 40)
+                        skinTypeSelection
+                        nextButton
+                            .padding()
+                    }
+                    .offset(y: 130)
                 }
-                .offset(y: 130)
             }
         }
     }
@@ -83,63 +83,22 @@ struct WelcomeView: View {
     // Skin Type selection buttons displayed beneath the welcome text
     var skinTypeSelection: some View {
         VStack {
-            if skinInfo {
-                skinInfoOverlay
-                    .padding(.horizontal, skinInfoHorizontalPadding)
-            }
             HStack {
                 Group {
                     Text("Select Your Skin Type")
                         .font(.title3)
                         .bold()
-                    Button {
-                        withAnimation {
-                            skinInfo.toggle()
-                        }
-                    } label: {
+                    NavigationLink(destination: SkinTypeInfo()) {
                         Image(systemName: "info.circle")
                             .foregroundColor(buttonColour)
+                            .font(.title2)
                     }
-                    .font(.title2)
                 }
                 .offset(x: infoIconOffset,  y: infoIconOffsetY)
             }
             .padding(.bottom)
             skinButtons
         }
-    }
-    
-    // Skin information overlay - when information icon pressed
-    var skinInfoOverlay: some View {
-        GroupBox {
-            VStack(alignment: .leading, spacing: 16) {
-                Link("Skin Type Information", destination: URL(string: "https://www.fda.gov/radiation-emitting-products/tanning/your-skin")!)
-                    .font(.title)
-                    .bold()
-                    .padding(.bottom, 16)
-                    .foregroundColor(.red)
-                infoTextValues
-                HStack {
-                    Spacer()
-                    Button {
-                        withAnimation {
-                            skinInfo.toggle()
-                        }
-                    } label: {
-                        Text("Dismiss")
-                            .padding()
-                            .background(Color.red)
-                            .foregroundColor(.white)
-                            .cornerRadius(8)
-                    }
-                    .padding(.top, 16)
-                    Spacer()
-                }
-            }
-            .cornerRadius(10)
-            .shadow(radius: 10)
-        }
-        .groupBoxStyle(.custom)
     }
     
     // Skin information text

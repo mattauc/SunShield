@@ -8,25 +8,14 @@
 import Foundation
 
 // SPF Type information
-enum SPFType: Identifiable, Codable {
-  
-    case fifteen
-    case thirty
-    case fifty
-    case hundred
+enum SPFType: String, Identifiable, CaseIterable, Codable {
+    case fifteen = "15"
+    case thirty = "30"
+    case fifty = "50"
+    case hundred = "100"
     
-    // String values
     var id: String {
-        switch self {
-        case .fifteen:
-            return "15"
-        case .thirty:
-            return "30"
-        case .fifty:
-            return "50"
-        case .hundred:
-            return "100"
-        }
+        rawValue
     }
     
     // SPFW for various (SPF) levels
@@ -102,6 +91,11 @@ struct UserProfile: Codable {
     private(set) var weatherInfo: WeatherResponse?
     private(set) var timerCount: Int = 0
     private(set) var timeUntilReapply = 0
+    
+    init(spf: SPFType, skin: SkinType) {
+        self.SPF = spf
+        self.skin = skin
+    }
     
     // Updates the user SPF type
     mutating func updateSPF(SPF: SPFType) {

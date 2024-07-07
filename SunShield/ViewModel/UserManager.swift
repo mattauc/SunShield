@@ -22,8 +22,24 @@ extension UserDefaults {
     }
     
     // Encodes the SkinType
-    func set(_ skinType: SkinType, forKey key: String) {
+    func setSkin(_ skinType: SkinType, forKey key: String) {
         let data = try? JSONEncoder().encode(skinType)
+        set(data, forKey: key)
+    }
+    
+    // Retrieves and decodes the SPFType
+    func getSPFType(forKey key: String) -> SPFType {
+        if let jsonData = data(forKey: key),
+           let decodedValues = try? JSONDecoder().decode(SPFType.self, from: jsonData) {
+            return decodedValues
+        } else {
+            return SPFType.fifteen
+        }
+    }
+    
+    // Encodes the SPFType
+    func setSpf(_ spfType: SPFType, forKey key: String) {
+        let data = try? JSONEncoder().encode(spfType)
         set(data, forKey: key)
     }
 }
@@ -34,11 +50,13 @@ class UserManager: ObservableObject {
     private var timer: Timer?
     private var cancellables = Set<AnyCancellable>()
     private let skinTypeKey = "userSkinType"
+    private let spfTypeKey = "userSpfType"
     
     init() {
         // Retrieves the stored SkinType
         let initialSkinType = UserDefaults.standard.getSkinType(forKey: skinTypeKey)
-        self.userProfile = UserProfile(skin: initialSkinType)
+        let initialSpfType = UserDefaults.standard.getSPFType(forKey: spfTypeKey)
+        self.userProfile = UserProfile(spf: initialSpfType, skin: initialSkinType)
     }
     
     // Returns an array of all the SPFTypes
@@ -54,6 +72,11 @@ class UserManager: ObservableObject {
     // Returns the users SkinType
     var userSkin: SkinType {
         userProfile.skin
+    }
+    
+    // Returns the users SPF
+    var userSpf: SPFType {
+        userProfile.SPF
     }
     
     // Returns the timerCount
@@ -112,12 +135,13 @@ class UserManager: ObservableObject {
     // Updates the user SPF data
     func updateUserSPF(spf: SPFType) {
         userProfile.updateSPF(SPF: spf)
+        UserDefaults.standard.setSpf(spf, forKey: spfTypeKey)
     }
     
     // Updates the user SkinType
     func updateUserSkinType(skin: SkinType) {
         userProfile.updateSkin(type: skin)
-        UserDefaults.standard.set(skin, forKey: skinTypeKey)
+        UserDefaults.standard.setSkin(skin, forKey: skinTypeKey)
     }
     
     // Subscribes to the weather data providedby WeatherManager

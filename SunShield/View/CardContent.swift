@@ -25,58 +25,15 @@ struct CardContent: View {
     
     var body: some View {
         ScrollView(showsIndicators: false) {
-            
             // VStack that encompasses all the content below the primary display
             VStack {
                 UVCard
-                HStack{
-                    spfSelection
+                DailyUVChart(colourScheme: self.colourScheme, weatherIcon: self.weatherIcon)
+                WeekUVChart(colourScheme: self.colourScheme, weatherIcon: self.weatherIcon)
+            }
+        }
+    }
 
-                    TimerView(colourScheme: colourScheme(weatherManager.currentUV), startTime: $startTime)
-                }
-                Divider()
-                TimerButtons(colourScheme: self.colourScheme(weatherManager.currentUV), startTime: $startTime)
-                Divider()
-            }
-            
-            DailyUVChart(colourScheme: self.colourScheme, weatherIcon: self.weatherIcon)
-            WeekUVChart(colourScheme: self.colourScheme, weatherIcon: self.weatherIcon)
-        }
-    }
-    
-    // SPF Selection card
-    var spfSelection: some View {
-        GroupBox {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    ForEach(Array(userManager.spfTypes.enumerated()), id: \.element.id) { index, type in
-                        Text(type.id)
-                            .font(.largeTitle)
-                            .bold()
-                            .padding()
-                            .containerRelativeFrame(.horizontal, count: 1, spacing: 1)
-                            .background(SPFSelected == index ? Capsule()
-                                
-                                .fill(colourScheme(weatherManager.currentUV))
-                                .padding()
-                                .opacity(0.5) : nil)
-                            
-                            .onTapGesture {
-                                SPFSelected = index
-                                userManager.updateUserSPF(spf: type)
-                            }
-                    }
-                }
-                .scrollTargetLayout()
-            }
-            .frame(height: cardHeight)
-            .scrollTargetBehavior(.viewAligned)
-        } label: {
-            Text("\(Image(systemName: "sun.max")) Sunscreen SPF")
-        }
-        .groupBoxStyle(.custom)
-    }
-    
     // UV information card
     var UVCard: some View {
         GroupBox {

@@ -30,7 +30,7 @@ struct SkinTypeInfo: View {
         } label: {
             NavigationLink(destination: Text("")) {
                 VStack {
-                    Link("Skin Type Information", destination: URL(string: "https://dermnetnz.org/topics/skin-phototype")!)
+                    Link("Skin Type Information", destination: URL(string: "https://www.fda.gov/radiation-emitting-products/tanning/your-skin")!)
                         .font(.largeTitle)
                         .bold()
                     Divider()

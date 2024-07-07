@@ -84,10 +84,18 @@ struct SunShieldInterface: View {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 0) {
                     VStack(alignment: .center, spacing: 5) {
-                        currentWeather
-                            .opacity(getTitleOpacity())
-                        subWeatherInfo
-                            .opacity(getTitleOpacity())
+                        Group {
+                            currentWeather
+                                
+                            subWeatherInfo
+                          
+                            TimerView(colourScheme: colourScheme, startTime: $startTime)
+                            
+                            Divider()
+                            TimerButtons(colourScheme: colourScheme, startTime: $startTime)
+                        }
+                        .opacity(getTitleOpacity())
+                        
                     }
                     .offset(y: -scrollOffset)
                     .offset(y: scrollOffset > 0 ? (scrollOffset / UIScreen.main.bounds.width) * 100 : 0)
