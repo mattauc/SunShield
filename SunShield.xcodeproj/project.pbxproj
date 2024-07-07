@@ -570,7 +570,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SunShield/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SunShield;
-				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need to access your location to provide accurate UV index information and timely sunscreen reapplication reminders for your current area.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need to access your location to provide accurate UV index information and timely sunscreen reapplication reminders for your current area.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -611,7 +611,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SunShield/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SunShield;
-				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need to access your location to provide accurate UV index information and timely sunscreen reapplication reminders for your current area.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need to access your location to provide accurate UV index information and timely sunscreen reapplication reminders for your current area.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
