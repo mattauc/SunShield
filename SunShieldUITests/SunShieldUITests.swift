@@ -34,14 +34,17 @@ final class SunShieldUITests: XCTestCase {
         app.launchArguments += ["-isWelcomeScreenOver", "YES"]
         app.launch()
         
-        let elementsQuery = XCUIApplication().scrollViews.otherElements.scrollViews.otherElements.scrollViews.otherElements
-        elementsQuery.staticTexts["15"].swipeLeft()
-        XCTAssertTrue(elementsQuery.staticTexts["30"].exists)
-        elementsQuery.staticTexts["30"].tap()
-        elementsQuery.staticTexts["30"].swipeLeft()
-        elementsQuery.staticTexts["50"].swipeLeft()
-        XCTAssertTrue(elementsQuery.staticTexts["100"].exists)
-        elementsQuery.staticTexts["100"].tap()
+        let settings = app.navigationBars["_TtGC7SwiftUI32NavigationStackHosting"].buttons["gearshape"]
+        XCTAssertTrue(settings.exists)
+        settings.tap()
+        
+        let collectionViewsQuery = app.collectionViews
+        XCTAssertTrue(collectionViewsQuery.buttons["15"].exists)
+        XCTAssertTrue(collectionViewsQuery.buttons["30"].exists)
+        XCTAssertTrue(collectionViewsQuery.buttons["50"].exists)
+        XCTAssertTrue(collectionViewsQuery.buttons["100"].exists)
+        collectionViewsQuery.buttons["15"].tap()
+        collectionViewsQuery/*@START_MENU_TOKEN@*/.buttons["100"]/*[[".cells",".segmentedControls.buttons[\"100\"]",".buttons[\"100\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tap()
     }
     
     func testUVIndexInformationPage() throws {
@@ -91,14 +94,15 @@ final class SunShieldUITests: XCTestCase {
         app.launchArguments += ["-isWelcomeScreenOver", "YES"]
         app.launch()
         
-        let elementsQuery = XCUIApplication().scrollViews.otherElements.scrollViews.otherElements
-        
+        let elementsQuery = XCUIApplication().scrollViews.otherElements
         XCTAssertTrue(elementsQuery.buttons["Start"].exists)
         elementsQuery.buttons["Start"].tap()
+        XCTAssertTrue(elementsQuery.buttons["Stop"].exists)
+        elementsQuery.buttons["Stop"].tap()
         
-        XCTAssertTrue(elementsQuery/*@START_MENU_TOKEN@*/.staticTexts["Restart"]/*[[".buttons[\"Restart\"].staticTexts[\"Restart\"]",".staticTexts[\"Restart\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.exists)
-        elementsQuery/*@START_MENU_TOKEN@*/.staticTexts["Restart"]/*[[".buttons[\"Restart\"].staticTexts[\"Restart\"]",".staticTexts[\"Restart\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-        
+        let restartButton = elementsQuery.buttons["Restart"]
+        XCTAssertTrue(restartButton.exists)
+        restartButton.tap()
     }
     
     func testLaunchPerformance() throws {

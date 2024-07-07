@@ -36,6 +36,7 @@
 		67D829382C34E4160064F6C0 /* SunShieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D829372C34E4160064F6C0 /* SunShieldTests.swift */; };
 		67D829542C3502570064F6C0 /* SunShieldUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D829532C3502570064F6C0 /* SunShieldUITests.swift */; };
 		67D829562C3502570064F6C0 /* SunShieldUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D829552C3502570064F6C0 /* SunShieldUITestsLaunchTests.swift */; };
+		67D9F92D2C3A2775003880FE /* WeatherManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D9F92C2C3A2775003880FE /* WeatherManagerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		67D829512C3502570064F6C0 /* SunShieldUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SunShieldUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		67D829532C3502570064F6C0 /* SunShieldUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunShieldUITests.swift; sourceTree = "<group>"; };
 		67D829552C3502570064F6C0 /* SunShieldUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunShieldUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		67D9F92C2C3A2775003880FE /* WeatherManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManagerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				67D829372C34E4160064F6C0 /* SunShieldTests.swift */,
+				67D9F92C2C3A2775003880FE /* WeatherManagerTests.swift */,
 			);
 			path = SunShieldTests;
 			sourceTree = "<group>";
@@ -404,6 +407,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67D9F92D2C3A2775003880FE /* WeatherManagerTests.swift in Sources */,
 				67D829382C34E4160064F6C0 /* SunShieldTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

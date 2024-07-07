@@ -121,7 +121,7 @@ class WeatherManager: ObservableObject {
     }
     
     // Function that calls the proxy and returns weather
-    private func fetchWeather() {
+    func fetchWeather() {
         weatherService.getCurrentWeather(lat: coordinates.lat, lon: coordinates.lon)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in

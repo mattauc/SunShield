@@ -8,12 +8,12 @@
 import Foundation
 
 // Weather type
-struct Weather: Codable {
+struct Weather: Codable, Equatable {
     var main: String = "Clear"
 }
 
 // Current weather model
-struct CurrentWeather: Codable {
+struct CurrentWeather: Codable, Equatable {
     var dt: Int = 0
     var uvi: Double = 0.0
     var weather: [Weather] = [Weather()]
@@ -28,7 +28,7 @@ struct CurrentWeather: Codable {
 }
 
 // Hourly weather model
-struct HourlyWeather: Codable {
+struct HourlyWeather: Codable, Equatable {
     var dt: Int = 0
     var uvi: Double = 0.0
     var temp: Double = 0.0
@@ -41,7 +41,7 @@ struct HourlyWeather: Codable {
 
 
 // Daily weather model
-struct DailyWeather: Codable {
+struct DailyWeather: Codable, Equatable {
     var dt: Int = 0
     var uvi: Double = 0.0
     var temp: temp = temp()
@@ -51,13 +51,13 @@ struct DailyWeather: Codable {
         return weather.first?.main
     }
     
-    struct temp: Codable {
+    struct temp: Codable, Equatable {
         var max: Double = 0.0
     }
 }
 
 // Weather response model
-struct WeatherResponse: Codable {
+struct WeatherResponse: Codable, Equatable {
     var current: CurrentWeather = CurrentWeather()
     var hourly: [HourlyWeather] = [HourlyWeather()]
     var daily: [DailyWeather] = [DailyWeather()]
