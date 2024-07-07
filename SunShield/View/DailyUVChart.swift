@@ -32,7 +32,6 @@ struct DailyUVChart: View {
                             }
                         }
                     }
-                    .padding(.top)
                 }
             } label: {
                 Text("\(Image(systemName: "clock")) Hourly UV forecast")
@@ -65,6 +64,7 @@ struct UVForecast: ViewModifier {
     var lineWidth: CGFloat = 2
     var weatherIcon: String
     var temp: Int
+    let radius: CGFloat = 30
     
     @EnvironmentObject var weatherManager: WeatherManager
     @State var dayView: Bool = true
@@ -83,18 +83,23 @@ struct UVForecast: ViewModifier {
                     ZStack {
                         Circle()
                             .stroke(colour.opacity(0), lineWidth: lineWidth)
+                            .frame(width: radius, height: radius)
                         Image(systemName: sunrise == currentTime ? "sunrise.fill" : "sunset.fill")
+                        
                     }
                 } else {
                     ZStack {
-                        Circle()
-                            .stroke(colour.opacity(1), lineWidth: lineWidth)
+//                        Circle()
+//                            .stroke(colour.opacity(1), lineWidth: lineWidth)
+//
                         content
+                            .uvIndexMod(UVIndex: Int(UVOffset), colourScheme: colour, radius: radius, lineWidth: lineWidth)
+                            //.frame(width: radius, height: radius)
+                        
                     }
                 }
             }
             .font(.title3)
-            .offset(y: UVOffset*(-2))
             Text("\(temp)°C")
                 .font(.caption2)
             Text(currentTime)
@@ -102,7 +107,6 @@ struct UVForecast: ViewModifier {
                 .foregroundColor(.white)
                 .opacity(0.5)
         }
-        .padding(.top)
     }
 }
 

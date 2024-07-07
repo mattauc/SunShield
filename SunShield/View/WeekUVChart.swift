@@ -78,7 +78,7 @@ struct UVProgressBar: View {
     var body: some View {
         ZStack(alignment: .leading) {
             RoundedRectangle(cornerRadius: cornerRadius)
-                .fill(Color.gray.opacity(0.5))
+                .fill(colour.opacity(0.3))
                 .frame(width: progressBarWidth, height: barHeight)
         
             RoundedRectangle(cornerRadius: cornerRadius)

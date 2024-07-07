@@ -149,7 +149,7 @@ struct SunShieldInterface: View {
             
             Text(String(Int(weatherManager.currentWeather.uvi.rounded())))
                 .font(.system(size: uvIndexFontSize))
-                .uvIndexMod(UVIndex: weatherManager.currentUV, colourScheme: colourScheme)
+                .uvIndexMod(UVIndex: weatherManager.currentUV, colourScheme: colourScheme, radius: CGFloat(150), lineWidth: CGFloat(18))
                 .padding(.horizontal, 100)
                 .padding(.bottom, 10)
         }

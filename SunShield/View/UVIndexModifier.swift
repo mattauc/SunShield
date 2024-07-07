@@ -11,11 +11,12 @@ import SwiftUI
 struct UVIndexModifier: ViewModifier {
     var UVIndex: Int
     var colour: Color
+    var radius: CGFloat
+    var lineWidth: CGFloat
     
-    private let lineWidth: CGFloat = 18
+    //private let lineWidth: CGFloat = 18
     private let backgroundOpacity: CGFloat = 0.3
     private let rotationDegrees: Double = -90
-    private let radius: CGFloat = 150
     
     // Circle progress bar logic
     func body(content: Content) -> some View {
@@ -38,8 +39,8 @@ struct UVIndexModifier: ViewModifier {
 }
 
 extension View {
-    func uvIndexMod(UVIndex: Int, colourScheme: Color) -> some View {
-        self.modifier(UVIndexModifier(UVIndex: UVIndex, colour: colourScheme))
+    func uvIndexMod(UVIndex: Int, colourScheme: Color, radius: CGFloat, lineWidth: CGFloat) -> some View {
+        self.modifier(UVIndexModifier(UVIndex: UVIndex, colour: colourScheme, radius: radius, lineWidth: lineWidth))
     }
 }
 
