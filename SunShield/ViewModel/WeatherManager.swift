@@ -152,7 +152,6 @@ class WeatherManager: ObservableObject {
                 // Sets the current device coordinates.
                 self.coordinates = (coordinates.latitude, coordinates.longitude)
                 
-                print(coordinates)
                 // If it's the first fetch, then it'll call for a weather update and create a timer.
                 if self.isFirstFetch {
                     self.fetchWeather()

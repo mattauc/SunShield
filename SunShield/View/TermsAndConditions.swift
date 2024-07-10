@@ -125,7 +125,7 @@ struct TermsAndConditions: View {
                         Text("13. Contact Us")
                             .font(.title2)
                             .bold()
-                        Text("If you have any questions about these Terms and Conditions, you can contact us: sunshield@gmail.com")
+                        Text("If you have any questions about these Terms and Conditions, you can contact us: matt.auciello1999@gmail.com")
                         
                         Text("Last updated: July 5, 2024")
                     }
