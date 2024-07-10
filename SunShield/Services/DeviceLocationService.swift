@@ -33,9 +33,8 @@ class DeviceLocationService: NSObject, ObservableObject, CLLocationManagerDelega
         switch locationManager.authorizationStatus {
             
         case .notDetermined:
-            //locationManager.requestWhenInUseAuthorization()
-            locationManager.requestAlwaysAuthorization()
-            
+            locationManager.requestWhenInUseAuthorization()
+
         case .authorizedWhenInUse, .authorizedAlways:
             locationManager.startUpdatingLocation()
             

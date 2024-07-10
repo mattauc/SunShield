@@ -20,37 +20,46 @@ struct SettingsPage: View {
             Form {
                 Section {
                     selectSkinType
+                        .modifier(CustomBackgroundModifier())
                 }
                 
                 Section {
                     selectSpfType
+                        .modifier(CustomBackgroundModifier())
                 }
                 
                 Section(header: Text("Additional Information")) {
                     NavigationLink(destination: SkinTypeInfo()) {
                         Text("📘 Skin Types")
                     }
+                    .modifier(CustomBackgroundModifier())
                 
                     NavigationLink(destination: UVIndexInfo()) {
                         Text("☀️ UV Index")
+                    
                     }
+                    .modifier(CustomBackgroundModifier())
                 }
                 
                 Section {
                     NavigationLink(destination: Acknowledgements()) {
                         Text("Acknowledgements")
                     }
+                    .modifier(CustomBackgroundModifier())
                     
                     NavigationLink(destination: PrivacyPolicy()) {
                         Text("Privacy Policy")
                     }
+                    .modifier(CustomBackgroundModifier())
                     
                     NavigationLink(destination: TermsAndConditions()) {
                         Text("Terms and Conditions")
-                            .foregroundColor(.red)
                     }
+                    .modifier(CustomBackgroundModifier())
                 }
             }
+            .background(LinearGradient(gradient: Gradient(colors: [accentColour.opacity(0.3), Color.clear]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all))
+            .scrollContentBackground(.hidden)
             .navigationTitle("Settings")
         }
         .onAppear {
@@ -63,6 +72,7 @@ struct SettingsPage: View {
             }
         }
         .accentColor(self.accentColour)
+        
     }
     
     // Select skin type picker view
@@ -116,6 +126,17 @@ struct Acknowledgements: View {
             .padding()
         }
         .navigationTitle("Acknowledgements")
+    }
+}
+
+struct CustomBackgroundModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .listRowBackground(
+                RoundedRectangle(cornerRadius: 0)
+                    .fill(Color.gray)
+                    .opacity(0.2)
+            )
     }
 }
 

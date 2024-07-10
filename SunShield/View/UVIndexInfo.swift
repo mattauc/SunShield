@@ -59,6 +59,7 @@ struct UVIndexInfo: View {
             }
             .padding()
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 

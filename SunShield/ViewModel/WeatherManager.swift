@@ -158,22 +158,11 @@ class WeatherManager: ObservableObject {
                     self.fetchWeather()
                     self.isFirstFetch = false
                     self.setupHourlyWeatherFetch()
+                    self.fetchLocationName()
                 }
                 
-                // Function to throttle and control the location name updates
-                self.fetchLocationNameThrottle()
             }
             .store(in: &tokens)
-    }
-    
-    // Calls for a location name update if device has moved.
-    private func fetchLocationNameThrottle() {
-        let newLocation = CLLocation(latitude: coordinates.lat, longitude: coordinates.lon)
-        if let lastLocation = self.lastKnownLocation, newLocation.distance(from: lastLocation) < 100 {
-            return
-        }
-        self.lastKnownLocation = newLocation
-        self.fetchLocationName()
     }
     
     // Sends an error if the device no longer has access to the device location.

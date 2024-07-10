@@ -26,7 +26,7 @@ struct UVIndexModifier: ViewModifier {
                 .frame(width: radius, height: radius)
             
             Circle()
-                .trim(from: 0, to: CGFloat(UVIndex) / 12)
+                .trim(from: 0, to: CGFloat(UVIndex) / 13)
                 .stroke(
                     AngularGradient(gradient: Gradient(colors: [colour, colour.opacity(1)]), center: .center),
                     style: StrokeStyle(lineWidth: lineWidth, lineCap: .round)
