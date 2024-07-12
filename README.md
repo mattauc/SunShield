@@ -4,10 +4,14 @@
 
 SunShield is an app designed to help you manage sun exposure and protect your skin. It gathers your device's location, fetches current weather data from the [OpenWeatherMap API](https://home.openweathermap.org/), and calculates the time until sunburn based on your skin type, SPF, and the UV index at your location. The app sends a notification when it's time to reapply sunscreen.
 
+
+https://github.com/mattauc/SunShield/assets/63832577/ccac5b54-2e05-4f6f-9370-b28950dcc7c8
+
+
 ## Features
 
 - **Location-Based UV Monitoring:** Automatically fetches UV index data based on your device's location.
-- **Personalized Sunburn Timer:** Calculates sunburn risk based on your skin type and SPF.
+- **Personalized Sunburn Timer:** Calculates sunburn risk based on your skin type.
 - **Reapplication Notifications:** Alerts you when it's time to reapply sunscreen.
 
 ## Getting Started
