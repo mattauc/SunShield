@@ -15,6 +15,7 @@ struct TimerButtons: View {
     @Binding var startTime: Date?
     @State var start: Bool = false
     @State var canPress: Bool = false
+    @State var displayWarning: Bool = true
     
     
     private let buttonSpacing: CGFloat = 20
@@ -24,18 +25,54 @@ struct TimerButtons: View {
     
     // Timer button view
     var body: some View {
-        HStack(spacing: buttonSpacing) {
-            restartButton
-            startButton
-                .onChange(of: userManager.timerCount) {newValue, oldValue in
-                    if let startTime = startTime {
-                        if newValue - Int(Date().timeIntervalSince(startTime)) < 0 {
-                            userManager.stopSunscreenTimer()
-                            self.startTime = nil
-                            self.start.toggle()
+        VStack {
+            HStack(spacing: buttonSpacing) {
+                restartButton
+                startButton
+                    .onChange(of: userManager.timerCount) {newValue, oldValue in
+                        if let startTime = startTime {
+                            if newValue - Int(Date().timeIntervalSince(startTime)) < 0 {
+                                userManager.stopSunscreenTimer()
+                                self.startTime = nil
+                                self.start.toggle()
+                            }
                         }
                     }
+            }
+            .onAppear {
+                withAnimation {
+                    if weatherManager.unformattedUV > 1.0 {
+                        canPress = true
+                    } else {
+                        canPress = false
+                    }
                 }
+            }
+            .onChange(of: weatherManager.unformattedUV) {
+                withAnimation {
+                    if weatherManager.unformattedUV > 1.0 {
+                        canPress = true
+                    } else {
+                        canPress = false
+                    }
+                }
+            }
+            if !canPress && displayWarning {
+                HStack {
+                    Button {
+                        withAnimation {
+                            self.displayWarning = false
+                        }
+                    } label : {
+                        Image(systemName: "xmark.circle")
+                            .foregroundColor(.primary)
+                    }
+                    Text("Info:")
+                        .bold()
+                    Text("Timer requires higher UV")
+                }
+                .padding(.horizontal)
+            }
         }
     }
     
@@ -60,9 +97,9 @@ struct TimerButtons: View {
         }) {
 
             HStack(spacing: buttonVerticalPadding) {
-                Image(systemName: self.canPress ? (self.start ? "stop.fill" : "play.fill") : "exclamationmark.octagon.fill")
+                Image(systemName: self.start ? "stop.fill" : "play.fill")
                     .foregroundColor(.primary)
-                Text(self.canPress ? (self.start ? "Stop" : "Start") : "LOW UV")
+                Text(self.start ? "Stop" : "Start")
                     .foregroundColor(.primary)
             }
 
@@ -71,11 +108,6 @@ struct TimerButtons: View {
             .background(self.canPress ? colourScheme : Color.gray)
             .clipShape(Capsule())
             .shadow(color: self.canPress ? colourScheme : Color.gray, radius: 2)
-        }
-        .onChange(of: weatherManager.unformattedUV) {
-            if weatherManager.unformattedUV > 1.0 {
-                canPress = true
-            }
         }
         .padding([.top, .bottom], hStackPadding)
         .disabled(!canPress)
@@ -98,20 +130,15 @@ struct TimerButtons: View {
             self.sendNotification(time: userManager.timerCount)
         }) {
             HStack(spacing: buttonVerticalPadding) {
-                Image(systemName: self.canPress ? "arrow.clockwise" : "exclamationmark.octagon.fill")
+                Image(systemName: "arrow.clockwise")
                     .foregroundColor(.primary)
-                Text(self.canPress ? "Restart" : "LOW UV")
+                Text("Restart")
                     .foregroundColor(.primary)
             }
             .padding(.vertical)
             .frame(width: (UIScreen.main.bounds.width / 2) - buttonHorizontalPadding)
             .background(Capsule().stroke(self.canPress ? colourScheme : Color.gray))
             .shadow(color: self.canPress ? colourScheme : Color.gray, radius: 2)
-        }
-        .onChange(of: weatherManager.unformattedUV) {
-            if weatherManager.unformattedUV > 1.0 {
-                canPress = true
-            }
         }
         .padding([.top, .bottom], hStackPadding)
         .disabled(!canPress)

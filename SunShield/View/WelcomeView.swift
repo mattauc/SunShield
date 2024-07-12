@@ -26,30 +26,30 @@ struct WelcomeView: View {
     
     // Welcome window
     var body: some View {
-        NavigationView {
+        NavigationStack {
             // Sends to the homescreen when button pressed
-            if isPressed {
-                SunShieldInterface()
-            } else {
-                ZStack {
-                    sunWallpaper
-                    VStack {
-                        Text("Welcome!")
-                            .font(.system(size: welcomeFontSize, weight: .bold, design: .default))
-                            .padding([.bottom, .top], 8)
-                            .foregroundColor(Color.primary)
-                        
-                        Text("Never forget your sun protection again with SunShield, your personalized sunscreen reminder.")
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 130)
-                            .foregroundColor(Color.primary)
-                            .padding(.bottom, 40)
-                        skinTypeSelection
-                        nextButton
-                            .padding()
-                    }
-                    .offset(y: 130)
+            ZStack {
+                sunWallpaper
+                VStack {
+                    Text("Welcome!")
+                        .font(.system(size: welcomeFontSize, weight: .bold, design: .default))
+                        .padding([.bottom, .top], 8)
+                        .foregroundColor(Color.primary)
+                    
+                    Text("Never forget your sun protection again with SunShield, your personalized sunscreen reminder.")
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 130)
+                        .foregroundColor(Color.primary)
+                        .padding(.bottom, 40)
+                    skinTypeSelection
+                    nextButton
+                        .padding()
+                        .navigationDestination(isPresented: $isPressed) {
+                            SunShieldInterface()
+                                .navigationBarBackButtonHidden(true)
+                        }
                 }
+                .offset(y: 130)
             }
         }
     }
@@ -88,15 +88,14 @@ struct WelcomeView: View {
                     Text("Select Your Skin Type")
                         .font(.title3)
                         .bold()
+                        .padding(.horizontal)
                     NavigationLink(destination: SkinTypeInfo()) {
                         Image(systemName: "info.circle")
                             .foregroundColor(buttonColour)
                             .font(.title2)
                     }
                 }
-                .offset(x: infoIconOffset,  y: infoIconOffsetY)
             }
-            .padding(.bottom)
             skinButtons
         }
     }
@@ -195,8 +194,10 @@ struct WelcomeView: View {
     // Next button - sends user to the homescreen
     var nextButton: some View {
         Button(action: {
-            isPressed = true
-            isWelcomeScreenOver = true
+            withAnimation {
+                isPressed = true
+                isWelcomeScreenOver = true
+            }
         }) {
             HStack() {
                 Text("Let's Get Started")
