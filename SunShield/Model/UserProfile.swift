@@ -120,16 +120,13 @@ struct UserProfile: Codable {
             return
         }
         
-        let uvIndex = weatherInfo.current.uvi
+        var uvIndex = weatherInfo.getMax24HourUV()
         let timeToSkinBurn = skin.timeToSkinBurn
         let sunProtectionFactorWeight = SPF.sunProtectionFactorWeight
         
         if uvIndex < 1 {
-            timerCount = 0
-            timeUntilReapply = 0
-            return
+            uvIndex = 1.0
         }
-        
         
         let timeToReapply = ((timeToSkinBurn / uvIndex ) * sunProtectionFactorWeight) * 60
         self.timerCount = Int(timeToReapply)

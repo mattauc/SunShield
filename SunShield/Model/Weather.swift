@@ -63,6 +63,16 @@ struct WeatherResponse: Codable, Equatable {
     var daily: [DailyWeather] = [DailyWeather()]
 }
 
+extension WeatherResponse {
+    
+    func getMax24HourUV() -> Double {
+        let currentTime = current.dt
+        let hoursLater = currentTime + (24 * 60 * 60)
+        
+        let next24Hours = hourly.filter { $0.dt >= currentTime && $0.dt <= hoursLater }
+        return next24Hours.map { $0.uvi }.max() ?? 0.0
+    }
+}
 
 
 

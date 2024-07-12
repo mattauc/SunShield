@@ -65,6 +65,7 @@ struct SunShieldInterface: View {
                 .animation(.easeInOut, value: colourScheme)
                 .navigationDestination(isPresented: $showSettings) {
                     SettingsPage(accentColour: colourScheme)
+
                 }
                 .toolbar {
                     Button {
@@ -121,6 +122,7 @@ struct SunShieldInterface: View {
             }
         }
     }
+    
     
     // Tool used for scrolling effect
     func getTitleOpacity() -> CGFloat {

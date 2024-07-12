@@ -11,8 +11,11 @@ import SwiftUI
 struct TimerButtons: View {
     var colourScheme: Color
     @EnvironmentObject var userManager: UserManager
+    @EnvironmentObject var weatherManager: WeatherManager
     @Binding var startTime: Date?
     @State var start: Bool = false
+    @State var canPress: Bool = false
+    
     
     private let buttonSpacing: CGFloat = 20
     private let hStackPadding: CGFloat = 10
@@ -38,7 +41,7 @@ struct TimerButtons: View {
     
     // Start button
     var startButton: some View {
-        
+
         // Button stops and starts the timer
         Button(action:  {
             if self.start {
@@ -55,19 +58,27 @@ struct TimerButtons: View {
             }
             self.start.toggle()
         }) {
+
             HStack(spacing: buttonVerticalPadding) {
-                Image(systemName: self.start ? "stop.fill" : "play.fill")
+                Image(systemName: self.canPress ? (self.start ? "stop.fill" : "play.fill") : "exclamationmark.octagon.fill")
                     .foregroundColor(.primary)
-                Text(self.start ? "Stop" : "Start")
+                Text(self.canPress ? (self.start ? "Stop" : "Start") : "LOW UV")
                     .foregroundColor(.primary)
             }
+
             .padding(.vertical)
             .frame(width: (UIScreen.main.bounds.width / 2) - buttonHorizontalPadding)
-            .background(colourScheme)
+            .background(self.canPress ? colourScheme : Color.gray)
             .clipShape(Capsule())
-            .shadow(color: colourScheme, radius: 2)
+            .shadow(color: self.canPress ? colourScheme : Color.gray, radius: 2)
+        }
+        .onChange(of: weatherManager.unformattedUV) {
+            if weatherManager.unformattedUV > 1.0 {
+                canPress = true
+            }
         }
         .padding([.top, .bottom], hStackPadding)
+        .disabled(!canPress)
     }
     
     // Restart button
@@ -87,17 +98,23 @@ struct TimerButtons: View {
             self.sendNotification(time: userManager.timerCount)
         }) {
             HStack(spacing: buttonVerticalPadding) {
-                Image(systemName: "arrow.clockwise")
+                Image(systemName: self.canPress ? "arrow.clockwise" : "exclamationmark.octagon.fill")
                     .foregroundColor(.primary)
-                Text("Restart")
+                Text(self.canPress ? "Restart" : "LOW UV")
                     .foregroundColor(.primary)
             }
             .padding(.vertical)
             .frame(width: (UIScreen.main.bounds.width / 2) - buttonHorizontalPadding)
-            .background(Capsule().stroke(Color(colourScheme), lineWidth: 2))
-            .shadow(color: colourScheme, radius: 2)
+            .background(Capsule().stroke(self.canPress ? colourScheme : Color.gray))
+            .shadow(color: self.canPress ? colourScheme : Color.gray, radius: 2)
+        }
+        .onChange(of: weatherManager.unformattedUV) {
+            if weatherManager.unformattedUV > 1.0 {
+                canPress = true
+            }
         }
         .padding([.top, .bottom], hStackPadding)
+        .disabled(!canPress)
     }
     
     // Timer notification logic - sends device notification upon completion

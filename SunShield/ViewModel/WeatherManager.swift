@@ -48,6 +48,11 @@ class WeatherManager: ObservableObject {
         return Int(weatherData.current.uvi.rounded())
     }
     
+    // Returns unformatted current UV
+    var unformattedUV: Double {
+        return weatherData.current.uvi
+    }
+    
     // Returns the hourly weather
     var hourlyWeather: [HourlyWeather] {
         return weatherData.hourly
@@ -85,13 +90,9 @@ class WeatherManager: ObservableObject {
         return weatherData.current.clouds
     }
     
-    // Function to get the maximum UV index in the next 12 hours
+    // Function to get the maximum UV index in the next 24 hours
     func getMaxUVIndexInNext24Hours() -> Double {
-        let currentTime = weatherData.current.dt
-        let hoursLater = currentTime + (24 * 60 * 60)
-        
-        let next24Hours = weatherData.hourly.filter { $0.dt >= currentTime && $0.dt <= hoursLater }
-        return next24Hours.map { $0.uvi }.max() ?? 0.0
+        return weatherData.getMax24HourUV()
     }
     
     // Converts unix time to 24 hour time
