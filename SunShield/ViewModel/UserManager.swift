@@ -42,6 +42,22 @@ extension UserDefaults {
         let data = try? JSONEncoder().encode(spfType)
         set(data, forKey: key)
     }
+    
+    // Retrieves and decodes the TemperatureUnit
+    func getTemperatureUnit(forKey key: String) -> TemperatureUnit {
+        if let jsonData = data(forKey: key),
+           let decodedValues = try? JSONDecoder().decode(TemperatureUnit.self, from: jsonData) {
+            return decodedValues
+        } else {
+            return TemperatureUnit.metric
+        }
+    }
+    
+    // Encodes the TemperatureUnit
+    func setUnit(_ unit: TemperatureUnit, forKey key: String) {
+        let data = try? JSONEncoder().encode(unit)
+        set(data, forKey: key)
+    }
 }
 
 class UserManager: ObservableObject {
@@ -51,12 +67,14 @@ class UserManager: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private let skinTypeKey = "userSkinType"
     private let spfTypeKey = "userSpfType"
+    private let unitKey = "userUnitType"
     
     init() {
         // Retrieves the stored SkinType
         let initialSkinType = UserDefaults.standard.getSkinType(forKey: skinTypeKey)
         let initialSpfType = UserDefaults.standard.getSPFType(forKey: spfTypeKey)
-        self.userProfile = UserProfile(spf: initialSpfType, skin: initialSkinType)
+        let initialUnit = UserDefaults.standard.getTemperatureUnit(forKey: unitKey)
+        self.userProfile = UserProfile(spf: initialSpfType, skin: initialSkinType, unit: initialUnit)
     }
     
     // Returns an array of all the SPFTypes
@@ -69,6 +87,10 @@ class UserManager: ObservableObject {
         return [.type1, .type2, .type3, .type4, .type5, .type6]
     }
     
+    var unitTypes: [TemperatureUnit] {
+        return [.metric, .imperial]
+    }
+    
     // Returns the users SkinType
     var userSkin: SkinType {
         userProfile.skin
@@ -77,6 +99,10 @@ class UserManager: ObservableObject {
     // Returns the users SPF
     var userSpf: SPFType {
         userProfile.SPF
+    }
+    
+    var unitType: TemperatureUnit {
+        userProfile.unit
     }
     
     // Returns the timerCount
@@ -130,6 +156,12 @@ class UserManager: ObservableObject {
     // Updates the weather stores on the UserProfile
     func updateWeather(weather: WeatherResponse) {
         userProfile.updateWeatherInfo(weather: weather)
+    }
+    
+    // Updates the preferred unit
+    func updateTempUnit(unit: TemperatureUnit) {
+        userProfile.updateUnit(unit: unit)
+        UserDefaults.standard.setUnit(unit, forKey: unitKey)
     }
     
     // Updates the user SPF data

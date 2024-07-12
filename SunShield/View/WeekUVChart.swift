@@ -10,6 +10,7 @@ import SwiftUI
 struct WeekUVChart: View {
     
     @EnvironmentObject var weatherManager: WeatherManager
+    
     var colourScheme: (Int) -> Color
     var weatherIcon: (String) -> String
     
@@ -19,6 +20,8 @@ struct WeekUVChart: View {
                 VStack(spacing: 16) {
                     ForEach(weatherManager.dailyWeather.dropFirst().prefix(7), id: \.dt) { day in
                         let dailyUV = Int(day.uvi.rounded())
+                        
+                        
                         
                         if let status = day.main {
                             Text(String(dailyUV))
@@ -36,19 +39,27 @@ struct WeekUVChart: View {
 }
 
 struct dailyCell: ViewModifier {
+    
+    @EnvironmentObject var userManager: UserManager
+    
     var date: Int
     var weatherIcon: String
     var uv: Double
     var temp: Double
     var colour: Color
-    
+
     func body(content: Content) -> some View {
             HStack {
                 Group {
                     Text(String(getDay(date)))
                         .opacity(0.8)
                     Text(weatherIcon)
-                    Text("\(Int(temp.rounded()))°C")
+                    if userManager.unitType == .metric {
+                        Text("\(Int(temp.rounded()))°C")
+                    } else {
+                        Text("\(Int((temp * 9/5) + 32))°F")
+                    }
+                    
                     UVProgressBar(colour: colour, uv: uv)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)

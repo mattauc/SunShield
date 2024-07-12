@@ -11,6 +11,7 @@ struct SettingsPage: View {
     var accentColour: Color
     @State private var selectedSkin = 0
     @State private var selectedSPF = 0
+    @State private var selectedUnit: TemperatureUnit = .metric
     
     @EnvironmentObject var userManager: UserManager
     
@@ -25,6 +26,11 @@ struct SettingsPage: View {
                 
                 Section {
                     selectSpfType
+                        .modifier(CustomBackgroundModifier())
+                }
+                
+                Section(header: Text("Temperature unit")) {
+                    temperatureSelect
                         .modifier(CustomBackgroundModifier())
                 }
                 
@@ -70,9 +76,26 @@ struct SettingsPage: View {
             if let spfIndex = userManager.spfTypes.firstIndex(where: { $0 == userManager.userSpf }) {
                 self.selectedSPF = spfIndex
             }
+            
+            if let unitIndex = userManager.unitTypes.firstIndex(where: { $0 == userManager.unitType }) {
+                self.selectedUnit = userManager.unitTypes[unitIndex]
+            }
         }
         .accentColor(self.accentColour)
         
+    }
+    
+    var temperatureSelect: some View {
+        Group {
+            Picker("Temperature unit", selection: $selectedUnit) {
+                ForEach(TemperatureUnit.allCases) { unit in
+                    Text(unit.rawValue).tag(unit)
+                }
+            }
+            .onChange(of: selectedUnit) {
+                userManager.updateTempUnit(unit: selectedUnit)
+            }
+        }
     }
     
     // Select skin type picker view

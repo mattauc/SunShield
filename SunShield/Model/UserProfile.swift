@@ -83,23 +83,37 @@ enum SkinType: String, Codable {
     }
 }
 
+enum TemperatureUnit: String, CaseIterable, Identifiable, Codable {
+    case metric = "Metric"
+    case imperial = "Imperial"
+    
+    var id: String { self.rawValue }
+}
+
 // User model
 struct UserProfile: Codable {
     
     private(set) var SPF = SPFType.fifteen
     private(set) var skin = SkinType.type3
+    private(set) var unit = TemperatureUnit.metric
     private(set) var weatherInfo: WeatherResponse?
     private(set) var timerCount: Int = 0
     private(set) var timeUntilReapply = 0
     
-    init(spf: SPFType, skin: SkinType) {
+    init(spf: SPFType, skin: SkinType, unit: TemperatureUnit) {
         self.SPF = spf
         self.skin = skin
+        self.unit = unit
     }
     
     // Updates the user SPF type
     mutating func updateSPF(SPF: SPFType) {
         self.SPF = SPF
+    }
+    
+    // Updates to the preferred unit
+    mutating func updateUnit(unit: TemperatureUnit) {
+        self.unit = unit
     }
     
     // Updates the user skin type

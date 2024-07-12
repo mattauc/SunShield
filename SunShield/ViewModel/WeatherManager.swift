@@ -48,6 +48,14 @@ class WeatherManager: ObservableObject {
         return Int(weatherData.current.uvi.rounded())
     }
     
+    var currentMetricTemp: Int {
+        return Int(weatherData.current.temp.rounded())
+    }
+    
+    var currentImpTemp: Int {
+        return Int((weatherData.current.temp * 9/5) + 32)
+    }
+    
     // Returns unformatted current UV
     var unformattedUV: Double {
         return weatherData.current.uvi

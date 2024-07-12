@@ -38,15 +38,10 @@ struct CardContent: View {
     var UVCard: some View {
         GroupBox {
             HStack {
-                Button {
-                    UVInformation = true
-                } label: {
+                NavigationLink(destination: UVIndexInfo()) {
                     Image(systemName: "info.circle")
                 }
                 .font(.title2)
-                .navigationDestination(isPresented: $UVInformation) {
-                    UVIndexInfo()
-                }
                 Text(UVDescription + " Index")
                     .font(.title2)
                     .bold()

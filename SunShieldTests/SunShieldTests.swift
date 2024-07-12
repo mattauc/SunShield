@@ -15,7 +15,7 @@ final class SunShieldTests: XCTestCase {
     
     override func setUpWithError() throws {
         weatherProfile = WeatherResponse()
-        userProfile = UserProfile(spf: SPFType.fifteen, skin: SkinType.type3)
+        userProfile = UserProfile(spf: SPFType.fifteen, skin: SkinType.type3, unit: TemperatureUnit.metric)
     }
     
     func testUpdateSpfType() throws {

@@ -28,55 +28,48 @@ struct SunShieldInterface: View {
     private let uvIndexFontSize: CGFloat = 100
     
     var body: some View {
-        ZStack {
-            
-            // Logic to dispaly the welcome screen
-            if checkWelcomeScreen {
-                homeContentTabView
-            } else {
-                WelcomeView()
-                    .onAppear() {
-                        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert]) { (_, _) in
+        NavigationStack {
+            ZStack {
+                
+                // Logic to dispaly the welcome screen
+                if checkWelcomeScreen {
+                    homeContentTabView
+                        .toolbar {
+                            NavigationLink(destination: SettingsPage(accentColour: colourScheme)) {
+                                Image(systemName: "gearshape")
+                            }
                         }
-                    }
+                } else {
+                    WelcomeView()
+                        .onAppear() {
+                            UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .sound, .alert]) { (_, _) in
+                            }
+                        }
+                }
+            }
+            
+            // Subscribes to weather updates
+            .onAppear {
+                checkWelcomeScreen = isWelcomeScreenOver
+                userManager.subscribeToWeatherUpdates(from: weatherManager)
+            }
+            
+            // Resets the weather timer when user returns from the background
+            .onChange(of: scenePhase) { oldPhase, newPhase in
+                if oldPhase == .background {
+                    weatherManager.resetWeatherFetch()
+                }
             }
         }
-        
-        // Subscribes to weather updates
-        .onAppear {
-            checkWelcomeScreen = isWelcomeScreenOver
-            userManager.subscribeToWeatherUpdates(from: weatherManager)
-        }
-        
-        // Resets the weather timer when user returns from the background
-        .onChange(of: scenePhase) { oldPhase, newPhase in
-            if oldPhase == .background {
-                weatherManager.resetWeatherFetch()
-            }
-        }
+        .accentColor(colourScheme)
     }
     
     // Homepage content 
     var homeContentTabView: some View {
-        NavigationStack {
-            homeView
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(LinearGradient(gradient: Gradient(colors: [colourScheme.opacity(0.3), Color.clear]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all))
-                .animation(.easeInOut, value: colourScheme)
-                .navigationDestination(isPresented: $showSettings) {
-                    SettingsPage(accentColour: colourScheme)
-
-                }
-                .toolbar {
-                    Button {
-                        showSettings = true
-                    } label: {
-                        Image(systemName: "gearshape")
-                    }
-                }
-            
-        }
-        .accentColor(colourScheme)
+        homeView
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(LinearGradient(gradient: Gradient(colors: [colourScheme.opacity(0.3), Color.clear]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all))
+            .animation(.easeInOut, value: colourScheme)
     }
     
     // Returns the primary home view with UV information
@@ -162,8 +155,14 @@ struct SunShieldInterface: View {
     var subWeatherInfo: some View {
         VStack(spacing: 0) {
             HStack {
-                Text("\(weatherCondition) / \(Int(weatherManager.currentWeather.temp.rounded()))°C")
-                    .font(.system(size: 40))
+                Group {
+                    if userManager.unitType == .metric {
+                        Text("\(weatherCondition) / \(weatherManager.currentMetricTemp)°C")
+                    } else {
+                        Text("\(weatherCondition) / \(weatherManager.currentImpTemp)°F")
+                    }
+                }
+                .font(.system(size: 40))
                 Spacer()
             }
             .padding(.horizontal)

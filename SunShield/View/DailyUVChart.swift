@@ -45,7 +45,7 @@ struct DailyUVChart: View {
     @ViewBuilder
     func weatherCell(UVIndex: HourlyWeather) -> some View {
         let uvIndex = Int(UVIndex.uvi.rounded())
-        let uvTemp = Int(UVIndex.temp.rounded())
+        let uvTemp = UVIndex.temp
         
         if let status = UVIndex.main {
             Text(String(uvIndex))
@@ -58,12 +58,15 @@ struct DailyUVChart: View {
 
 // View modifier for the hourly forecast information
 struct UVForecast: ViewModifier {
+    
+    @EnvironmentObject var userManager: UserManager
+    
     var UVOffset: CGFloat
     var time: Int
     var colour: Color
     var lineWidth: CGFloat = 2
     var weatherIcon: String
-    var temp: Int
+    var temp: Double
     let radius: CGFloat = 30
     
     @EnvironmentObject var weatherManager: WeatherManager
@@ -89,19 +92,20 @@ struct UVForecast: ViewModifier {
                     }
                 } else {
                     ZStack {
-//                        Circle()
-//                            .stroke(colour.opacity(1), lineWidth: lineWidth)
-//
                         content
                             .uvIndexMod(UVIndex: Int(UVOffset), colourScheme: colour, radius: radius, lineWidth: lineWidth)
-                            //.frame(width: radius, height: radius)
-                        
                     }
                 }
             }
             .font(.title3)
-            Text("\(temp)°C")
-                .font(.caption2)
+            Group {
+                if userManager.unitType == .metric {
+                    Text("\(Int(temp.rounded()))°C")
+                } else {
+                    Text("\(Int((temp * 9/5) + 32))°F")
+                }
+            }
+            .font(.caption2)
             Text(currentTime)
                 .font(.caption)
                 .foregroundColor(.white)
@@ -111,7 +115,7 @@ struct UVForecast: ViewModifier {
 }
 
 extension View {
-    func UVForecastMod(time: Int, colour: Color, UVOffset: CGFloat, weatherIcon: String, temp: Int) -> some View {
+    func UVForecastMod(time: Int, colour: Color, UVOffset: CGFloat, weatherIcon: String, temp: Double) -> some View {
         self.modifier(UVForecast(UVOffset: UVOffset, time: time, colour: colour, weatherIcon: weatherIcon, temp: temp))
     }
 }
