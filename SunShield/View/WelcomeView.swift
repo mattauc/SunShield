@@ -86,15 +86,16 @@ struct WelcomeView: View {
             HStack {
                 Group {
                     Text("Select Your Skin Type")
-                        .font(.title3)
                         .bold()
                         .padding(.horizontal)
+                        
                     NavigationLink(destination: SkinTypeInfo()) {
                         Image(systemName: "info.circle")
                             .foregroundColor(buttonColour)
                             .font(.title2)
                     }
                 }
+                
             }
             skinButtons
         }

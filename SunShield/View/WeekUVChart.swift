@@ -20,9 +20,7 @@ struct WeekUVChart: View {
                 VStack(spacing: 16) {
                     ForEach(weatherManager.dailyWeather.dropFirst().prefix(7), id: \.dt) { day in
                         let dailyUV = Int(day.uvi.rounded())
-                        
-                        
-                        
+
                         if let status = day.main {
                             Text(String(dailyUV))
                                 .dailyCellModifier(date: day.dt, weatherIcon: weatherIcon(status), uv: day.uvi, temp: day.temp.max, colour: colourScheme(dailyUV))
@@ -54,12 +52,13 @@ struct dailyCell: ViewModifier {
                     Text(String(getDay(date)))
                         .opacity(0.8)
                     Text(weatherIcon)
-                    if userManager.unitType == .metric {
-                        Text("\(Int(temp.rounded()))°C")
-                    } else {
-                        Text("\(Int((temp * 9/5) + 32))°F")
+                    Group {
+                        if userManager.unitType == .metric {
+                            Text("\(Int(temp.rounded()))°C")
+                        } else {
+                            Text("\(Int((temp * 9/5) + 32))°F")
+                        }
                     }
-                    
                     UVProgressBar(colour: colour, uv: uv)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)

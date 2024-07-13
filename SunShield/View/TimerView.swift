@@ -27,7 +27,7 @@ struct TimerView: View {
                 .padding(.top, 1)
                 .foregroundColor(colourScheme)
                 .shadow(color: colourScheme, radius:2)
-                .frame(height: textFrameHeight)
+                .minimumScaleFactor(0.5)
         }
         .padding()
     }

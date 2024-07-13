@@ -34,6 +34,8 @@ struct SunShieldInterface: View {
                 // Logic to dispaly the welcome screen
                 if checkWelcomeScreen {
                     homeContentTabView
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
                         .toolbar {
                             NavigationLink(destination: SettingsPage(accentColour: colourScheme)) {
                                 Image(systemName: "gearshape")
